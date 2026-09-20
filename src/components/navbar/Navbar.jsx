@@ -64,8 +64,13 @@ export function Navbar() {
         {/* Desktop Layout */}
         <div className="hidden lg:flex justify-between h-[88px] items-center relative">
           
-          {/* Left Navigation */}
-          <div className="flex items-center justify-start h-full" style={{ gap: 'clamp(28px, 2.8vw, 52px)' }}>
+          {/* Left Brand Logo */}
+          <Link to="/" className="flex items-center justify-center shrink-0">
+            <BrandLogo size="lg" dark={isDark} />
+          </Link>
+
+          {/* Right Navigation */}
+          <div className="flex items-center justify-end h-full" style={{ gap: 'clamp(20px, 2.2vw, 44px)' }}>
             <div className="relative">
               <NavItem 
                 label="About Us" 
@@ -90,17 +95,7 @@ export function Navbar() {
               onClick={() => toggleMenu('specialities')} 
               theme={theme}
             />
-          </div>
 
-          {/* Center Brand */}
-          <div className="absolute left-[47%] top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-            <Link to="/" className="flex items-center justify-center">
-              <BrandLogo size="lg" dark={isDark} />
-            </Link>
-          </div>
-
-          {/* Right Navigation */}
-          <div className="flex items-center justify-end h-full" style={{ gap: 'clamp(28px, 2.8vw, 48px)' }}>
             <NavItem 
               label="Facilities" 
               hasDropdown={true} 
@@ -115,9 +110,10 @@ export function Navbar() {
               isActive={isContactActive} 
               theme={theme}
             />
+
             <a 
               href="/book-appointment" 
-              className="text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border border-black bg-black text-white hover:bg-neutral-800 transition-all duration-200 ease-in-out"
+              className="text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border border-black bg-black text-white hover:bg-neutral-800 transition-all duration-200 ease-in-out shrink-0"
               style={{ marginLeft: 'clamp(8px, 1vw, 18px)' }}
             >
               Book Appointment
