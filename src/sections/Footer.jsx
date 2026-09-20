@@ -38,8 +38,8 @@ export function Footer() {
         
         {/* Brand & Hospital Identity */}
         <div className="lg:col-span-4 flex flex-col items-start pr-0 lg:pr-12">
-          <Link to="/" className="inline-block mb-8">
-            <BrandLogo size="lg" dark={true} className="items-start" />
+          <Link to="/" className="inline-flex items-center justify-center mb-8">
+            <BrandLogo size="lg" dark={true} />
           </Link>
           <p className="text-[15px] text-white/60 leading-[1.7] mb-8 max-w-sm">
             Sabari Multispeciality Hospital delivers comprehensive, compassionate, and evidence-guided healthcare across Coimbatore and Western Tamil Nadu.
