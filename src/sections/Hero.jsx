@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function Hero() {
@@ -46,12 +47,12 @@ export function Hero() {
           </p>
           
           <div className="flex flex-col sm:flex-row sm:items-center gap-8">
-            <a 
-              href="/book-appointment" 
+            <Link 
+              to="/contact" 
               className="inline-flex items-center justify-center bg-black text-white text-[13px] font-semibold tracking-[0.04em] uppercase px-8 py-[18px] border border-black hover:bg-white hover:text-black transition-all duration-300 w-max"
             >
               BOOK AN APPOINTMENT &rarr;
-            </a>
+            </Link>
             <a 
               href="#explore" 
               className="text-[13px] font-semibold tracking-[0.04em] uppercase text-black hover:text-neutral-500 transition-colors"

@@ -188,12 +188,12 @@ export function FacilityCategoryPage() {
               Contact our facility reception desk for assistance with scheduling, admissions, or patient amenities.
             </p>
           </div>
-          <a
-            href="tel:+18001234567"
+          <Link
+            to="/contact"
             className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
           >
             Book Appointment &rarr;
-          </a>
+          </Link>
         </div>
       </section>
 

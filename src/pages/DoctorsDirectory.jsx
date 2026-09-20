@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { doctorsData } from '../data/landingData';
 import { Footer } from '../sections/Footer';
@@ -222,12 +222,12 @@ export function DoctorsDirectory() {
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <a
-                  href="tel:+18001234567"
+                <Link
+                  to="/contact"
                   className="px-5 py-2.5 border border-black text-[11px] font-semibold tracking-widest uppercase text-black hover:bg-black hover:text-white transition-colors text-center"
                 >
                   Book Appointment
-                </a>
+                </Link>
               </div>
             </div>
           </div>

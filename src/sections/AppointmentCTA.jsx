@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 export function AppointmentCTA() {
@@ -20,12 +21,12 @@ export function AppointmentCTA() {
             Book an appointment with the right specialist for your healthcare needs.
           </p>
           
-          <a 
-            href="/book-appointment" 
+          <Link 
+            to="/contact" 
             className="inline-flex items-center justify-center bg-black text-white text-[13px] font-semibold tracking-[0.04em] uppercase px-10 py-[20px] border border-black hover:bg-white hover:text-black transition-all duration-300"
           >
             BOOK AN APPOINTMENT &rarr;
-          </a>
+          </Link>
         </motion.div>
       </div>
     </section>

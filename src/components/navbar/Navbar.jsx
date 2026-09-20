@@ -115,12 +115,12 @@ export function Navbar() {
           />
 
           {/* 7. Book Appointment */}
-          <a 
-            href="/book-appointment" 
+          <Link 
+            to="/contact" 
             className="text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border border-black bg-black text-white hover:bg-neutral-800 transition-all duration-200 ease-in-out shrink-0"
           >
             Book Appointment
-          </a>
+          </Link>
         </div>
 
         {/* Mobile Layout */}
@@ -138,7 +138,7 @@ export function Navbar() {
           </Link>
           
           <Link 
-            to="/book-appointment" 
+            to="/contact" 
             className="bg-black text-white text-[11px] font-medium tracking-[0.02em] uppercase px-4 py-2 rounded-md hover:bg-neutral-800 transition-colors duration-200"
           >
             Book

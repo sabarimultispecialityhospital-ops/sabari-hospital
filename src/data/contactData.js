@@ -71,7 +71,7 @@ export const contactData = {
         title: "Appointment Assistance",
         description: "Direct liaison to connect you with the appropriate medical specialty, diagnostic timing, and pre-consultation preparations.",
         actionLabel: "Book Appointment →",
-        href: "/book-appointment",
+        href: "/contact",
         type: "appointment"
       }
     ]

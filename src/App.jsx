@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Preloader } from './components/ui/Preloader';
 import { Navbar } from './components/navbar/Navbar';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { DoctorProfile } from './pages/DoctorProfile';
 import { DoctorsDirectory } from './pages/DoctorsDirectory';
@@ -57,6 +57,11 @@ function App() {
 
         {/* Contact Us Experience */}
         <Route path="/contact" element={<ContactPage />} />
+
+        {/* Book Appointment routes redirecting to /contact */}
+        <Route path="/book-appointment" element={<Navigate to="/contact" replace />} />
+        <Route path="/appointment" element={<Navigate to="/contact" replace />} />
+        <Route path="/appointments" element={<Navigate to="/contact" replace />} />
       </Routes>
     </Router>
   );
