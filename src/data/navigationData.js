@@ -3,63 +3,53 @@ export const specialitiesData = {
   label: "CENTRE OF EXCELLENCE",
   categories: [
     {
-      id: "medical",
-      label: "Medical Specialities",
+      id: "medical-care",
+      label: "Medical Care",
       items: [
-        "Cardiology",
-        "Neurology",
-        "General Medicine",
+        "Diabetic Care",
         "Pulmonology",
-        "Endocrinology",
-        "Rheumatology"
+        "General Medical Care"
       ]
     },
     {
-      id: "surgical",
-      label: "Surgical Specialities",
+      id: "surgical-care",
+      label: "Surgical Care",
       items: [
-        "General Surgery",
-        "Neurosurgery",
-        "Orthopaedics",
-        "Cardiovascular & Thoracic Surgery",
-        "Plastic & Hand Surgery",
-        "Maxillofacial Surgery"
+        "Surgical Services",
+        "Anaesthesia & Perioperative Care"
       ]
     },
     {
       id: "womens-health",
       label: "Women's Health",
       items: [
-        "Obstetrics & Gynaecology",
-        "IVF",
-        "Women's Wellness"
+        "Obstetrics",
+        "Gynaecology",
+        "Labour & Delivery"
       ]
     },
     {
-      id: "child-care",
-      label: "Child Care",
+      id: "cardiac-care",
+      label: "Cardiac Care",
       items: [
-        "Paediatrics",
-        "Paediatric Surgery"
-      ]
-    },
-    {
-      id: "diagnostics",
-      label: "Diagnostics",
-      items: [
-        "Radiology & Imaging",
-        "Clinical Laboratory",
-        "Interventional Radiology",
-        "Clinical Haematology"
+        "Cardiac Services"
       ]
     },
     {
       id: "critical-care",
       label: "Critical Care",
       items: [
-        "Intensive Care Unit",
-        "Pain Management",
-        "Emergency Care"
+        "Inpatient Care",
+        "Critical Care",
+        "Ambulance Services"
+      ]
+    },
+    {
+      id: "diagnostics",
+      label: "Diagnostics",
+      items: [
+        "Laboratory Services",
+        "Physiotherapy"
       ]
     }
   ]
@@ -137,12 +127,12 @@ export const facilitiesData = {
 export const aboutSimpleData = {
   title: "ABOUT US",
   items: [
-    "Our Story",
-    "Leadership",
-    "Why Sabari",
-    "Accreditations",
-    "Patient Experience",
-    "Careers"
+    { label: "Our Story", href: "/about/our-story" },
+    { label: "Leadership", href: "/about/leadership" },
+    { label: "Why Sabari", href: "/about/why-sabari" },
+    { label: "Accreditations", href: "/about/accreditations" },
+    { label: "Patient Experience", href: "/about/patient-experience" },
+    { label: "Careers", href: "/about/careers" }
   ]
 };
 
@@ -235,10 +225,10 @@ export const academicsData = {
 export const contactSimpleData = {
   title: "CONTACT US",
   items: [
-    "Get In Touch",
-    "Patient Support",
-    "Patient Feedback",
-    "Careers",
-    "Reach Us"
+    { label: "Contact Overview", href: "/contact" },
+    { label: "Get In Touch", href: "/contact#get-in-touch" },
+    { label: "Patient Support", href: "/contact#patient-support" },
+    { label: "Patient Feedback", href: "/contact#enquiry" },
+    { label: "Reach Us / Location", href: "/contact#find-sabari" }
   ]
 };

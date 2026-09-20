@@ -4,22 +4,29 @@ import { BrandLogo } from '../brand/BrandLogo';
 import { NavItem } from './NavItem';
 import { MegaMenu } from './MegaMenu';
 import { DropdownPanel } from './DropdownPanel';
+import { CentreNavMenu } from './CentreNavMenu';
+import { FacilitiesNavMenu } from './FacilitiesNavMenu';
 import { SimpleDropdown } from './SimpleDropdown';
 import { useNavbarTheme } from '../../hooks/useNavbarTheme';
 import { 
   aboutSimpleData, 
-  specialitiesData, 
-  facilitiesData, 
-  internationalPatientsData, 
-  contactSimpleData 
+  internationalPatientsData 
 } from '../../data/navigationData';
+import { centreCategories } from '../../data/centresOfExcellenceData';
+import { facilityCategories } from '../../data/facilitiesExperienceData';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 
 export function Navbar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, isDark } = useNavbarTheme();
   const navRef = useRef(null);
+  const location = useLocation();
+  const isAboutActive = location.pathname.startsWith('/about');
+  const isCentreActive = location.pathname.startsWith('/centre-of-excellence');
+  const isFacilitiesActive = location.pathname.startsWith('/facilities');
+  const isContactActive = location.pathname.startsWith('/contact');
 
   // Close menu on click outside or escape
   useEffect(() => {
@@ -52,7 +59,7 @@ export function Navbar() {
   };
 
   return (
-    <nav ref={navRef} className={`fixed top-0 left-0 right-0 z-[1000] w-full transition-colors duration-300 ${isDark ? 'bg-transparent' : 'bg-white'}`}>
+    <nav ref={navRef} className="fixed top-0 left-0 right-0 z-[1000] w-full bg-white/95 backdrop-blur-md border-b border-neutral-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-colors duration-200">
       <div className="max-w-[1600px] w-full mx-auto" style={{ paddingInline: 'clamp(32px, 5vw, 80px)' }}>
         {/* Desktop Layout */}
         <div className="hidden lg:flex justify-between h-[88px] items-center relative">
@@ -63,11 +70,15 @@ export function Navbar() {
               <NavItem 
                 label="About Us" 
                 hasDropdown={true} 
-                isActive={activeMenu === 'about'} 
+                isActive={activeMenu === 'about' || isAboutActive} 
                 onClick={() => toggleMenu('about')} 
                 theme={theme}
               />
-              <SimpleDropdown isOpen={activeMenu === 'about'} data={aboutSimpleData} />
+              <SimpleDropdown 
+                isOpen={activeMenu === 'about'} 
+                data={aboutSimpleData} 
+                onItemClick={() => setActiveMenu(null)} 
+              />
             </div>
             
             <NavItem label="Doctors" href="/doctors" theme={theme} />
@@ -75,7 +86,7 @@ export function Navbar() {
             <NavItem 
               label="Centre of Excellence" 
               hasDropdown={true} 
-              isActive={activeMenu === 'specialities'} 
+              isActive={activeMenu === 'specialities' || isCentreActive} 
               onClick={() => toggleMenu('specialities')} 
               theme={theme}
             />
@@ -83,9 +94,9 @@ export function Navbar() {
 
           {/* Center Brand */}
           <div className="absolute left-[47%] top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-            <a href="/" className="flex items-center justify-center">
+            <Link to="/" className="flex items-center justify-center">
               <BrandLogo size="lg" dark={isDark} />
-            </a>
+            </Link>
           </div>
 
           {/* Right Navigation */}
@@ -93,28 +104,20 @@ export function Navbar() {
             <NavItem 
               label="Facilities" 
               hasDropdown={true} 
-              isActive={activeMenu === 'facilities'} 
+              isActive={activeMenu === 'facilities' || isFacilitiesActive} 
               onClick={() => toggleMenu('facilities')} 
               theme={theme}
             />
             
-            <div className="relative">
-              <NavItem 
-                label="Contact Us" 
-                hasDropdown={true} 
-                isActive={activeMenu === 'contact'} 
-                onClick={() => toggleMenu('contact')} 
-                theme={theme}
-              />
-              <SimpleDropdown isOpen={activeMenu === 'contact'} data={contactSimpleData} />
-            </div>
+            <NavItem 
+              label="Contact Us" 
+              href="/contact"
+              isActive={isContactActive} 
+              theme={theme}
+            />
             <a 
               href="/book-appointment" 
-              className={`text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border transition-all duration-300 ease-in-out ${
-                isDark 
-                  ? 'bg-white text-black border-white hover:bg-black hover:text-white' 
-                  : 'bg-black text-white border-black hover:bg-white hover:text-black'
-              }`}
+              className="text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border border-black bg-black text-white hover:bg-neutral-800 transition-all duration-200 ease-in-out"
               style={{ marginLeft: 'clamp(8px, 1vw, 18px)' }}
             >
               Book Appointment
@@ -132,27 +135,30 @@ export function Navbar() {
             <Menu size={24} />
           </button>
           
-          <a href="/">
+          <Link to="/">
             <BrandLogo size="sm" />
-          </a>
+          </Link>
           
-          <a 
-            href="/book-appointment" 
+          <Link 
+            to="/book-appointment" 
             className="bg-black text-white text-[11px] font-medium tracking-[0.02em] uppercase px-4 py-2 rounded-md hover:bg-neutral-800 transition-colors duration-200"
           >
             Book
-          </a>
+          </Link>
         </div>
       </div>
 
-      {/* Full-width Mega Menus (Attached below navbar) */}
-      <MegaMenu isOpen={activeMenu === 'specialities'} fullWidth={true}>
-        <DropdownPanel data={specialitiesData} />
-      </MegaMenu>
+      {/* New Centre of Excellence Editorial Navigation */}
+      <CentreNavMenu 
+        isOpen={activeMenu === 'specialities'} 
+        onClose={() => setActiveMenu(null)} 
+      />
       
-      <MegaMenu isOpen={activeMenu === 'facilities'} fullWidth={true}>
-        <DropdownPanel data={facilitiesData} />
-      </MegaMenu>
+      {/* New Facilities Editorial Navigation */}
+      <FacilitiesNavMenu 
+        isOpen={activeMenu === 'facilities'} 
+        onClose={() => setActiveMenu(null)} 
+      />
 
       {/* Mobile Drawer */}
       <AnimatePresence>
@@ -165,9 +171,9 @@ export function Navbar() {
             className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto"
           >
             <div className="flex items-center justify-between px-6 h-[80px] border-b border-neutral-100">
-              <a href="/">
+              <Link to="/" onClick={() => setMobileMenuOpen(false)}>
                 <BrandLogo size="sm" />
-              </a>
+              </Link>
               <button 
                 onClick={() => setMobileMenuOpen(false)}
                 className="p-2 -mr-2 text-black hover:bg-neutral-50 rounded-md transition-colors"
@@ -178,12 +184,120 @@ export function Navbar() {
             </div>
             
             <div className="px-6 py-8 flex flex-col gap-6">
-              {/* Mobile menu content would be expanded here later */}
-              <a href="#" className="text-xl font-display font-medium text-black">About Us</a>
-              <a href="#" className="text-xl font-display font-medium text-black">Doctors</a>
-              <a href="#" className="text-xl font-display font-medium text-black">Centre of Excellence</a>
-              <a href="#" className="text-xl font-display font-medium text-black">Facilities</a>
-              <a href="#" className="text-xl font-display font-medium text-black">Contact Us</a>
+              {/* About Us */}
+              <div className="flex flex-col gap-3">
+                <span className="text-[11px] font-mono tracking-widest uppercase text-neutral-400">About Us</span>
+                <div className="flex flex-col gap-2.5 pl-2 border-l border-neutral-200">
+                  <Link to="/about/our-story" onClick={() => setMobileMenuOpen(false)} className="text-base text-neutral-700 hover:text-black">Our Story</Link>
+                  <Link to="/about/leadership" onClick={() => setMobileMenuOpen(false)} className="text-base text-neutral-700 hover:text-black">Leadership</Link>
+                  <Link to="/about/why-sabari" onClick={() => setMobileMenuOpen(false)} className="text-base text-neutral-700 hover:text-black">Why Sabari</Link>
+                  <Link to="/about/accreditations" onClick={() => setMobileMenuOpen(false)} className="text-base text-neutral-700 hover:text-black">Accreditations</Link>
+                  <Link to="/about/patient-experience" onClick={() => setMobileMenuOpen(false)} className="text-base text-neutral-700 hover:text-black">Patient Experience</Link>
+                  <Link to="/about/careers" onClick={() => setMobileMenuOpen(false)} className="text-base text-neutral-700 hover:text-black">Careers</Link>
+                </div>
+              </div>
+
+              <Link to="/doctors" onClick={() => setMobileMenuOpen(false)} className="text-xl font-display font-medium text-black">Doctors</Link>
+              
+              {/* Centre of Excellence Mobile Section */}
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <Link 
+                    to="/centre-of-excellence" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-xl font-display font-medium text-black"
+                  >
+                    Centre of Excellence
+                  </Link>
+                  <Link
+                    to="/centre-of-excellence"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-[11px] font-mono tracking-wider uppercase text-neutral-500"
+                  >
+                    View All &rarr;
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-3 pl-2 border-l border-neutral-200">
+                  {centreCategories.map((cat) => (
+                    <div key={cat.id} className="flex flex-col gap-1 py-1">
+                      <Link
+                        to={`/centre-of-excellence/${cat.slug}`}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="text-[14px] font-semibold text-black uppercase tracking-wide flex items-center justify-between"
+                      >
+                        <span>{cat.number} {cat.title}</span>
+                        <span className="text-neutral-400">&rarr;</span>
+                      </Link>
+                      <div className="flex flex-wrap gap-x-3 gap-y-1 pl-2">
+                        {cat.services.map((svc) => (
+                          <Link
+                            key={svc.slug}
+                            to={`/centre-of-excellence/${cat.slug}/${svc.slug}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="text-[12px] text-neutral-600 hover:text-black"
+                          >
+                            {svc.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Facilities Mobile Section */}
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <Link 
+                    to="/facilities" 
+                    onClick={() => setMobileMenuOpen(false)} 
+                    className="text-xl font-display font-medium text-black"
+                  >
+                    Facilities
+                  </Link>
+                  <Link
+                    to="/facilities"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-[11px] font-mono tracking-wider uppercase text-neutral-500"
+                  >
+                    View All &rarr;
+                  </Link>
+                </div>
+                <div className="flex flex-col gap-3 pl-2 border-l border-neutral-200">
+                  {facilityCategories.map((cat) => (
+                    <div key={cat.id} className="flex flex-col gap-1 py-1">
+                      <Link
+                        to={`/facilities/${cat.slug}`}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="text-[14px] font-semibold text-black uppercase tracking-wide flex items-center justify-between"
+                      >
+                        <span>{cat.number} {cat.title}</span>
+                        <span className="text-neutral-400">&rarr;</span>
+                      </Link>
+                      <div className="flex flex-wrap gap-x-3 gap-y-1 pl-2">
+                        {cat.services.map((svc) => (
+                          <Link
+                            key={svc.slug}
+                            to={`/facilities/${cat.slug}/${svc.slug}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="text-[12px] text-neutral-600 hover:text-black"
+                          >
+                            {svc.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <Link 
+                to="/contact" 
+                onClick={() => setMobileMenuOpen(false)} 
+                className="text-xl font-display font-medium text-black"
+              >
+                Contact Us
+              </Link>
             </div>
           </motion.div>
         )}

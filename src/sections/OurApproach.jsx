@@ -27,8 +27,8 @@ export function OurApproach() {
         </div>
 
         {/* Right Image */}
-        <div className="lg:col-span-6">
-          <div className="relative aspect-[4/5] w-full max-w-[600px] ml-auto overflow-hidden">
+        <div className="lg:col-span-6 flex justify-center lg:justify-end">
+          <div className="relative aspect-[4/5] w-full max-w-[490px] overflow-hidden">
             <motion.div
               initial={{ scale: 1.05, opacity: 0.8 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -37,9 +37,9 @@ export function OurApproach() {
               className="w-full h-full bg-neutral-100"
             >
               <img 
-                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=1200" 
-                alt="Healthcare professional caring for patient" 
-                className="w-full h-full object-cover grayscale opacity-90"
+                src="/image.png" 
+                alt="Doctor at Sabari Hospital" 
+                className="w-full h-full object-cover object-center"
               />
             </motion.div>
           </div>

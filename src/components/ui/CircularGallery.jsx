@@ -94,10 +94,11 @@ async function resolveFont(font, fontUrl) {
     const family = await loadCustomFont(effectiveUrl);
     const sizeMatch = font.match(/^\s*(.*?\d+px)/);
     const prefix = sizeMatch ? sizeMatch[1].trim() : 'bold 30px';
-    const resolved = `${prefix} "${family}"`;
+    const resolved = `${prefix} "${family}", "Plus Jakarta Sans", Manrope, Inter, sans-serif`;
     if (document.fonts && document.fonts.load) {
       try {
         await document.fonts.load(resolved);
+        await document.fonts.ready;
       } catch {
         // Ignore
       }
@@ -105,7 +106,7 @@ async function resolveFont(font, fontUrl) {
     return resolved;
   } catch (error) {
     console.error('CircularGallery: unable to load font from', fontUrl, error);
-    return font;
+    return font.includes('sans-serif') ? font : `${font}, "Plus Jakarta Sans", Manrope, Inter, sans-serif`;
   }
 }
 
@@ -114,24 +115,31 @@ function getFontSize(font) {
   return match ? parseInt(match[1], 10) : 30;
 }
 
-function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'black') {
+function createTextTexture(gl, text, font = '600 22px "Plus Jakarta Sans", Manrope, Inter, sans-serif', color = '#ffffff') {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
-  context.font = font;
+  const safeFont = font.includes('sans-serif') ? font : `${font}, "Plus Jakarta Sans", Manrope, Inter, sans-serif`;
+  const scale = 2;
+  
+  context.font = safeFont;
   const metrics = context.measureText(text);
   const textWidth = Math.ceil(metrics.width);
-  const textHeight = Math.ceil(getFontSize(font) * 1.2);
-  canvas.width = textWidth + 20;
-  canvas.height = textHeight + 20;
-  context.font = font;
+  const textHeight = Math.ceil(getFontSize(safeFont) * 1.3);
+  
+  canvas.width = (textWidth + 50) * scale;
+  canvas.height = (textHeight + 24) * scale;
+  
+  context.scale(scale, scale);
+  context.font = safeFont;
   context.fillStyle = color;
   context.textBaseline = 'middle';
   context.textAlign = 'center';
   context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillText(text, canvas.width / 2, canvas.height / 2);
+  context.fillText(text, (textWidth + 50) / 2, (textHeight + 24) / 2);
+  
   const texture = new Texture(gl, { generateMipmaps: false });
   texture.image = canvas;
-  return { texture, width: canvas.width, height: canvas.height };
+  return { texture, width: textWidth + 50, height: textHeight + 24 };
 }
 
 class Title {
@@ -381,11 +389,13 @@ class App {
       borderRadius = 0,
       font = 'bold 30px Figtree',
       scrollSpeed = 2,
-      scrollEase = 0.05
+      scrollEase = 0.05,
+      onItemClick
     } = {}
   ) {
     document.documentElement.classList.remove('no-js');
     this.container = container;
+    this.onItemClick = onItemClick;
     this.scrollSpeed = scrollSpeed;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck, 200);
@@ -438,6 +448,7 @@ class App {
       { image: `https://picsum.photos/seed/12/800/600?grayscale`, text: 'Palm Trees' }
     ];
     const galleryItems = items && items.length ? items : defaultItems;
+    this.originalItems = galleryItems;
     this.mediasImages = galleryItems.concat(galleryItems);
     this.medias = this.mediasImages.map((data, index) => {
       return new Media({
@@ -459,21 +470,67 @@ class App {
     });
   }
   onTouchDown(e) {
+    if (!this.container) return;
+    const target = e.target;
+    if (!this.container.contains(target) && target !== this.renderer?.gl?.canvas) {
+      return;
+    }
     this.isDown = true;
+    this.hasMoved = false;
     this.scroll.position = this.scroll.current;
     this.start = e.touches ? e.touches[0].clientX : e.clientX;
+    this.startY = e.touches ? e.touches[0].clientY : e.clientY;
+    this.startTime = Date.now();
   }
   onTouchMove(e) {
     if (!this.isDown) return;
     const x = e.touches ? e.touches[0].clientX : e.clientX;
+    const y = e.touches ? e.touches[0].clientY : e.clientY;
+    if (Math.abs(this.start - x) > 6 || Math.abs(this.startY - y) > 6) {
+      this.hasMoved = true;
+    }
     const distance = (this.start - x) * (this.scrollSpeed * 0.025);
     this.scroll.target = this.scroll.position + distance;
   }
-  onTouchUp() {
+  onTouchUp(e) {
+    if (!this.isDown) return;
     this.isDown = false;
     this.onCheck();
+
+    if (this.hasMoved) return;
+
+    if (!this.container) return;
+    const rect = this.container.getBoundingClientRect();
+    const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+    
+    const isInside = (
+      endX >= rect.left &&
+      endX <= rect.right &&
+      endY >= rect.top &&
+      endY <= rect.bottom
+    );
+    if (!isInside) return;
+
+    const distanceX = Math.abs(this.start - endX);
+    const distanceY = Math.abs(this.startY - endY);
+    const time = Date.now() - this.startTime;
+
+    // Detect click only if user made an intentional tap inside the gallery container
+    if (distanceX < 6 && distanceY < 6 && time < 300 && this.originalItems) {
+      if (!this.medias || !this.medias[0]) return;
+      const width = this.medias[0].width;
+      const itemIndex = Math.round(Math.abs(this.scroll.target) / width);
+      const actualIndex = itemIndex % this.originalItems.length;
+      const clickedItem = this.originalItems[actualIndex];
+      
+      if (this.onItemClick && clickedItem) {
+        this.onItemClick(clickedItem, actualIndex);
+      }
+    }
   }
   onWheel(e) {
+    if (!this.container) return;
     const delta = e.deltaY || e.wheelDelta || e.detail;
     this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
     this.onCheckDebounce();
@@ -546,34 +603,36 @@ class App {
     this.boundOnKeyDown = this.onKeyDown.bind(this);
 
     window.addEventListener('resize', this.boundOnResize);
-    window.addEventListener('mousewheel', this.boundOnWheel);
-    window.addEventListener('wheel', this.boundOnWheel);
-    window.addEventListener('mousedown', this.boundOnTouchDown);
+
+    if (this.container) {
+      this.container.addEventListener('wheel', this.boundOnWheel, { passive: true });
+      this.container.addEventListener('mousedown', this.boundOnTouchDown);
+      this.container.addEventListener('touchstart', this.boundOnTouchDown, { passive: true });
+      this.container.addEventListener('keydown', this.boundOnKeyDown);
+    }
+
     window.addEventListener('mousemove', this.boundOnTouchMove);
     window.addEventListener('mouseup', this.boundOnTouchUp);
-    window.addEventListener('touchstart', this.boundOnTouchDown);
     window.addEventListener('touchmove', this.boundOnTouchMove);
     window.addEventListener('touchend', this.boundOnTouchUp);
-
-    this.container?.addEventListener('keydown', this.boundOnKeyDown);
   }
   destroy() {
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.boundOnResize);
-    window.removeEventListener('mousewheel', this.boundOnWheel);
-    window.removeEventListener('wheel', this.boundOnWheel);
-    window.removeEventListener('mousedown', this.boundOnTouchDown);
     window.removeEventListener('mousemove', this.boundOnTouchMove);
     window.removeEventListener('mouseup', this.boundOnTouchUp);
-    window.removeEventListener('touchstart', this.boundOnTouchDown);
     window.removeEventListener('touchmove', this.boundOnTouchMove);
     window.removeEventListener('touchend', this.boundOnTouchUp);
-    if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
-      this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
-    }
 
     if (this.container) {
+      this.container.removeEventListener('wheel', this.boundOnWheel);
+      this.container.removeEventListener('mousedown', this.boundOnTouchDown);
+      this.container.removeEventListener('touchstart', this.boundOnTouchDown);
       this.container.removeEventListener('keydown', this.boundOnKeyDown);
+    }
+
+    if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
+      this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
     }
   }
 }
@@ -586,7 +645,8 @@ export default function CircularGallery({
   font = 'bold 30px Figtree',
   fontUrl,
   scrollSpeed = 2,
-  scrollEase = 0.05
+  scrollEase = 0.05,
+  onItemClick
 }) {
   const containerRef = useRef(null);
   useEffect(() => {
@@ -602,7 +662,8 @@ export default function CircularGallery({
         borderRadius,
         font: resolvedFont,
         scrollSpeed,
-        scrollEase
+        scrollEase,
+        onItemClick
       });
     });
 
@@ -610,7 +671,7 @@ export default function CircularGallery({
       isMounted = false;
       if (app) app.destroy();
     };
-  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase]);
+  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, onItemClick]);
   return (
     <div
       className="circular-gallery"

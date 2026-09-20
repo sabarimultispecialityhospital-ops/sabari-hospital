@@ -1,6 +1,5 @@
 import React from 'react';
 import { facilitiesData } from '../data/landingData';
-import { motion } from 'framer-motion';
 
 export function FacilitiesSection() {
   return (

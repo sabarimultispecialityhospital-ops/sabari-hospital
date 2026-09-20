@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -32,9 +33,9 @@ export function NavItem({ label, href, hasDropdown, isActive, onClick, className
 
   if (href) {
     return (
-      <a href={href} className={baseClasses}>
+      <Link to={href} className={baseClasses}>
         {innerContent}
-      </a>
+      </Link>
     );
   }
 

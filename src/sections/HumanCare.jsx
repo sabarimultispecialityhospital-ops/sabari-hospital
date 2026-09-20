@@ -31,9 +31,9 @@ export function HumanCare() {
               className="w-full h-full"
             >
               <img 
-                src="https://images.unsplash.com/photo-1584467735815-f778f274e296?auto=format&fit=crop&q=80&w=1600" 
-                alt="Patient care" 
-                className="w-full h-full object-cover grayscale brightness-75"
+                src="/image-copy.png" 
+                alt="Doctor at Sabari Hospital" 
+                className="w-full h-full object-cover object-[center_25%]"
               />
             </motion.div>
           </div>

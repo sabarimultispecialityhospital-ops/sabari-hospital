@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { BrandLogo } from '../components/brand/BrandLogo';
 
 export function Footer() {
@@ -17,11 +18,11 @@ export function Footer() {
             QUICK LINKS
           </span>
           <div className="flex flex-col gap-4">
-            <a href="#" className="text-[14px] text-white/80 hover:text-white transition-colors">ABOUT US</a>
-            <a href="#" className="text-[14px] text-white/80 hover:text-white transition-colors">DOCTORS</a>
-            <a href="#" className="text-[14px] text-white/80 hover:text-white transition-colors">CENTRE OF EXCELLENCE</a>
-            <a href="#" className="text-[14px] text-white/80 hover:text-white transition-colors">FACILITIES</a>
-            <a href="#" className="text-[14px] text-white/80 hover:text-white transition-colors">CONTACT US</a>
+            <Link to="/about/our-story" className="text-[14px] text-white/80 hover:text-white transition-colors">ABOUT US</Link>
+            <Link to="/doctors" className="text-[14px] text-white/80 hover:text-white transition-colors">DOCTORS</Link>
+            <Link to="/centre-of-excellence" className="text-[14px] text-white/80 hover:text-white transition-colors">CENTRE OF EXCELLENCE</Link>
+            <Link to="/facilities" className="text-[14px] text-white/80 hover:text-white transition-colors">FACILITIES</Link>
+            <Link to="/contact" className="text-[14px] text-white/80 hover:text-white transition-colors">CONTACT US</Link>
           </div>
         </div>
 
