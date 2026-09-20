@@ -4,7 +4,7 @@ import { Footer } from '../sections/Footer';
 
 export function ContactPage() {
   useEffect(() => {
-    document.title = "Contact | Sabari Hospitals";
+    document.title = "Contact Us | Sabari Hospitals";
     window.scrollTo(0, 0);
   }, []);
 
@@ -132,39 +132,121 @@ export function ContactPage() {
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
           
-          {/* LEFT: Header */}
-          <div className="lg:col-span-5 lg:sticky lg:top-[160px]">
-            <motion.span
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              className="text-[12px] font-mono tracking-[0.24em] uppercase text-neutral-400 font-semibold mb-6 block"
-            >
-              CONTACT
-            </motion.span>
+          {/* LEFT COLUMN: Section 01 Intro + Section 02 Contact Information */}
+          <div className="lg:col-span-5 flex flex-col justify-between">
+            
+            {/* Intro */}
+            <div>
+              <motion.span
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="text-[12px] font-mono tracking-[0.24em] uppercase text-neutral-400 font-semibold mb-6 block"
+              >
+                CONTACT US
+              </motion.span>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-              className="text-[52px] sm:text-[68px] md:text-[84px] xl:text-[96px] font-display font-light text-black tracking-tight leading-[0.92] uppercase mb-8"
-            >
-              LET'S<br />
-              CONNECT.
-            </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                className="text-[52px] sm:text-[68px] md:text-[84px] xl:text-[96px] font-display font-light text-black tracking-tight leading-[0.92] uppercase mb-8"
+              >
+                LET'S<br />
+                CONNECT.
+              </motion.h1>
 
-            <motion.p
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+                className="text-[16px] sm:text-[18px] text-neutral-600 font-light leading-relaxed max-w-md mb-12 lg:mb-16"
+              >
+                Whether you have a question, need assistance, or would like to connect with our hospital team, we're here to help.
+              </motion.p>
+            </div>
+
+            {/* Contact Details */}
+            <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
-              className="text-[16px] sm:text-[18px] text-neutral-600 font-light leading-relaxed max-w-md"
+              transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
+              className="space-y-8 pt-10 border-t border-neutral-200"
             >
-              Have a question or need assistance?<br className="hidden sm:inline" /> Send us a message and our team will get back to you.
-            </motion.p>
+              {/* Phone */}
+              <div>
+                <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-neutral-400 block mb-1.5">
+                  PHONE
+                </span>
+                <a
+                  href="tel:+914222442200"
+                  className="text-[19px] sm:text-[21px] font-medium text-black hover:text-neutral-600 transition-colors inline-block"
+                >
+                  0422-2442200
+                </a>
+              </div>
+
+              {/* Email */}
+              <div>
+                <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-neutral-400 block mb-1.5">
+                  EMAIL
+                </span>
+                <a
+                  href="mailto:sabarimultispecialityhospital@gmail.com"
+                  className="text-[17px] sm:text-[19px] font-medium text-black hover:text-neutral-600 transition-colors break-all inline-block"
+                >
+                  sabarimultispecialityhospital@gmail.com
+                </a>
+              </div>
+
+              {/* Location */}
+              <div>
+                <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-neutral-400 block mb-1.5">
+                  LOCATION
+                </span>
+                <span className="text-[19px] sm:text-[21px] font-medium text-black block">
+                  Coimbatore, Tamil Nadu
+                </span>
+              </div>
+
+              {/* Address Placeholder */}
+              <div>
+                <span className="text-[12px] font-mono tracking-[0.2em] uppercase text-neutral-400 block mb-1.5">
+                  ADDRESS
+                </span>
+                <p className="text-[16px] sm:text-[18px] text-neutral-700 font-light leading-relaxed">
+                  Sabari Multispeciality Hospital,<br />
+                  Coimbatore, Tamil Nadu, India.
+                </p>
+              </div>
+
+              {/* Optional Location Element */}
+              <div className="pt-2">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Sabari+Multispeciality+Hospital+Coimbatore+Tamil+Nadu"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-2 text-[12px] font-mono font-semibold tracking-wider uppercase text-black hover:opacity-60 transition-opacity"
+                >
+                  <span>VIEW LOCATION</span>
+                  <span className="group-hover:translate-x-1 transition-transform duration-200">&rarr;</span>
+                </a>
+              </div>
+            </motion.div>
+
           </div>
 
-          {/* RIGHT: Contact Form */}
+          {/* RIGHT COLUMN: Section 03 Contact Form */}
           <div className="lg:col-span-7">
+            <div className="mb-10">
+              <h2 className="text-[32px] sm:text-[42px] font-display font-light text-black tracking-tight uppercase mb-3">
+                SEND US A MESSAGE
+              </h2>
+              <p className="text-[15px] sm:text-[16px] text-neutral-600 font-light leading-relaxed">
+                Fill in the details below and our team will get back to you.
+              </p>
+            </div>
+
             <AnimatePresence mode="wait">
               {isSubmitted ? (
                 <motion.div
@@ -179,9 +261,9 @@ export function ContactPage() {
                     ACKNOWLEDGEMENT
                   </span>
 
-                  <h2 className="text-[36px] sm:text-[48px] font-display font-light text-black uppercase tracking-tight mb-4">
+                  <h3 className="text-[36px] sm:text-[48px] font-display font-light text-black uppercase tracking-tight mb-4">
                     MESSAGE SENT.
-                  </h2>
+                  </h3>
 
                   <p className="text-[16px] sm:text-[18px] text-neutral-600 font-light leading-relaxed mb-10 max-w-lg">
                     Thank you. Our team will get back to you shortly.
@@ -222,7 +304,7 @@ export function ContactPage() {
                       value={values.fullName}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="Your full name"
+                      placeholder="Enter your full name"
                       className={`w-full bg-transparent border-b ${errors.fullName && touched.fullName ? 'border-neutral-900' : 'border-neutral-300'} py-3.5 text-[16px] text-black placeholder-neutral-400 focus:outline-none focus:border-black transition-colors rounded-none`}
                     />
                     {errors.fullName && touched.fullName && (
@@ -247,7 +329,7 @@ export function ContactPage() {
                       value={values.phone}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="+91 or contact number"
+                      placeholder="Enter your phone number"
                       className={`w-full bg-transparent border-b ${errors.phone && touched.phone ? 'border-neutral-900' : 'border-neutral-300'} py-3.5 text-[16px] text-black placeholder-neutral-400 focus:outline-none focus:border-black transition-colors rounded-none`}
                     />
                     {errors.phone && touched.phone && (
@@ -272,7 +354,7 @@ export function ContactPage() {
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="name@example.com"
+                      placeholder="Enter your email address"
                       className={`w-full bg-transparent border-b ${errors.email && touched.email ? 'border-neutral-900' : 'border-neutral-300'} py-3.5 text-[16px] text-black placeholder-neutral-400 focus:outline-none focus:border-black transition-colors rounded-none`}
                     />
                     {errors.email && touched.email && (
@@ -297,7 +379,7 @@ export function ContactPage() {
                       value={values.subject}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      placeholder="How can we assist you?"
+                      placeholder="How can we help you?"
                       className={`w-full bg-transparent border-b ${errors.subject && touched.subject ? 'border-neutral-900' : 'border-neutral-300'} py-3.5 text-[16px] text-black placeholder-neutral-400 focus:outline-none focus:border-black transition-colors rounded-none`}
                     />
                     {errors.subject && touched.subject && (
@@ -332,12 +414,12 @@ export function ContactPage() {
                     )}
                   </div>
 
-                  {/* SUBMIT BUTTON */}
-                  <div className="pt-6 flex items-center justify-end">
+                  {/* SUBMIT BUTTON - Sabari Button Style */}
+                  <div className="pt-4 flex items-center justify-end">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="group inline-flex items-center gap-3 px-10 py-5 bg-black text-white text-[13px] font-mono font-semibold tracking-[0.08em] uppercase hover:bg-neutral-800 transition-colors disabled:opacity-50"
+                      className="group inline-flex items-center gap-3 px-9 py-4 bg-black text-white border border-black text-[13px] font-mono font-semibold tracking-[0.08em] uppercase hover:bg-white hover:text-black transition-all duration-200 disabled:opacity-50"
                     >
                       <span>{isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}</span>
                       <span className="group-hover:translate-x-1.5 transition-transform duration-200">&rarr;</span>
