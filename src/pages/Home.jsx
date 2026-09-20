@@ -7,7 +7,6 @@ import { HumanCare } from '../sections/HumanCare';
 import { FacilitiesSection } from '../sections/FacilitiesSection';
 import { DoctorsSection } from '../sections/DoctorsSection';
 import { PatientExperience } from '../sections/PatientExperience';
-import { AppointmentCTA } from '../sections/AppointmentCTA';
 import { Footer } from '../sections/Footer';
 
 export function Home() {
@@ -21,7 +20,6 @@ export function Home() {
       <FacilitiesSection />
       <DoctorsSection />
       <PatientExperience />
-      <AppointmentCTA />
       <Footer />
     </div>
   );
