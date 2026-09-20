@@ -11,7 +11,7 @@ export function Footer() {
     <footer data-nav-theme="dark" className="w-full bg-[#050505] text-white pt-20 lg:pt-28 pb-12 px-6 lg:px-16 border-t border-white/[0.08] relative overflow-hidden">
       
       {/* Top Statement & Action Strip */}
-      <div className="max-w-[1600px] w-full mx-auto pb-16 lg:pb-20 border-b border-white/[0.08] flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+      <div className="max-w-[1600px] w-full mx-auto pb-16 lg:pb-20 border-b border-white/[0.08] flex flex-col lg:flex-row lg:items-center justify-between gap-10">
         <div className="max-w-2xl">
           <span className="text-[11px] font-mono tracking-[0.25em] uppercase text-white/40 mb-4 block">
             ESTABLISHED 1999 &bull; COIMBATORE
@@ -22,10 +22,10 @@ export function Footer() {
           </h2>
         </div>
 
-        <div className="flex items-center shrink-0">
+        <div className="flex items-center shrink-0 lg:-translate-y-2">
           <Link
             to="/contact"
-            className="inline-flex items-center justify-center px-8 py-4 bg-white text-black text-[13px] font-medium tracking-wider uppercase rounded-full hover:bg-neutral-200 transition-all duration-300 hover:scale-[1.02]"
+            className="inline-flex items-center justify-center px-8 py-4 bg-white text-black text-[13px] font-medium tracking-wider uppercase rounded-full hover:bg-neutral-200 transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-white/5"
           >
             <span>Book Appointment</span>
             <span className="ml-2">&rarr;</span>
