@@ -55,13 +55,28 @@ export function DoctorProfile() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="w-full aspect-[4/5] bg-neutral-100 relative overflow-hidden border border-neutral-200"
+              className="group relative w-full aspect-[4/5] bg-neutral-100 rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] hover:shadow-[0_28px_65px_rgba(0,0,0,0.18)] transition-all duration-500 select-none"
             >
               <img 
                 src={doctor.image} 
                 alt={doctor.name} 
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
               />
+
+              {/* Hover Name & Title Reveal Overlay */}
+              <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+                <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                  <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
+                    {doctor.role || "SPECIALIST"}
+                  </span>
+                  <h3 className="text-[20px] sm:text-[24px] font-medium text-white tracking-tight leading-tight">
+                    {doctor.name}
+                  </h3>
+                  <p className="text-[12px] sm:text-[13px] text-white/80 font-light mt-0.5 tracking-wide">
+                    {doctor.speciality}
+                  </p>
+                </div>
+              </div>
             </motion.div>
             
             <div className="p-6 bg-neutral-50 border border-neutral-200 flex flex-col gap-3">

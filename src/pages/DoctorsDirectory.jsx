@@ -177,7 +177,7 @@ export function DoctorsDirectory() {
                           <img 
                             src={doctor.image} 
                             alt={doctor.name} 
-                            className="w-16 h-20 object-cover bg-neutral-100 border border-neutral-200 shrink-0"
+                            className="w-16 h-20 object-cover object-top bg-neutral-100 rounded-xl shadow-md shrink-0"
                           />
                           <div className="flex flex-col">
                             <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
@@ -243,13 +243,31 @@ export function DoctorsDirectory() {
                 transition={{ duration: 0.22, ease: "easeInOut" }}
                 className="flex flex-col w-full max-w-[460px]"
               >
-                {/* Portrait Frame - Increased editorial size */}
-                <div className="relative w-full aspect-[4/5] max-h-[460px] overflow-hidden bg-neutral-100 border border-neutral-200">
+                {/* Portrait Frame with Curved Corners, Luxury Shadow, and Hover Name Reveal */}
+                <div 
+                  onClick={(e) => handleDoctorClick(activeDoctor.id, e)}
+                  className="group relative w-full aspect-[4/5] max-h-[520px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] hover:shadow-[0_28px_65px_rgba(0,0,0,0.18)] transition-all duration-500 bg-neutral-100 select-none cursor-pointer"
+                >
                   <img
                     src={activeDoctor.image}
                     alt={activeDoctor.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
+
+                  {/* Hover Name & Title Reveal Overlay */}
+                  <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+                    <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                      <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
+                        {activeDoctor.role || "SPECIALIST"}
+                      </span>
+                      <h3 className="text-[20px] sm:text-[24px] font-medium text-white tracking-tight leading-tight">
+                        {activeDoctor.name}
+                      </h3>
+                      <p className="text-[12px] sm:text-[13px] text-white/80 font-light mt-0.5 tracking-wide">
+                        {activeDoctor.speciality}
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Complete Doctor Information Underneath */}

@@ -77,12 +77,26 @@ export function Leadership() {
               
               {/* Leader Portrait */}
               <div className="lg:col-span-5">
-                <div className="relative aspect-[4/5] w-full overflow-hidden bg-neutral-100 border border-neutral-200">
+                <div className="group relative aspect-[4/5] w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] hover:shadow-[0_28px_65px_rgba(0,0,0,0.18)] transition-all duration-500 bg-neutral-100 select-none">
                   <img 
                     src={leader.image} 
                     alt={leader.name} 
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
+                  {/* Hover Name & Title Reveal Overlay */}
+                  <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+                    <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                      <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
+                        {leader.title}
+                      </span>
+                      <h3 className="text-[20px] sm:text-[24px] font-medium text-white tracking-tight leading-tight">
+                        {leader.name}
+                      </h3>
+                      <p className="text-[12px] sm:text-[13px] text-white/80 font-light mt-0.5 tracking-wide">
+                        {leader.speciality}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <div className="mt-4 flex items-center justify-between text-[11px] font-mono text-neutral-400 uppercase tracking-widest">
                   <span>LEADERSHIP PROFILE // 0{idx + 1}</span>
