@@ -1,13 +1,26 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function HumanCare() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Very subtle 2-4px vertical parallax movement during page scrolling
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [-3, 3]);
+
   return (
-    <section data-nav-theme="dark" className="w-full bg-[#0a0a0a] py-[160px] px-6 lg:px-16 text-white relative">
-      <div className="max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12 items-center">
+    <section 
+      ref={sectionRef}
+      data-nav-theme="dark" 
+      className="w-full bg-[#0a0a0a] py-[120px] lg:py-[140px] px-6 lg:pl-16 lg:pr-8 xl:pr-12 2xl:pr-16 border-t border-neutral-900 overflow-hidden text-white relative"
+    >
+      <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 xl:gap-14 items-center">
         
         {/* Left Content */}
-        <div className="lg:col-span-5 lg:pr-8">
+        <div className="lg:col-span-6 lg:pr-12">
           <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/50 mb-8 block">
             03 &mdash; OUR PHILOSOPHY
           </span>
@@ -15,27 +28,45 @@ export function HumanCare() {
             BEYOND<br />
             MEDICINE.
           </h2>
-          <p className="text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-sm">
+          <p className="text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg">
             Because exceptional healthcare is not only about treatment. It is about how people feel throughout their journey.
           </p>
         </div>
 
-        {/* Right Cinematic Image */}
-        <div className="lg:col-span-7">
-          <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-900">
+        {/* Right Image - Editorial Portrait Visual Anchor */}
+        <div className="lg:col-span-6 w-full flex justify-center lg:justify-end">
+          <div className="group relative w-full aspect-[1/1] max-w-[680px] lg:max-w-none rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.6)] hover:shadow-[0_28px_65px_rgba(0,0,0,0.8)] transition-shadow duration-500 bg-neutral-900 select-none">
             <motion.div
-              initial={{ scale: 1.1, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.4, ease: "easeOut" }}
-              className="w-full h-full"
+              style={{ y: parallaxY }}
+              initial={{ scale: 1.02, opacity: 0.88 }}
+              whileInView={{ scale: 1.0, opacity: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full h-full will-change-transform"
             >
               <img 
                 src="/image-copy.png" 
-                alt="Doctor at Sabari Hospital" 
-                className="w-full h-full object-cover object-[center_25%]"
+                alt="Dr. Saravana Kumar S - Chairman & Managing Director at Sabari Hospital" 
+                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+                loading="eager"
+                decoding="async"
               />
             </motion.div>
+
+            {/* Hover Name & Title Reveal */}
+            <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+              <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
+                  CHAIRMAN &amp; MANAGING DIRECTOR
+                </span>
+                <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-medium text-white tracking-tight leading-tight">
+                  Dr. Saravana Kumar S
+                </h3>
+                <p className="text-[12px] sm:text-[14px] text-white/80 font-light mt-0.5 tracking-wide">
+                  Anaesthesiologist &amp; Critical Care Specialist
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
