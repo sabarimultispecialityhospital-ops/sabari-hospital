@@ -1,10 +1,23 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export function OurApproach() {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Very subtle 2-4px vertical parallax movement during page scrolling
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [-3, 3]);
+
   return (
-    <section data-nav-theme="light" className="w-full bg-white py-[140px] px-6 lg:px-16 border-t border-neutral-100">
-      <div className="max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8 items-center">
+    <section 
+      ref={sectionRef}
+      data-nav-theme="light" 
+      className="w-full bg-white py-[120px] lg:py-[140px] px-6 lg:pl-16 lg:pr-8 xl:pr-12 2xl:pr-16 border-t border-neutral-100 overflow-hidden"
+    >
+      <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 xl:gap-14 items-center">
         
         {/* Left Content */}
         <div className="lg:col-span-6 lg:pr-12">
@@ -26,20 +39,23 @@ export function OurApproach() {
           </div>
         </div>
 
-        {/* Right Image */}
-        <div className="lg:col-span-6 flex justify-center lg:justify-end">
-          <div className="relative aspect-[4/5] w-full max-w-[490px] overflow-hidden">
+        {/* Right Image - Editorial Portrait Visual Anchor */}
+        <div className="lg:col-span-6 w-full flex justify-center lg:justify-end">
+          <div className="relative w-full aspect-[1079/987] max-w-[680px] lg:max-w-none overflow-hidden bg-neutral-100 select-none">
             <motion.div
-              initial={{ scale: 1.05, opacity: 0.8 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="w-full h-full bg-neutral-100"
+              style={{ y: parallaxY }}
+              initial={{ scale: 1.02, opacity: 0.88 }}
+              whileInView={{ scale: 1.0, opacity: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full h-full will-change-transform"
             >
               <img 
                 src="/image.png" 
                 alt="Doctor at Sabari Hospital" 
-                className="w-full h-full object-cover object-center"
+                className="w-full h-full object-cover object-top"
+                loading="eager"
+                decoding="async"
               />
             </motion.div>
           </div>
