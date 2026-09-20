@@ -22,23 +22,14 @@ export function Footer() {
           </h2>
         </div>
 
-        <div className="flex flex-wrap items-center gap-4 shrink-0">
+        <div className="flex items-center shrink-0">
           <Link
             to="/contact"
             className="inline-flex items-center justify-center px-8 py-4 bg-white text-black text-[13px] font-medium tracking-wider uppercase rounded-full hover:bg-neutral-200 transition-all duration-300 hover:scale-[1.02]"
           >
-            <span>Book Consultation</span>
+            <span>Book Appointment</span>
             <span className="ml-2">&rarr;</span>
           </Link>
-          <a
-            href="https://www.google.com/maps/search/?api=1&query=Sabari+Multispeciality+Hospital+Coimbatore+Tamil+Nadu"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center px-8 py-4 bg-white/[0.06] hover:bg-white/[0.12] border border-white/10 text-white text-[13px] font-medium tracking-wider uppercase rounded-full transition-all duration-300"
-          >
-            <span>Campus Directions</span>
-            <span className="ml-2">&rarr;</span>
-          </a>
         </div>
       </div>
 
