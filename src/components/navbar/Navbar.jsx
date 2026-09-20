@@ -61,64 +61,66 @@ export function Navbar() {
   return (
     <nav ref={navRef} className="fixed top-0 left-0 right-0 z-[1000] w-full bg-white/95 backdrop-blur-md border-b border-neutral-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-colors duration-200">
       <div className="max-w-[1600px] w-full mx-auto" style={{ paddingInline: 'clamp(32px, 5vw, 80px)' }}>
-        {/* Desktop Layout */}
-        <div className="hidden lg:flex justify-between h-[88px] items-center relative">
+        {/* Desktop Layout - Equally Distributed Across the Navbar */}
+        <div className="hidden lg:flex justify-between h-[88px] items-center relative w-full">
           
-          {/* Left Brand Logo */}
+          {/* 1. Left Brand Logo */}
           <Link to="/" className="flex items-center justify-center shrink-0">
             <BrandLogo size="lg" dark={isDark} />
           </Link>
 
-          {/* Right Navigation */}
-          <div className="flex items-center justify-end h-full" style={{ gap: 'clamp(20px, 2.2vw, 44px)' }}>
-            <div className="relative">
-              <NavItem 
-                label="About Us" 
-                hasDropdown={true} 
-                isActive={activeMenu === 'about' || isAboutActive} 
-                onClick={() => toggleMenu('about')} 
-                theme={theme}
-              />
-              <SimpleDropdown 
-                isOpen={activeMenu === 'about'} 
-                data={aboutSimpleData} 
-                onItemClick={() => setActiveMenu(null)} 
-              />
-            </div>
-            
-            <NavItem label="Doctors" href="/doctors" theme={theme} />
-            
+          {/* 2. About Us */}
+          <div className="relative h-full flex items-center">
             <NavItem 
-              label="Centre of Excellence" 
+              label="About Us" 
               hasDropdown={true} 
-              isActive={activeMenu === 'specialities' || isCentreActive} 
-              onClick={() => toggleMenu('specialities')} 
+              isActive={activeMenu === 'about' || isAboutActive} 
+              onClick={() => toggleMenu('about')} 
               theme={theme}
             />
-
-            <NavItem 
-              label="Facilities" 
-              hasDropdown={true} 
-              isActive={activeMenu === 'facilities' || isFacilitiesActive} 
-              onClick={() => toggleMenu('facilities')} 
-              theme={theme}
+            <SimpleDropdown 
+              isOpen={activeMenu === 'about'} 
+              data={aboutSimpleData} 
+              onItemClick={() => setActiveMenu(null)} 
             />
-            
-            <NavItem 
-              label="Contact Us" 
-              href="/contact"
-              isActive={isContactActive} 
-              theme={theme}
-            />
-
-            <a 
-              href="/book-appointment" 
-              className="text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border border-black bg-black text-white hover:bg-neutral-800 transition-all duration-200 ease-in-out shrink-0"
-              style={{ marginLeft: 'clamp(8px, 1vw, 18px)' }}
-            >
-              Book Appointment
-            </a>
           </div>
+          
+          {/* 3. Doctors */}
+          <NavItem label="Doctors" href="/doctors" theme={theme} />
+          
+          {/* 4. Centre of Excellence */}
+          <NavItem 
+            label="Centre of Excellence" 
+            hasDropdown={true} 
+            isActive={activeMenu === 'specialities' || isCentreActive} 
+            onClick={() => toggleMenu('specialities')} 
+            theme={theme}
+          />
+
+          {/* 5. Facilities */}
+          <NavItem 
+            label="Facilities" 
+            hasDropdown={true} 
+            isActive={activeMenu === 'facilities' || isFacilitiesActive} 
+            onClick={() => toggleMenu('facilities')} 
+            theme={theme}
+          />
+          
+          {/* 6. Contact Us */}
+          <NavItem 
+            label="Contact Us" 
+            href="/contact"
+            isActive={isContactActive} 
+            theme={theme}
+          />
+
+          {/* 7. Book Appointment */}
+          <a 
+            href="/book-appointment" 
+            className="text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border border-black bg-black text-white hover:bg-neutral-800 transition-all duration-200 ease-in-out shrink-0"
+          >
+            Book Appointment
+          </a>
         </div>
 
         {/* Mobile Layout */}
