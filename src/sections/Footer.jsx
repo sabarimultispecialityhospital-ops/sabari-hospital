@@ -196,13 +196,6 @@ export function Footer() {
 
       </div>
 
-      {/* Massive Typographic Watermark */}
-      <div className="w-full pt-12 pb-6 flex justify-center select-none pointer-events-none overflow-hidden">
-        <span className="text-[14vw] font-bold tracking-[-0.04em] text-white/[0.025] leading-none uppercase whitespace-nowrap block text-center">
-          SABARI HOSPITAL
-        </span>
-      </div>
-
       {/* Bottom Legal & Architectural Bar */}
       <div className="max-w-[1600px] w-full mx-auto pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 text-[12px] text-white/40">
         <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-6 text-center sm:text-left">
