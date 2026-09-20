@@ -41,7 +41,7 @@ export function OurApproach() {
 
         {/* Right Image - Editorial Portrait Visual Anchor */}
         <div className="lg:col-span-6 w-full flex justify-center lg:justify-end">
-          <div className="relative w-full aspect-[1079/987] max-w-[680px] lg:max-w-none overflow-hidden bg-neutral-100 select-none">
+          <div className="group relative w-full aspect-[1079/987] max-w-[680px] lg:max-w-none rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] hover:shadow-[0_28px_65px_rgba(0,0,0,0.18)] transition-shadow duration-500 bg-neutral-100 select-none">
             <motion.div
               style={{ y: parallaxY }}
               initial={{ scale: 1.02, opacity: 0.88 }}
@@ -52,12 +52,27 @@ export function OurApproach() {
             >
               <img 
                 src="/image.png" 
-                alt="Doctor at Sabari Hospital" 
-                className="w-full h-full object-cover object-top"
+                alt="Dr. Mangaleeswari - Founder of Sabari Hospital" 
+                className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]"
                 loading="eager"
                 decoding="async"
               />
             </motion.div>
+
+            {/* Hover Name & Title Reveal */}
+            <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+              <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
+                  FOUNDER &amp; GUIDING PILLAR
+                </span>
+                <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-medium text-white tracking-tight leading-tight">
+                  Dr. Mangaleeswari
+                </h3>
+                <p className="text-[12px] sm:text-[14px] text-white/80 font-light mt-0.5 tracking-wide">
+                  Obstetrician &amp; Gynaecologist
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
