@@ -254,40 +254,17 @@ export function DoctorsDirectory() {
                     className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
 
-                  {/* Hover Name & Title Reveal Overlay */}
-                  <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
-                    <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                      <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
-                        {activeDoctor.role || "SPECIALIST"}
-                      </span>
-                      <h3 className="text-[20px] sm:text-[24px] font-medium text-white tracking-tight leading-tight">
-                        {activeDoctor.name}
-                      </h3>
-                      <p className="text-[12px] sm:text-[13px] text-white/80 font-light mt-0.5 tracking-wide">
-                        {activeDoctor.speciality}
-                      </p>
-                    </div>
-                  </div>
+
                 </div>
 
-                {/* Complete Doctor Information Underneath */}
-                <div className="mt-6 flex flex-col gap-2">
-                  <div className="flex flex-col">
-                    <span className="text-[12px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-1">
-                      {activeDoctor.role || "SPECIALIST"}
-                    </span>
-                    <h3 className="text-[26px] lg:text-[30px] font-medium text-black leading-tight">
-                      {activeDoctor.name}
-                    </h3>
-                    <p className="text-[16px] text-neutral-800 font-medium mt-1.5">
-                      {activeDoctor.speciality}
-                    </p>
-                    {activeDoctor.subSpeciality && (
-                      <p className="text-[14px] text-neutral-500 mt-1 leading-relaxed">
-                        {activeDoctor.subSpeciality}
-                      </p>
-                    )}
-                  </div>
+                {/* Doctor Name & Role Outside Image */}
+                <div className="mt-5 flex flex-col">
+                  <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-1.5">
+                    {activeDoctor.role || "SPECIALIST"}
+                  </span>
+                  <h3 className="text-[26px] lg:text-[30px] font-medium text-black leading-tight">
+                    {activeDoctor.name}
+                  </h3>
                 </div>
               </motion.div>
             </AnimatePresence>
