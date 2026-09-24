@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Footer } from '../../sections/Footer';
 import { facilityCategories, facilityServicesData } from '../../data/facilitiesExperienceData';
+import { useAppointment } from '../../context/AppointmentContext';
 
 export function FacilityCategoryPage() {
+  const { openAppointmentModal } = useAppointment();
   const { categorySlug } = useParams();
 
   useEffect(() => {
@@ -188,12 +190,13 @@ export function FacilityCategoryPage() {
               Contact our facility reception desk for assistance with scheduling, admissions, or patient amenities.
             </p>
           </div>
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={() => openAppointmentModal()}
             className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
-          >
+            >
             Book Appointment &rarr;
-          </Link>
+            </button>
         </div>
       </section>
 

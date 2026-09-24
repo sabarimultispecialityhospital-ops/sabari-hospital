@@ -70,17 +70,11 @@ export function Hero() {
           {/* Subtle overlay to ensure it feels unified and calm */}
           <div className="absolute inset-0 bg-black/5 z-10 pointer-events-none" />
           
-          {/* Placeholder video from a reliable high-quality source (Pexels / Mixkit) - Using an abstract/calm video to match instructions */}
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline
+          <img 
+            src="/hero_image.png" 
+            alt="Hero background"
             className="w-full h-full object-cover"
-          >
-            <source src="/hero_video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          />
         </motion.div>
 
         {/* Bottom Details - Overlaying both */}

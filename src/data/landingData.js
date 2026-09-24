@@ -11,7 +11,7 @@ export const centresData = [
     num: "01",
     title: "MEDICAL CARE", 
     services: ["Diabetic Care", "Pulmonology", "General Medical Care"],
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=1200" 
+    image: "/centres/medical-care.png" 
   },
   { 
     id: "surgical-care", 
@@ -252,6 +252,34 @@ export const doctorsData = [
       "Former Physiotherapist — GKNM Hospital, Coimbatore (2014–2016)",
       "Certified in Clinical Sports Physiotherapy & Dry Needling",
       "Certified in Pelvic Floor Rehabilitation & MAT Pilates"
+    ]
+  },
+  { 
+    id: "dr-deepika-og",
+    num: "06",
+    name: "Dr. Deepika",
+    displayName: "DEEPIKA",
+    role: "Associate Professor",
+    speciality: "Obstetrician & Gynaecologist",
+    subSpeciality: "Endogynaecology & High Risk Obstetrics",
+    experience: "Currently working as Associate Professor",
+    image: "/doctors/dr-deepika.png",
+    bio: "Dr. Deepika is an Obstetrician & Gynaecologist and Associate Professor. She has completed a Post Doctoral Fellowship in Endogynecology and holds a Diploma in Gynaec Endoscopy from Kiel’s University, Germany. Her areas of interest include high risk obstetrics and laparoscopy.",
+    professionalRole: "Associate Professor",
+    qualification: "MS (OG), PDF (Endogynaec), DGE (Ger)",
+    areasOfInterest: [
+      "High risk obstetrics",
+      "Laparoscopy",
+      "Endogynaecology"
+    ],
+    academicContributions: [
+      "Published papers in national and international journals",
+      "Presented numerous papers in national conferences"
+    ],
+    qualifications: [
+      "MS (OG)",
+      "Post Doctoral Fellowship in Endogynecology — TN Dr MGR University",
+      "Diploma in Gynaec Endoscopy (DGE) — Kiel’s University, Germany"
     ]
   }
 ];

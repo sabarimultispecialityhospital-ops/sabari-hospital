@@ -9,7 +9,7 @@ export const centreCategories = [
     slug: "medical-care",
     tagline: "CARE THAT UNDERSTANDS THE WHOLE YOU.",
     shortDescription: "Comprehensive diagnostic assessment, chronic disease management, and integrated internal medicine delivered by experienced physicians.",
-    heroImage: "/centres/medical-care.jpg",
+    heroImage: "/centres/medical-care.png",
     alt: "Physician consultation in internal medicine suite",
     services: [
       {

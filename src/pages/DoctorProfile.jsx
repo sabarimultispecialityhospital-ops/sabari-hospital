@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { doctorsData } from '../data/landingData';
-import { ArrowLeft, Award, BookOpen, CheckCircle, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Award, BookOpen, CalendarCheck, CheckCircle, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Footer } from '../sections/Footer';
+import { useAppointment } from '../context/AppointmentContext';
 
 export function DoctorProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
-  
-  const doctor = doctorsData.find(d => 
+  const { openAppointmentModal } = useAppointment();
+
+  const doctor = doctorsData.find(d =>
     d.id === id || 
     d.id === `dr-${id}` || 
     d.id.replace('dr-', '') === id.replace('dr-', '')
@@ -92,6 +94,15 @@ export function DoctorProfile() {
                 </p>
               )}
             </div>
+
+            <button
+              type="button"
+              onClick={() => openAppointmentModal({ doctorId: doctor.id })}
+              className="flex items-center justify-center gap-2 w-full px-6 py-4 border border-black bg-black text-white text-[13px] font-semibold tracking-[0.08em] uppercase hover:bg-neutral-800 transition-colors"
+            >
+              <CalendarCheck className="w-4 h-4" />
+              Book Appointment
+            </button>
           </div>
 
           {/* Right Column: Comprehensive Info */}

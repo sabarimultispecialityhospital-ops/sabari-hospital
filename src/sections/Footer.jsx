@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BrandLogo } from '../components/brand/BrandLogo';
+import { useAppointment } from '../context/AppointmentContext';
 
 export function Footer() {
+  const { openAppointmentModal } = useAppointment();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -23,13 +25,14 @@ export function Footer() {
         </div>
 
         <div className="flex items-center shrink-0 lg:-translate-y-2">
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={() => openAppointmentModal()}
             className="inline-flex items-center justify-center px-8 py-4 bg-white text-black text-[13px] font-medium tracking-wider uppercase rounded-full hover:bg-neutral-200 transition-all duration-300 hover:scale-[1.02] shadow-lg shadow-white/5"
           >
             <span>Book Appointment</span>
             <span className="ml-2">&rarr;</span>
-          </Link>
+          </button>
         </div>
       </div>
 

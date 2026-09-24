@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { Footer } from '../../sections/Footer';
 import { centreCategories, subServicesData } from '../../data/centresOfExcellenceData';
+import { useAppointment } from '../../context/AppointmentContext';
 
 export function CategoryPage() {
+  const { openAppointmentModal } = useAppointment();
   const { categorySlug } = useParams();
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export function CategoryPage() {
               </Link>
               <span className="text-neutral-300 text-xs">/</span>
               <span className="text-[12px] font-mono font-semibold tracking-[0.2em] uppercase text-black">
-                CHAPTER {category.number}
+                {category.number}
               </span>
             </div>
 
@@ -57,10 +59,6 @@ export function CategoryPage() {
                 alt={category.alt} 
                 className="w-full h-full object-cover"
               />
-            </div>
-            <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-neutral-400 uppercase mt-3">
-              <span>{category.number} // {category.title}</span>
-              <span>{category.services.length} SPECIALISED SERVICES</span>
             </div>
           </div>
 
@@ -185,12 +183,13 @@ export function CategoryPage() {
               Outpatient appointments and clinical evaluations available with senior specialists.
             </p>
           </div>
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={() => openAppointmentModal()}
             className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
-          >
+            >
             Book Appointment &rarr;
-          </Link>
+            </button>
         </div>
       </section>
 

@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Footer } from '../../sections/Footer';
 import { ShieldCheck, Award, ArrowRight } from 'lucide-react';
+import { useAppointment } from '../../context/AppointmentContext';
 
 export function Leadership() {
+  const { openAppointmentModal } = useAppointment();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -192,12 +194,13 @@ export function Leadership() {
               Connect with our clinical leadership and department specialists for consultations.
             </p>
           </div>
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={() => openAppointmentModal()}
             className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
-          >
+            >
             Book Appointment &rarr;
-          </Link>
+            </button>
         </div>
       </section>
 

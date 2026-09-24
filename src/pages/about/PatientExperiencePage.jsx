@@ -2,8 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Footer } from '../../sections/Footer';
+import { useAppointment } from '../../context/AppointmentContext';
 
 export function PatientExperiencePage() {
+  const { openAppointmentModal } = useAppointment();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -173,12 +175,13 @@ export function PatientExperiencePage() {
               Contact our patient reception desk for assistance with scheduling, directions, or medical questions.
             </p>
           </div>
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={() => openAppointmentModal()}
             className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
-          >
+            >
             Book Appointment &rarr;
-          </Link>
+            </button>
         </div>
       </section>
 

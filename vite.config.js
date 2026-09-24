@@ -10,5 +10,12 @@ export default defineConfig({
   ],
   server: {
     port: 5174,
+    proxy: {
+      // Forward API calls to the local appointment backend during development.
+      '/api': {
+        target: 'http://localhost:8787',
+        changeOrigin: true,
+      },
+    },
   },
 })

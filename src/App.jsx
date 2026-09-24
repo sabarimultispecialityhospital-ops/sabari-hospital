@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Preloader } from './components/ui/Preloader';
 import { Navbar } from './components/navbar/Navbar';
+import { AppointmentProvider } from './context/AppointmentContext';
+import { AppointmentModal } from './components/appointment/AppointmentModal';
 
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Home } from './pages/Home';
@@ -25,12 +27,15 @@ function App() {
 
   return (
     <Router>
+      <AppointmentProvider>
       {loading && (
         <Preloader onComplete={() => setLoading(false)} />
       )}
-      
+
       <Navbar />
-      
+
+      <AppointmentModal />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/doctors" element={<DoctorsDirectory />} />
@@ -63,6 +68,7 @@ function App() {
         <Route path="/appointment" element={<Navigate to="/contact" replace />} />
         <Route path="/appointments" element={<Navigate to="/contact" replace />} />
       </Routes>
+      </AppointmentProvider>
     </Router>
   );
 }

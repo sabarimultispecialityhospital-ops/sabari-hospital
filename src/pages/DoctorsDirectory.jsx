@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { doctorsData } from '../data/landingData';
 import { Footer } from '../sections/Footer';
+import { useAppointment } from '../context/AppointmentContext';
 
 export function DoctorsDirectory() {
   const navigate = useNavigate();
+  const { openAppointmentModal } = useAppointment();
   const [activeIndex, setActiveIndex] = useState(0);
   const rowRefs = useRef([]);
   const isHoveringRef = useRef(false);
@@ -222,12 +224,13 @@ export function DoctorsDirectory() {
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <Link
-                  to="/contact"
+                <button
+                  type="button"
+                  onClick={() => openAppointmentModal()}
                   className="px-5 py-2.5 border border-black text-[11px] font-semibold tracking-widest uppercase text-black hover:bg-black hover:text-white transition-colors text-center"
                 >
                   Book Appointment
-                </Link>
+                </button>
               </div>
             </div>
           </div>

@@ -5,6 +5,7 @@ import { NumbersSection } from '../sections/NumbersSection';
 import { CentresOfExcellence } from '../sections/CentresOfExcellence';
 import { HumanCare } from '../sections/HumanCare';
 import { FacilitiesSection } from '../sections/FacilitiesSection';
+import { HeartOfSabariSection } from '../sections/HeartOfSabariSection';
 import { DoctorsSection } from '../sections/DoctorsSection';
 import { PatientExperience } from '../sections/PatientExperience';
 import { Footer } from '../sections/Footer';
@@ -18,6 +19,7 @@ export function Home() {
       <CentresOfExcellence />
       <HumanCare />
       <FacilitiesSection />
+      <HeartOfSabariSection />
       <DoctorsSection />
       <PatientExperience />
       <Footer />

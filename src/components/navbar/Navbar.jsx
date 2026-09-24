@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X } from 'lucide-react';
-import { BrandLogo } from '../brand/BrandLogo';
+// import { BrandLogo } from '../brand/BrandLogo';
 import { NavItem } from './NavItem';
 import { MegaMenu } from './MegaMenu';
 import { DropdownPanel } from './DropdownPanel';
@@ -16,11 +16,13 @@ import { centreCategories } from '../../data/centresOfExcellenceData';
 import { facilityCategories } from '../../data/facilitiesExperienceData';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppointment } from '../../context/AppointmentContext';
 
 export function Navbar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { theme, isDark } = useNavbarTheme();
+  const { openAppointmentModal } = useAppointment();
   const navRef = useRef(null);
   const location = useLocation();
   const isAboutActive = location.pathname.startsWith('/about');
@@ -59,23 +61,22 @@ export function Navbar() {
   };
 
   return (
-    <nav ref={navRef} className="fixed top-0 left-0 right-0 z-[1000] w-full bg-white/95 backdrop-blur-md border-b border-neutral-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-colors duration-200">
+    <nav ref={navRef} onMouseLeave={() => setActiveMenu(null)} className="fixed top-0 left-0 right-0 z-[1000] w-full bg-white/95 backdrop-blur-md border-b border-neutral-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-colors duration-200">
       <div className="max-w-[1600px] w-full mx-auto" style={{ paddingInline: 'clamp(32px, 5vw, 80px)' }}>
         {/* Desktop Layout - Equally Distributed Across the Navbar */}
         <div className="hidden lg:flex justify-between h-[88px] items-center relative w-full">
           
           {/* 1. Left Brand Logo */}
           <Link to="/" className="flex items-center justify-center shrink-0">
-            <BrandLogo size="lg" dark={isDark} />
+            <img src="/logo.png" alt="Sabari Hospital" className="h-16 w-auto object-contain" />
           </Link>
 
           {/* 2. About Us */}
-          <div className="relative h-full flex items-center">
+          <div className="relative h-full flex items-center" onMouseEnter={() => setActiveMenu('about')}>
             <NavItem 
               label="About Us" 
               hasDropdown={true} 
               isActive={activeMenu === 'about' || isAboutActive} 
-              onClick={() => toggleMenu('about')} 
               theme={theme}
             />
             <SimpleDropdown 
@@ -86,41 +87,48 @@ export function Navbar() {
           </div>
           
           {/* 3. Doctors */}
-          <NavItem label="Doctors" href="/doctors" theme={theme} />
+          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu(null)}>
+            <NavItem label="Doctors" href="/doctors" theme={theme} />
+          </div>
           
           {/* 4. Centre of Excellence */}
-          <NavItem 
-            label="Centre of Excellence" 
-            hasDropdown={true} 
-            isActive={activeMenu === 'specialities' || isCentreActive} 
-            onClick={() => toggleMenu('specialities')} 
-            theme={theme}
-          />
+          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu('specialities')}>
+            <NavItem 
+              label="Centre of Excellence" 
+              hasDropdown={true} 
+              isActive={activeMenu === 'specialities' || isCentreActive} 
+              theme={theme}
+            />
+          </div>
 
           {/* 5. Facilities */}
-          <NavItem 
-            label="Facilities" 
-            hasDropdown={true} 
-            isActive={activeMenu === 'facilities' || isFacilitiesActive} 
-            onClick={() => toggleMenu('facilities')} 
-            theme={theme}
-          />
+          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu('facilities')}>
+            <NavItem 
+              label="Facilities" 
+              hasDropdown={true} 
+              isActive={activeMenu === 'facilities' || isFacilitiesActive} 
+              theme={theme}
+            />
+          </div>
           
           {/* 6. Contact Us */}
-          <NavItem 
-            label="Contact Us" 
-            href="/contact"
-            isActive={isContactActive} 
-            theme={theme}
-          />
+          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu(null)}>
+            <NavItem 
+              label="Contact Us" 
+              href="/contact"
+              isActive={isContactActive} 
+              theme={theme}
+            />
+          </div>
 
           {/* 7. Book Appointment */}
-          <Link 
-            to="/contact" 
+          <button
+            type="button"
+            onClick={() => openAppointmentModal()}
             className="text-[13px] font-semibold tracking-[0.02em] uppercase px-6 py-[14px] rounded border border-black bg-black text-white hover:bg-neutral-800 transition-all duration-200 ease-in-out shrink-0"
           >
             Book Appointment
-          </Link>
+          </button>
         </div>
 
         {/* Mobile Layout */}
@@ -134,15 +142,16 @@ export function Navbar() {
           </button>
           
           <Link to="/">
-            <BrandLogo size="sm" />
+            <img src="/logo.png" alt="Sabari Hospital" className="h-12 w-auto object-contain" />
           </Link>
           
-          <Link 
-            to="/contact" 
+          <button
+            type="button"
+            onClick={() => openAppointmentModal()}
             className="bg-black text-white text-[11px] font-medium tracking-[0.02em] uppercase px-4 py-2 rounded-md hover:bg-neutral-800 transition-colors duration-200"
           >
             Book
-          </Link>
+          </button>
         </div>
       </div>
 
@@ -170,7 +179,7 @@ export function Navbar() {
           >
             <div className="flex items-center justify-between px-6 h-[80px] border-b border-neutral-100">
               <Link to="/" onClick={() => setMobileMenuOpen(false)}>
-                <BrandLogo size="sm" />
+                <img src="/logo.png" alt="Sabari Hospital" className="h-12 w-auto object-contain" />
               </Link>
               <button 
                 onClick={() => setMobileMenuOpen(false)}
