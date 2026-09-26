@@ -15,25 +15,25 @@ export function OurApproach() {
     <section 
       ref={sectionRef}
       data-nav-theme="light" 
-      className="w-full bg-white py-[120px] lg:py-[140px] px-6 lg:pl-16 lg:pr-8 xl:pr-12 2xl:pr-16 border-t border-neutral-100 overflow-hidden"
+      className="w-full bg-white py-16 sm:py-24 lg:py-[140px] px-6 lg:pl-16 lg:pr-8 xl:pr-12 2xl:pr-16 border-t border-neutral-100 overflow-hidden"
     >
-      <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 xl:gap-14 items-center">
+      <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 xl:gap-14 items-center">
         
         {/* Left Content */}
         <div className="lg:col-span-6 lg:pr-12">
-          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-8 block">
+          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 sm:mb-8 block">
             01 &mdash; OUR APPROACH
           </span>
-          <h2 className="text-[44px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-10">
+          <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-8 sm:mb-10">
             MEDICINE IS<br />
             SCIENCE.<br />
             CARE IS HUMAN.
           </h2>
-          <div className="flex flex-col gap-6">
-            <p className="text-[18px] lg:text-[22px] text-neutral-600 leading-[1.6] max-w-lg">
+          <div className="flex flex-col gap-5 sm:gap-6">
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-neutral-600 leading-[1.6] max-w-lg font-light">
               We believe that world-class medical outcomes are inextricably linked to how a patient feels throughout their entire healthcare journey.
             </p>
-            <p className="text-[18px] lg:text-[22px] text-neutral-600 leading-[1.6] max-w-lg">
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-neutral-600 leading-[1.6] max-w-lg font-light">
               By combining cutting-edge technology with deep compassion, our specialists ensure that every aspect of your treatment is personalized, precise, and profoundly supportive from the moment you walk through our doors.
             </p>
           </div>
@@ -59,9 +59,9 @@ export function OurApproach() {
               />
             </motion.div>
 
-            {/* Hover Name & Title Reveal */}
-            <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
-              <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+            {/* Hover Name & Title Reveal - Visible on touch / mobile, hover on desktop */}
+            <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+              <div className="transform translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-transform duration-500 ease-out">
                 <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
                   FOUNDER &amp; GUIDING PILLAR
                 </span>

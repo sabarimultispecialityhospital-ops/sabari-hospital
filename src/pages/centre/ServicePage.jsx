@@ -43,12 +43,12 @@ export function ServicePage() {
     <div data-nav-theme="light" className="w-full min-h-screen bg-white text-black selection:bg-neutral-200">
       
       {/* 1. Service Hero (40-50% image, large typography) */}
-      <section className="w-full pt-32 pb-16 lg:pt-40 lg:pb-24 px-6 lg:px-16 border-b border-neutral-200 bg-white">
-        <div className="max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+      <section className="w-full pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-24 px-6 lg:px-16 border-b border-neutral-200 bg-white">
+        <div className="max-w-[1600px] w-full mx-auto">
           
-          <div className="lg:col-span-7 flex flex-col">
+          <div className="flex flex-col max-w-5xl">
             {/* Small Eyebrow / Breadcrumbs */}
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-2 mb-4 sm:mb-6 flex-wrap">
               <Link 
                 to="/centre-of-excellence" 
                 className="text-[12px] font-mono font-semibold tracking-[0.2em] uppercase text-neutral-400 hover:text-black transition-colors"
@@ -62,39 +62,16 @@ export function ServicePage() {
               >
                 {service.categoryTitle}
               </Link>
-              <span className="text-neutral-300 text-xs">/</span>
-              <span className="text-[12px] font-mono font-semibold tracking-[0.2em] uppercase text-black">
-                {service.serviceNumber}
-              </span>
             </div>
 
-            {/* Large Typographic Title */}
-            <h1 className="text-[48px] sm:text-[72px] lg:text-[92px] font-medium leading-[0.94] tracking-[-0.035em] text-black mb-8">
-              {service.title.split(' ').map((word, idx) => (
-                <React.Fragment key={idx}>
-                  {word}
-                  {idx < service.title.split(' ').length - 1 && <br />}
-                </React.Fragment>
-              ))}
+            {/* Large Typographic Title in Single Line */}
+            <h1 className="text-[34px] sm:text-[54px] md:text-[68px] lg:text-[80px] xl:text-[92px] font-medium leading-[1.05] tracking-[-0.03em] break-words text-black mb-6 sm:mb-8">
+              {service.title}.
             </h1>
 
-            <p className="text-[18px] sm:text-[21px] text-neutral-600 leading-relaxed max-w-xl font-light">
+            <p className="text-[16px] sm:text-[18px] lg:text-[21px] text-neutral-600 leading-relaxed max-w-2xl font-light">
               {service.introduction}
             </p>
-          </div>
-
-          <div className="lg:col-span-5 flex flex-col justify-end">
-            <div className="relative aspect-[16/11] w-full overflow-hidden bg-neutral-100 border border-neutral-200">
-              <img 
-                src={service.heroImage} 
-                alt={service.alt || service.title} 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-neutral-400 uppercase mt-3">
-              <span>{service.categoryTitle} // {service.title}</span>
-              <span>SPECIALISED CARE</span>
-            </div>
           </div>
 
         </div>
@@ -206,26 +183,26 @@ export function ServicePage() {
       )}
 
       {/* 5. Consultation CTA */}
-      <section className="w-full py-20 px-6 lg:px-16 bg-neutral-50">
-        <div className="max-w-[1600px] w-full mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8 p-12 border border-neutral-200 bg-white">
+      <section className="w-full py-14 sm:py-20 px-6 lg:px-16 bg-neutral-50">
+        <div className="max-w-[1600px] w-full mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 p-6 sm:p-10 lg:p-12 border border-neutral-200 bg-white">
           <div className="flex flex-col">
             <span className="text-[11px] font-mono tracking-widest uppercase text-neutral-400 mb-2">
               APPOINTMENTS & CLINICAL ACCESS
             </span>
-            <h3 className="text-[26px] lg:text-[32px] font-medium tracking-tight text-black">
+            <h3 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium tracking-tight text-black">
               Consult with Our {service.title} Specialists.
             </h3>
-            <p className="text-[15px] text-neutral-600 font-light mt-1">
+            <p className="text-[14px] sm:text-[15px] text-neutral-600 font-light mt-1">
               Connect with our department desk for scheduling outpatient visits or procedural consults.
             </p>
           </div>
           <button
             type="button"
             onClick={() => openAppointmentModal()}
-            className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
-            >
+            className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors w-full sm:w-auto text-center shrink-0"
+          >
             Book Appointment &rarr;
-            </button>
+          </button>
         </div>
       </section>
 

@@ -50,17 +50,16 @@ export function Leadership() {
     <div data-nav-theme="light" className="w-full min-h-screen bg-white text-black selection:bg-neutral-200">
       
       {/* 1. Editorial Hero */}
-      <section className="w-full pt-32 pb-16 lg:pt-40 lg:pb-20 px-6 lg:px-16 border-b border-neutral-200">
+      <section className="w-full pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-20 px-6 lg:px-16 border-b border-neutral-200">
         <div className="max-w-[1600px] w-full mx-auto">
-          <div className="flex flex-col max-w-4xl">
-            <span className="text-[12px] font-mono font-semibold tracking-[0.25em] uppercase text-neutral-400 mb-6 block">
-              02 &mdash; ABOUT SABARI
+          <div className="flex flex-col max-w-5xl">
+            <span className="text-[12px] font-mono font-semibold tracking-[0.25em] uppercase text-neutral-400 mb-4 sm:mb-6 block">
+              LEADERSHIP
             </span>
-            <h1 className="text-[52px] sm:text-[72px] lg:text-[96px] font-medium leading-[0.95] tracking-[-0.03em] text-black mb-8">
-              GUIDED BY<br />
-              EXPERIENCE.
+            <h1 className="text-[34px] sm:text-[54px] md:text-[68px] lg:text-[80px] xl:text-[92px] font-medium leading-[1.05] tracking-[-0.03em] break-words text-black mb-6 sm:mb-8">
+              GUIDED BY EXPERIENCE.
             </h1>
-            <p className="text-[18px] sm:text-[21px] text-neutral-600 leading-relaxed max-w-2xl font-light">
+            <p className="text-[16px] sm:text-[18px] lg:text-[21px] text-neutral-600 leading-relaxed max-w-2xl font-light">
               Clinical leadership committed to medical integrity, patient safety, and compassionate care.
             </p>
           </div>
@@ -85,9 +84,9 @@ export function Leadership() {
                     alt={leader.name} 
                     className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   />
-                  {/* Hover Name & Title Reveal Overlay */}
-                  <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
-                    <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                  {/* Name & Title Reveal Overlay - Visible on mobile/touch, hover on desktop */}
+                  <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+                    <div className="transform translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-transform duration-500 ease-out">
                       <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
                         {leader.title}
                       </span>
@@ -181,26 +180,26 @@ export function Leadership() {
       </section>
 
       {/* 4. CTA */}
-      <section className="w-full py-20 px-6 lg:px-16 bg-white">
-        <div className="max-w-[1600px] w-full mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8 p-12 border border-neutral-200">
+      <section className="w-full py-14 sm:py-20 px-6 lg:px-16 bg-white">
+        <div className="max-w-[1600px] w-full mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 p-6 sm:p-10 lg:p-12 border border-neutral-200">
           <div className="flex flex-col">
             <span className="text-[11px] font-mono tracking-widest uppercase text-neutral-400 mb-2">
               CONSULTATIONS
             </span>
-            <h3 className="text-[26px] lg:text-[32px] font-medium tracking-tight text-black">
+            <h3 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium tracking-tight text-black">
               Schedule a Consultation.
             </h3>
-            <p className="text-[15px] text-neutral-600 font-light mt-1">
+            <p className="text-[14px] sm:text-[15px] text-neutral-600 font-light mt-1">
               Connect with our clinical leadership and department specialists for consultations.
             </p>
           </div>
           <button
             type="button"
             onClick={() => openAppointmentModal()}
-            className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
-            >
+            className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors w-full sm:w-auto text-center shrink-0"
+          >
             Book Appointment &rarr;
-            </button>
+          </button>
         </div>
       </section>
 

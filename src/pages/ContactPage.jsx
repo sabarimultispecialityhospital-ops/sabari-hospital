@@ -128,9 +128,9 @@ export function ContactPage() {
     <div className="w-full min-h-screen bg-white text-black flex flex-col justify-between selection:bg-neutral-200">
       
       {/* Main Single-Page Contact Section */}
-      <main className="w-full max-w-[1600px] mx-auto px-6 lg:px-16 pt-[140px] md:pt-[180px] pb-24 md:pb-32 flex-grow">
+      <main className="w-full max-w-[1600px] mx-auto px-5 sm:px-8 lg:px-16 pt-[110px] md:pt-[180px] pb-16 md:pb-32 flex-grow">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
           
           {/* LEFT COLUMN: Section 01 Intro + Section 02 Contact Information */}
           <div className="lg:col-span-5 flex flex-col justify-between">
@@ -150,7 +150,7 @@ export function ContactPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-                className="text-[52px] sm:text-[68px] md:text-[84px] xl:text-[96px] font-display font-light text-black tracking-tight leading-[0.92] uppercase mb-8"
+                className="text-[44px] sm:text-[68px] md:text-[84px] xl:text-[96px] font-display font-light text-black tracking-tight leading-[0.92] uppercase mb-8 break-words"
               >
                 LET'S<br />
                 CONNECT.

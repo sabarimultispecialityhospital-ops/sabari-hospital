@@ -46,7 +46,7 @@ export function DoctorProfile() {
           className="flex items-center gap-2 text-neutral-500 hover:text-black transition-colors mb-12 group cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-[12px] font-semibold tracking-widest uppercase">The Human Index &mdash; All Doctors</span>
+          <span className="text-[12px] font-semibold tracking-widest uppercase">All Doctors</span>
         </button>
 
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
@@ -66,8 +66,8 @@ export function DoctorProfile() {
               />
 
               {/* Hover Name & Title Reveal Overlay */}
-              <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
-                <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+              <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/85 via-black/45 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+                <div className="transform translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-transform duration-500 ease-out">
                   <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
                     {doctor.role || "SPECIALIST"}
                   </span>
@@ -118,7 +118,7 @@ export function DoctorProfile() {
                   {doctor.num} &mdash; {doctor.role || doctor.speciality}
                 </span>
               </div>
-              <h1 className="text-[40px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-3">
+              <h1 className="text-[30px] sm:text-[42px] lg:text-[56px] font-medium leading-[1.08] tracking-[-0.02em] text-black mb-3 break-words">
                 {doctor.name}
               </h1>
               <p className="text-[18px] text-neutral-600 font-medium tracking-wide">

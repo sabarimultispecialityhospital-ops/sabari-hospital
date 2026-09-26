@@ -15,20 +15,20 @@ export function HumanCare() {
     <section 
       ref={sectionRef}
       data-nav-theme="dark" 
-      className="w-full bg-[#0a0a0a] py-[120px] lg:py-[140px] px-6 lg:pl-16 lg:pr-8 xl:pr-12 2xl:pr-16 border-t border-neutral-900 overflow-hidden text-white relative"
+      className="w-full bg-[#0a0a0a] py-16 sm:py-24 lg:py-[140px] px-6 lg:pl-16 lg:pr-8 xl:pr-12 2xl:pr-16 border-t border-neutral-900 overflow-hidden text-white relative"
     >
-      <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-14 lg:gap-10 xl:gap-14 items-center">
+      <div className="max-w-[1700px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-10 xl:gap-14 items-center">
         
         {/* Left Content */}
         <div className="lg:col-span-6 lg:pr-12">
-          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/50 mb-8 block">
+          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/50 mb-6 sm:mb-8 block">
             03 &mdash; OUR PHILOSOPHY
           </span>
-          <h2 className="text-[44px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-white mb-8">
+          <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-white mb-6 sm:mb-8">
             BEYOND<br />
             MEDICINE.
           </h2>
-          <p className="text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg">
+          <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg font-light">
             Because exceptional healthcare is not only about treatment. It is about how people feel throughout their journey.
           </p>
         </div>
@@ -53,9 +53,9 @@ export function HumanCare() {
               />
             </motion.div>
 
-            {/* Hover Name & Title Reveal */}
-            <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
-              <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+            {/* Hover Name & Title Reveal - Visible on mobile/touch, hover on desktop */}
+            <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
+              <div className="transform translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-transform duration-500 ease-out">
                 <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
                   CHAIRMAN &amp; MANAGING DIRECTOR
                 </span>

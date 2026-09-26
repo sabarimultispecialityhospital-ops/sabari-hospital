@@ -7,7 +7,7 @@ export const contactData = {
     titleLine2: "WHEN YOU",
     titleLine3: "NEED US.",
     supportingText: "For appointments, patient support, general enquiries and assistance, reach the Sabari Hospitals team.",
-    image: "https://images.unsplash.com/photo-1629909615184-74f495363b67?auto=format&fit=crop&q=80&w=1400",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1400",
     imageAlt: "Sabari Hospitals serene reception atrium with natural daylight and stone concierge desk",
     caption: "CENTRAL RECEPTION & PATIENT CONCIERGE ATRIUM"
   },

@@ -18,35 +18,35 @@ export const centresData = [
     num: "02",
     title: "SURGICAL CARE", 
     services: ["Surgical Services", "Anaesthesia & Perioperative Care"],
-    image: "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200" 
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=80&w=1200" 
   },
   { 
     id: "womens-health", 
     num: "03",
     title: "WOMEN'S HEALTH", 
     services: ["Obstetrics", "Gynaecology", "Labour & Delivery"],
-    image: "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&q=80&w=1200" 
+    image: "https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?auto=format&fit=crop&q=80&w=1200" 
   },
   { 
     id: "cardiac-care", 
     num: "04",
     title: "CARDIAC CARE", 
     services: ["Cardiac Services"],
-    image: "https://images.unsplash.com/photo-1628348068343-c6a848d2b6dd?auto=format&fit=crop&q=80&w=1200" 
+    image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&q=80&w=1200" 
   },
   { 
     id: "critical-care", 
     num: "05",
     title: "CRITICAL CARE", 
     services: ["Inpatient Care", "Critical Care", "Ambulance Services"],
-    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200" 
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200" 
   },
   { 
     id: "diagnostics", 
     num: "06",
     title: "DIAGNOSTICS", 
     services: ["Laboratory Services", "Physiotherapy"],
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200" 
+    image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=1200" 
   }
 ];
 

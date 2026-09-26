@@ -7,15 +7,15 @@ export function DoctorsSection() {
   const navigate = useNavigate();
 
   return (
-    <section data-nav-theme="dark" className="w-full bg-neutral-900 py-[140px] border-t border-neutral-800 overflow-hidden">
+    <section data-nav-theme="dark" className="w-full bg-neutral-900 py-16 sm:py-24 lg:py-[140px] border-t border-neutral-800 overflow-hidden">
       <div className="max-w-[1600px] w-full mx-auto flex flex-col px-6 lg:px-16">
         
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6">
           <div className="flex flex-col">
-            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 block">
+            <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-4 sm:mb-6 block">
               05 &mdash; OUR EXPERTS
             </span>
-            <h2 className="text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-white">
+            <h2 className="text-[36px] sm:text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-white">
               THE PEOPLE<br />
               BEHIND THE CARE.
             </h2>
@@ -30,7 +30,7 @@ export function DoctorsSection() {
         </div>
       </div>
 
-      <div className="w-full h-[50vh] lg:h-[70vh] relative pointer-events-auto mt-10">
+      <div className="w-full h-[400px] sm:h-[480px] lg:h-[70vh] relative pointer-events-auto mt-6 sm:mt-10">
         <CircularGallery
           items={doctorsData.map(doctor => ({ 
             id: doctor.id, 

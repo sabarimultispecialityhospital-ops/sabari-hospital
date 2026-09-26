@@ -72,12 +72,12 @@ export function DoctorsDirectory() {
         <div className="max-w-[1600px] w-full mx-auto">
           
           <div className="flex flex-col w-full">
-            <h1 className="text-[34px] sm:text-[54px] md:text-[68px] lg:text-[84px] font-medium leading-[1] tracking-[-0.03em] text-black mb-6 whitespace-nowrap overflow-hidden text-ellipsis">
+            <h1 className="text-[32px] sm:text-[54px] md:text-[68px] lg:text-[84px] font-medium leading-[1.05] tracking-[-0.03em] text-black mb-6 whitespace-normal sm:whitespace-nowrap break-words">
               THE MINDS BEHIND SABARI.
             </h1>
 
             <div className="pt-4 border-t border-neutral-200">
-              <p className="text-[16px] sm:text-[18px] lg:text-[19px] text-neutral-600 leading-relaxed font-light md:whitespace-nowrap">
+              <p className="text-[15px] sm:text-[18px] lg:text-[19px] text-neutral-600 leading-relaxed font-light md:whitespace-nowrap">
                 Experienced clinicians, specialised expertise and a shared commitment to patient care.
               </p>
             </div>
@@ -223,11 +223,11 @@ export function DoctorsDirectory() {
                   Our specialists consult across inpatient, outpatient, and surgical departments daily.
                 </p>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 w-full sm:w-auto">
                 <button
                   type="button"
                   onClick={() => openAppointmentModal()}
-                  className="px-5 py-2.5 border border-black text-[11px] font-semibold tracking-widest uppercase text-black hover:bg-black hover:text-white transition-colors text-center"
+                  className="w-full sm:w-auto px-5 py-2.5 border border-black text-[11px] font-semibold tracking-widest uppercase text-black hover:bg-black hover:text-white transition-colors text-center"
                 >
                   Book Appointment
                 </button>

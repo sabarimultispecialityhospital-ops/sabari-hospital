@@ -37,9 +37,9 @@ function AnimatedNumber({ value }) {
 
 export function NumbersSection() {
   return (
-    <section data-nav-theme="light" className="w-full bg-white py-[60px] lg:py-[80px] px-6 lg:px-16 border-y border-neutral-100">
+    <section data-nav-theme="light" className="w-full bg-white py-12 sm:py-16 lg:py-[80px] px-6 lg:px-16 border-y border-neutral-100">
       <div className="max-w-[1600px] w-full mx-auto">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 sm:gap-x-8 gap-y-10 sm:gap-y-16">
           {numbersData.map((stat, idx) => (
             <motion.div 
               key={idx}
@@ -49,10 +49,10 @@ export function NumbersSection() {
               transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
               className={`flex flex-col ${idx !== 0 ? 'lg:border-l lg:border-neutral-200 lg:pl-16' : ''}`}
             >
-              <h3 className="text-[56px] lg:text-[72px] font-medium leading-none tracking-tight text-black mb-4">
+              <h3 className="text-[38px] sm:text-[56px] lg:text-[72px] font-medium leading-none tracking-tight text-black mb-3 sm:mb-4">
                 <AnimatedNumber value={stat.value} />
               </h3>
-              <p className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400">
+              <p className="text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400">
                 {stat.label}
               </p>
             </motion.div>

@@ -19,36 +19,21 @@ export function FacilitiesLanding() {
     <div data-nav-theme="light" className="w-full min-h-screen bg-white text-black selection:bg-neutral-200">
       
       {/* 1. Cinematic Hero */}
-      <section className="w-full pt-32 pb-16 lg:pt-40 lg:pb-24 px-6 lg:px-16 border-b border-neutral-200 bg-white">
-        <div className="max-w-[1600px] w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-end">
+      <section className="w-full pt-28 pb-12 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-24 px-6 lg:px-16 border-b border-neutral-200 bg-white">
+        <div className="max-w-[1600px] w-full mx-auto">
           
-          <div className="lg:col-span-7 flex flex-col">
-            <span className="text-[12px] font-mono font-semibold tracking-[0.25em] uppercase text-neutral-400 mb-6 block">
-              03 &mdash; FACILITIES
+          <div className="flex flex-col max-w-5xl">
+            <span className="text-[12px] font-mono font-semibold tracking-[0.25em] uppercase text-neutral-400 mb-4 sm:mb-6 block">
+              FACILITIES
             </span>
             
-            <h1 className="text-[52px] sm:text-[76px] lg:text-[100px] font-medium leading-[0.93] tracking-[-0.035em] text-black mb-8">
-              BUILT AROUND<br />
-              YOUR CARE.
+            <h1 className="text-[34px] sm:text-[54px] md:text-[68px] lg:text-[80px] xl:text-[92px] font-medium leading-[1.05] tracking-[-0.03em] break-words text-black mb-6 sm:mb-8">
+              BUILT AROUND YOUR CARE.
             </h1>
             
-            <p className="text-[18px] sm:text-[21px] text-neutral-600 leading-relaxed max-w-xl font-light">
+            <p className="text-[16px] sm:text-[18px] lg:text-[21px] text-neutral-600 leading-relaxed max-w-2xl font-light">
               Thoughtfully designed spaces, services and infrastructure that support every stage of the patient journey.
             </p>
-          </div>
-
-          <div className="lg:col-span-5 flex flex-col justify-end">
-            <div className="relative aspect-[16/11] w-full overflow-hidden bg-neutral-100 border border-neutral-200">
-              <img 
-                src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=1200" 
-                alt="Architectural modern hospital atrium and clinical corridors" 
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-neutral-400 uppercase mt-3">
-              <span>HOSPITAL ARCHITECTURE & INFRASTRUCTURE</span>
-              <span>07 DIVISIONS</span>
-            </div>
           </div>
 
         </div>
@@ -148,50 +133,39 @@ export function FacilitiesLanding() {
               })}
             </div>
 
-            {/* Right: Embedded Architectural Visual Window */}
-            <div className="col-span-5 sticky top-36">
-              <div className="border border-neutral-200 p-6 bg-neutral-50/50">
-                
-                <div className="relative aspect-[4/3] w-full overflow-hidden bg-neutral-200 border border-neutral-200">
-                  <AnimatePresence mode="wait">
-                    <motion.img
-                      key={activeCategory.id}
-                      src={activeCategory.heroImage}
-                      alt={activeCategory.alt}
-                      initial={{ opacity: 0, scale: 1.03 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.45, ease: "easeOut" }}
-                      className="w-full h-full object-cover"
-                    />
-                  </AnimatePresence>
-                </div>
-
-                <div className="mt-6 flex flex-col">
-                  <div className="flex items-center justify-between text-[11px] font-mono tracking-widest text-neutral-400 uppercase mb-2">
-                    <span>{activeCategory.number} // {activeCategory.title}</span>
-                    <span>{activeCategory.services.length} SERVICES</span>
+            {/* Right: Same as Landing Page - Minimalist Typographic List without card box */}
+            <div className="col-span-5 sticky top-36 flex flex-col min-h-[300px] pt-4">
+              <div className="h-[1px] w-full bg-neutral-200 mb-8" />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeCategory.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className="flex flex-col"
+                >
+                  <h3 className="text-[12px] font-mono font-semibold tracking-widest uppercase text-neutral-400 mb-8">
+                    {activeCategory.title} &mdash; SERVICES
+                  </h3>
+                  <div className="flex flex-col gap-6">
+                    {activeCategory.services?.map((svc, idx) => (
+                      <Link 
+                        key={svc.slug || idx} 
+                        to={`/facilities/${activeCategory.slug}/${svc.slug}`}
+                        className="flex items-center gap-5 group cursor-pointer"
+                      >
+                        <span className="text-[13px] text-neutral-300 font-mono transition-colors group-hover:text-black">
+                          0{idx + 1}
+                        </span>
+                        <span className="text-[22px] lg:text-[26px] font-medium tracking-[-0.01em] text-neutral-600 transition-colors group-hover:text-black">
+                          {svc.title}
+                        </span>
+                      </Link>
+                    ))}
                   </div>
-                  
-                  <h4 className="text-[17px] font-medium text-black leading-snug tracking-tight mb-2">
-                    {activeCategory.tagline}
-                  </h4>
-                  
-                  <div className="pt-4 mt-2 border-t border-neutral-200 flex items-center justify-between">
-                    <span className="text-[12px] text-neutral-500 font-light">
-                      Inspect complete division infrastructure
-                    </span>
-                    <Link
-                      to={`/facilities/${activeCategory.slug}`}
-                      className="inline-flex items-center gap-2 text-[12px] font-semibold tracking-wider uppercase text-black hover:opacity-70 transition-opacity"
-                    >
-                      <span>Explore Division</span>
-                      <span>&rarr;</span>
-                    </Link>
-                  </div>
-                </div>
-
-              </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
           </div>
@@ -212,26 +186,21 @@ export function FacilitiesLanding() {
                   </Link>
                 </div>
 
-                <div className="aspect-[16/9] w-full overflow-hidden bg-neutral-100 border border-neutral-200 my-4">
-                  <img 
-                    src={cat.heroImage} 
-                    alt={cat.alt} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
                 <p className="text-[14px] text-neutral-600 font-light mb-5 leading-relaxed">
                   {cat.shortDescription}
                 </p>
 
                 <div className="flex flex-col gap-2 pt-2 border-t border-neutral-100">
-                  {cat.services.map((svc) => (
+                  {cat.services.map((svc, idx) => (
                     <Link
                       key={svc.slug}
                       to={`/facilities/${cat.slug}/${svc.slug}`}
                       className="inline-flex items-center justify-between py-2 text-[14px] font-medium text-black border-b border-neutral-100 last:border-b-0 hover:text-neutral-600"
                     >
-                      <span>{svc.title}</span>
+                      <span className="flex items-center gap-3">
+                        <span className="text-neutral-300 font-mono text-xs">0{idx + 1}</span>
+                        <span>{svc.title}</span>
+                      </span>
                       <span>&rarr;</span>
                     </Link>
                   ))}
@@ -254,26 +223,26 @@ export function FacilitiesLanding() {
       </section>
 
       {/* 3. Consultation & Inpatient Guidance CTA */}
-      <section className="w-full py-20 px-6 lg:px-16 bg-neutral-50 border-t border-neutral-200">
-        <div className="max-w-[1600px] w-full mx-auto flex flex-col md:flex-row md:items-center justify-between gap-8 p-12 border border-neutral-200 bg-white">
+      <section className="w-full py-14 sm:py-20 px-6 lg:px-16 bg-neutral-50 border-t border-neutral-200">
+        <div className="max-w-[1600px] w-full mx-auto flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8 p-6 sm:p-10 lg:p-12 border border-neutral-200 bg-white">
           <div className="flex flex-col">
             <span className="text-[11px] font-mono tracking-widest uppercase text-neutral-400 mb-2">
               PATIENT SERVICES & HOSPITAL ACCESS
             </span>
-            <h3 className="text-[26px] lg:text-[32px] font-medium tracking-tight text-black">
+            <h3 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium tracking-tight text-black">
               Planning a Visit or Admission?
             </h3>
-            <p className="text-[15px] text-neutral-600 font-light mt-1">
+            <p className="text-[14px] sm:text-[15px] text-neutral-600 font-light mt-1">
               Contact our patient services help desk for room inquiries, admission guidance, and directions.
             </p>
           </div>
           <button
             type="button"
             onClick={() => openAppointmentModal()}
-            className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors self-start md:self-auto shrink-0"
-            >
+            className="px-8 py-4 bg-black text-white text-[12px] font-semibold tracking-widest uppercase hover:bg-neutral-800 transition-colors w-full sm:w-auto text-center shrink-0"
+          >
             Book Appointment &rarr;
-            </button>
+          </button>
         </div>
       </section>
 
