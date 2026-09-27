@@ -73,12 +73,12 @@ export function Footer() {
           </div>
 
           {/* Right Side: Design & Developed by Javix Technologies + Back to top */}
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-4 sm:gap-6 shrink-0">
             <a 
               href="https://javixtechnologies.com/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-white transition-colors py-1 group flex items-center gap-1.5"
+              className="hover:text-white transition-colors py-1 group flex items-center gap-1.5 whitespace-nowrap"
             >
               <span>Design & Developed by</span>
               <span className="text-white/60 group-hover:text-white font-semibold transition-colors">Javix Technologies</span>
