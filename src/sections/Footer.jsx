@@ -5,8 +5,13 @@ import { useAppointment } from '../context/AppointmentContext';
 
 export function Footer() {
   const { openAppointmentModal } = useAppointment();
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = (e) => {
+    if (e) e.preventDefault();
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    } catch {
+      window.scrollTo(0, 0);
+    }
   };
 
   return (
@@ -38,19 +43,20 @@ export function Footer() {
       </div>
 
       {/* Massive Typography */}
-      <div className="max-w-[1600px] w-full mx-auto pt-10 sm:pt-16 pb-2 overflow-hidden flex flex-col items-center pointer-events-none select-none">
-        <h1 className="text-[11vw] leading-none font-bold tracking-[-0.04em] bg-gradient-to-b from-white/60 via-white/30 to-white/10 bg-clip-text text-transparent text-center whitespace-nowrap overflow-hidden max-w-full">
+      <div className="max-w-[1600px] w-full mx-auto pt-10 sm:pt-16 pb-2 overflow-hidden flex flex-col items-center">
+        <h1 className="text-[11vw] leading-none font-bold tracking-[-0.04em] bg-gradient-to-b from-white/60 via-white/30 to-white/10 bg-clip-text text-transparent text-center whitespace-nowrap overflow-hidden max-w-full pointer-events-none select-none">
           SABARI HOSPITAL
         </h1>
         
-        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono uppercase tracking-widest text-white/30 mt-12">
+        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono uppercase tracking-widest text-white/30 mt-12 relative z-10">
           <p>&copy; {new Date().getFullYear()} Sabari Hospital.</p>
           <div className="flex items-center gap-6">
-            <Link to="/contact" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="/contact" className="hover:text-white transition-colors">Terms of Service</Link>
+            <Link to="/contact" className="hover:text-white transition-colors py-1">Privacy Policy</Link>
+            <Link to="/contact" className="hover:text-white transition-colors py-1">Terms of Service</Link>
             <button
+              type="button"
               onClick={scrollToTop}
-              className="ml-4 flex items-center justify-center w-8 h-8 rounded-full border border-white/10 hover:bg-white hover:text-black hover:border-white transition-all duration-300"
+              className="ml-4 flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white/70 hover:text-black hover:bg-white hover:border-white active:scale-95 transition-all duration-300 cursor-pointer"
               aria-label="Back to top"
             >
               &uarr;
