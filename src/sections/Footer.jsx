@@ -39,7 +39,7 @@ export function Footer() {
 
       {/* Massive Typography */}
       <div className="max-w-[1600px] w-full mx-auto pt-10 sm:pt-16 pb-2 overflow-hidden flex flex-col items-center pointer-events-none select-none">
-        <h1 className="text-[11vw] leading-none font-bold tracking-[-0.04em] text-white/[0.02] text-center whitespace-nowrap overflow-hidden max-w-full">
+        <h1 className="text-[11vw] leading-none font-bold tracking-[-0.04em] bg-gradient-to-b from-white/60 via-white/30 to-white/10 bg-clip-text text-transparent text-center whitespace-nowrap overflow-hidden max-w-full">
           SABARI HOSPITAL
         </h1>
         
