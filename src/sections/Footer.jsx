@@ -62,15 +62,31 @@ export function Footer() {
           SABARI HOSPITAL
         </h1>
         
-        <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono uppercase tracking-widest text-white/30 mt-12 relative z-10">
-          <p>&copy; {new Date().getFullYear()} Sabari Hospital.</p>
-          <div className="flex items-center gap-6">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-mono uppercase tracking-widest text-white/30 mt-12 relative z-10">
+          {/* Left Side: Copyright, Privacy Policy, Terms of Service */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6 text-center md:text-left">
+            <p>&copy; {new Date().getFullYear()} Sabari Hospital.</p>
+            <span className="hidden sm:inline text-white/10">&bull;</span>
             <Link to="/privacy-policy" className="hover:text-white transition-colors py-1">Privacy Policy</Link>
+            <span className="hidden sm:inline text-white/10">&bull;</span>
             <Link to="/terms-of-service" className="hover:text-white transition-colors py-1">Terms of Service</Link>
+          </div>
+
+          {/* Right Side: Design & Developed by Javix Technologies + Back to top */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <a 
+              href="https://javixtechnologies.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:text-white transition-colors py-1 group flex items-center gap-1.5"
+            >
+              <span>Design & Developed by</span>
+              <span className="text-white/60 group-hover:text-white font-semibold transition-colors">Javix Technologies</span>
+            </a>
             <button
               type="button"
               onClick={scrollToTop}
-              className="ml-4 flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white/70 hover:text-black hover:bg-white hover:border-white active:scale-95 transition-all duration-300 cursor-pointer"
+              className="flex items-center justify-center w-9 h-9 rounded-full border border-white/20 text-white/70 hover:text-black hover:bg-white hover:border-white active:scale-95 transition-all duration-300 cursor-pointer shrink-0"
               aria-label="Back to top"
             >
               &uarr;
