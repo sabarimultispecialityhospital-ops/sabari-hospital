@@ -59,13 +59,14 @@ export function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-8 w-full sm:w-auto">
             <Link 
               to="/contact" 
-              className="inline-flex items-center justify-center bg-black text-white text-[15px] sm:text-[14px] font-bold tracking-[0.05em] uppercase px-8 py-5 border border-black hover:bg-white hover:text-black transition-all duration-300 w-full sm:w-max text-center shadow-md shadow-black/10"
+              className="inline-flex items-center justify-center gap-2 bg-black text-white text-[13px] font-semibold tracking-[0.06em] uppercase px-6 sm:px-8 py-3.5 sm:py-4 border border-black hover:bg-white hover:text-black transition-all duration-300 w-auto text-center shadow-sm whitespace-nowrap"
             >
-              BOOK AN APPOINTMENT &rarr;
+              <span>BOOK AN APPOINTMENT</span>
+              <span>&rarr;</span>
             </Link>
             <a 
               href="#explore" 
-              className="text-[15px] sm:text-[14px] font-bold tracking-[0.05em] uppercase text-black hover:text-neutral-500 transition-colors py-3 sm:py-0 text-center"
+              className="text-[13px] font-semibold tracking-[0.06em] uppercase text-black hover:text-neutral-500 transition-colors py-2 sm:py-0 text-center whitespace-nowrap"
             >
               EXPLORE OUR CARE
             </a>
