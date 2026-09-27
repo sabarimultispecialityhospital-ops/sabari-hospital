@@ -25,11 +25,11 @@ export function HumanCare() {
             OUR PHILOSOPHY
           </span>
           <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-white mb-6 sm:mb-8">
-            BEYOND<br />
-            MEDICINE.
+            HEALING<br />
+            WITH INTEGRITY.
           </h2>
           <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg font-light">
-            Because exceptional healthcare is not only about treatment. It is about how people feel throughout their journey.
+            Every medical decision is made with transparency, medical ethics, and an uncompromising commitment to patient safety.
           </p>
         </div>
 
