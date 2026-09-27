@@ -133,7 +133,7 @@ export const doctorsData = [
       "MBBS",
       "DGO (Obstetrics & Gynaecology)",
       "Founder, Sabari Hospital",
-      "25 Years Clinical Experience at Coimbatore Medical College",
+      "50 Years of Experience",
       "Lifetime Achievement Award from IMA Coimbatore (2019)"
     ]
   },
