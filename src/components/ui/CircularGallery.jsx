@@ -1,5 +1,5 @@
 import { Camera, Mesh, Plane, Program, Renderer, Texture, Transform } from 'ogl';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import './CircularGallery.css';
 
@@ -413,6 +413,9 @@ class App {
       dpr: Math.min(window.devicePixelRatio || 1, 2)
     });
     this.gl = this.renderer.gl;
+    if (!this.gl) {
+      throw new Error('WebGL context is not available');
+    }
     this.gl.clearColor(0, 0, 0, 0);
     this.container.appendChild(this.gl.canvas);
   }
@@ -635,6 +638,76 @@ class App {
   }
 }
 
+function FallbackGallery({ items = [], onItemClick }) {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = direction === 'left' ? -340 : 340;
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <div className="w-full h-full flex flex-col justify-center relative select-none">
+      {/* Scroll Navigation Buttons */}
+      <div className="absolute -top-12 sm:-top-16 right-4 lg:right-0 hidden sm:flex items-center gap-2 z-20">
+        <button
+          type="button"
+          onClick={() => scroll('left')}
+          className="w-9 h-9 rounded-full border border-neutral-700 bg-neutral-800/90 hover:bg-white hover:text-black hover:border-white text-white flex items-center justify-center transition-all cursor-pointer shadow-md"
+          aria-label="Previous specialist"
+        >
+          &larr;
+        </button>
+        <button
+          type="button"
+          onClick={() => scroll('right')}
+          className="w-9 h-9 rounded-full border border-neutral-700 bg-neutral-800/90 hover:bg-white hover:text-black hover:border-white text-white flex items-center justify-center transition-all cursor-pointer shadow-md"
+          aria-label="Next specialist"
+        >
+          &rarr;
+        </button>
+      </div>
+
+      {/* Horizontal Scroll Track */}
+      <div
+        ref={scrollRef}
+        className="w-full flex items-center gap-5 sm:gap-6 overflow-x-auto px-4 sm:px-6 lg:px-8 py-4 scroll-smooth"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        {items.map((item, idx) => (
+          <div
+            key={item.id || idx}
+            onClick={() => onItemClick && onItemClick(item)}
+            className="group relative flex-shrink-0 w-[240px] sm:w-[280px] lg:w-[300px] aspect-[4/5] rounded-2xl overflow-hidden bg-neutral-800 border border-neutral-700/60 hover:border-neutral-500 transition-all duration-300 cursor-pointer shadow-xl hover:shadow-2xl hover:-translate-y-1"
+          >
+            <img
+              src={item.image}
+              alt={item.text}
+              className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+              loading="lazy"
+            />
+            {/* Dark gradient overlay & doctor typography */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent flex flex-col justify-end p-5">
+              <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-white/50 mb-1">
+                SPECIALIST
+              </span>
+              <h3 className="text-[17px] sm:text-[19px] font-medium text-white tracking-tight leading-tight group-hover:text-emerald-400 transition-colors">
+                {item.text}
+              </h3>
+              <div className="mt-2.5 flex items-center gap-1.5 text-[11px] font-mono tracking-wider uppercase text-white/60 group-hover:text-white transition-colors">
+                <span>View Profile</span>
+                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function CircularGallery({
   items,
   bend = 3,
@@ -647,29 +720,66 @@ export default function CircularGallery({
   onItemClick
 }) {
   const containerRef = useRef(null);
+  const [webglFailed, setWebglFailed] = useState(false);
+
   useEffect(() => {
+    // 1. Pre-flight check: does browser support WebGL?
+    try {
+      const testCanvas = document.createElement('canvas');
+      const gl = testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl');
+      if (!gl) {
+        setWebglFailed(true);
+        return;
+      }
+    } catch {
+      setWebglFailed(true);
+      return;
+    }
+
     if (!containerRef.current) return;
     let app;
     let isMounted = true;
-    resolveFont(font, fontUrl).then(resolvedFont => {
-      if (!isMounted || !containerRef.current) return;
-      app = new App(containerRef.current, {
-        items,
-        bend,
-        textColor,
-        borderRadius,
-        font: resolvedFont,
-        scrollSpeed,
-        scrollEase,
-        onItemClick
+
+    resolveFont(font, fontUrl)
+      .then(resolvedFont => {
+        if (!isMounted || !containerRef.current) return;
+        try {
+          app = new App(containerRef.current, {
+            items,
+            bend,
+            textColor,
+            borderRadius,
+            font: resolvedFont,
+            scrollSpeed,
+            scrollEase,
+            onItemClick
+          });
+        } catch (err) {
+          console.warn('CircularGallery WebGL initialization error, falling back to CSS carousel:', err);
+          if (isMounted) setWebglFailed(true);
+        }
+      })
+      .catch(err => {
+        console.warn('CircularGallery font resolve error, falling back to CSS carousel:', err);
+        if (isMounted) setWebglFailed(true);
       });
-    });
 
     return () => {
       isMounted = false;
-      if (app) app.destroy();
+      if (app) {
+        try {
+          app.destroy();
+        } catch {
+          // ignore cleanup errors
+        }
+      }
     };
   }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, onItemClick]);
+
+  if (webglFailed) {
+    return <FallbackGallery items={items} onItemClick={onItemClick} />;
+  }
+
   return (
     <div
       className="circular-gallery"
