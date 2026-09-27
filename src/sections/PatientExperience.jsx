@@ -10,7 +10,7 @@ export function PatientExperience() {
         {/* Left Typography */}
         <div className="lg:col-span-5 flex flex-col justify-start">
           <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 sm:mb-8 block">
-            06 &mdash; PATIENT EXPERIENCE
+            PATIENT EXPERIENCE
           </span>
           <h2 className="text-[34px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-6 sm:mb-8">
             YOUR CARE.<br />

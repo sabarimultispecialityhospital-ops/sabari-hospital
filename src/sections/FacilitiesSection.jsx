@@ -9,7 +9,7 @@ export function FacilitiesSection() {
         {/* Left Heading */}
         <div className="lg:col-span-4">
           <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 sm:mb-8 block">
-            04 &mdash; INFRASTRUCTURE
+            INFRASTRUCTURE
           </span>
           <h2 className="text-[36px] sm:text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-6 sm:mb-8 max-w-none lg:max-w-[280px]">
             DESIGNED<br />

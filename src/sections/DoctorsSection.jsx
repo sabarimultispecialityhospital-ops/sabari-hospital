@@ -13,7 +13,7 @@ export function DoctorsSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-16 gap-6">
           <div className="flex flex-col">
             <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-4 sm:mb-6 block">
-              05 &mdash; OUR EXPERTS
+              OUR EXPERTS
             </span>
             <h2 className="text-[36px] sm:text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-white">
               THE PEOPLE<br />

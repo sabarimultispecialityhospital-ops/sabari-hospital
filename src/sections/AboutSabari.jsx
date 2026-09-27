@@ -9,7 +9,7 @@ export function AboutSabari() {
         {/* Left Content */}
         <div className="lg:col-span-6 lg:pr-12">
           <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-8 block">
-            01 &mdash; ABOUT SABARI
+            ABOUT SABARI
           </span>
           <h2 className="text-[44px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-10">
             HEALTHCARE<br />

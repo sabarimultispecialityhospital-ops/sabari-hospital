@@ -13,7 +13,7 @@ export function CentresOfExcellence() {
         {/* Left: Titles & Subtitles */}
         <div className="lg:col-span-5 flex flex-col">
           <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 sm:mb-8 block">
-            02 &mdash; EXPERTISE
+            EXPERTISE
           </span>
           <Link to="/centre-of-excellence" className="hover:opacity-80 transition-opacity">
             <h2 className="text-[36px] sm:text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-6 sm:mb-8">

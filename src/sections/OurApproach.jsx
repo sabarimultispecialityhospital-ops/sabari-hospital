@@ -22,7 +22,7 @@ export function OurApproach() {
         {/* Left Content */}
         <div className="lg:col-span-6 lg:pr-12">
           <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 sm:mb-8 block">
-            01 &mdash; OUR APPROACH
+            OUR APPROACH
           </span>
           <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-8 sm:mb-10">
             MEDICINE IS<br />

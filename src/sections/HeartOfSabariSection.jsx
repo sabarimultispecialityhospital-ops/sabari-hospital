@@ -22,7 +22,7 @@ export function HeartOfSabariSection() {
         {/* Left Content */}
         <div className="lg:col-span-6 lg:pr-12">
           <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/50 mb-6 sm:mb-8 block">
-            05 &mdash; HEART OF SABARI
+            HEART OF SABARI
           </span>
           <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-white mb-6 sm:mb-8">
             COMPASSION<br />
