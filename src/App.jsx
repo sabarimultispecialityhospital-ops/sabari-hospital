@@ -21,6 +21,8 @@ import { FacilitiesLanding } from './pages/facilities/FacilitiesLanding';
 import { FacilityCategoryPage } from './pages/facilities/FacilityCategoryPage';
 import { FacilityServicePage } from './pages/facilities/FacilityServicePage';
 import { ContactPage } from './pages/ContactPage';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
+import { TermsOfService } from './pages/TermsOfService';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -62,6 +64,13 @@ function App() {
 
         {/* Contact Us Experience */}
         <Route path="/contact" element={<ContactPage />} />
+
+        {/* Legal & Policy Pages */}
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/privacy" element={<Navigate to="/privacy-policy" replace />} />
+        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/terms" element={<Navigate to="/terms-of-service" replace />} />
+        <Route path="/terms-and-conditions" element={<Navigate to="/terms-of-service" replace />} />
 
         {/* Book Appointment routes redirecting to /contact */}
         <Route path="/book-appointment" element={<Navigate to="/contact" replace />} />

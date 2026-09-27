@@ -65,8 +65,8 @@ export function Footer() {
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] font-mono uppercase tracking-widest text-white/30 mt-12 relative z-10">
           <p>&copy; {new Date().getFullYear()} Sabari Hospital.</p>
           <div className="flex items-center gap-6">
-            <Link to="/contact" className="hover:text-white transition-colors py-1">Privacy Policy</Link>
-            <Link to="/contact" className="hover:text-white transition-colors py-1">Terms of Service</Link>
+            <Link to="/privacy-policy" className="hover:text-white transition-colors py-1">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-white transition-colors py-1">Terms of Service</Link>
             <button
               type="button"
               onClick={scrollToTop}
