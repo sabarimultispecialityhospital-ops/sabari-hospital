@@ -173,13 +173,9 @@ export function TermsOfService() {
       <section className="w-full pt-28 pb-12 sm:pt-36 sm:pb-16 px-6 lg:px-16 border-b border-neutral-200">
         <div className="max-w-[1200px] w-full mx-auto">
           <div className="flex flex-col">
-            <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <div className="flex items-center gap-3 mb-4">
               <span className="text-[12px] font-mono font-semibold tracking-[0.25em] uppercase text-neutral-500">
                 LEGAL & GOVERNANCE
-              </span>
-              <span className="text-neutral-300">&bull;</span>
-              <span className="text-[11px] font-mono text-neutral-500">
-                LAST UPDATED: 27 SEPTEMBER 2026
               </span>
             </div>
             
