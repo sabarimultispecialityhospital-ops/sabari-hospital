@@ -34,11 +34,25 @@ export function Footer() {
           </button>
         </div>
         
-        <div className="flex flex-col gap-3 sm:gap-4 text-[14px] lg:text-right">
-          <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mb-1">Direct Enquiries</p>
-          <a href="mailto:sabarimultispecialityhospital@gmail.com" className="text-[15px] sm:text-lg lg:text-xl font-light hover:text-white/80 transition-colors break-all">sabarimultispecialityhospital@gmail.com</a>
-          <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mt-4 sm:mt-6 mb-1">Location</p>
-          <p className="text-white/80 leading-relaxed font-light text-base sm:text-lg">Coimbatore, Tamil Nadu<br/>India</p>
+        <div className="flex flex-col gap-4 text-[14px] lg:text-right">
+          <div>
+            <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mb-1">Direct Helpline</p>
+            <a href="tel:+914222442200" className="text-[17px] sm:text-lg lg:text-xl font-light hover:text-white/80 transition-colors inline-block">
+              0422-2442200
+            </a>
+          </div>
+          <div>
+            <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mb-1">Direct Enquiries</p>
+            <a href="mailto:sabarimultispecialityhospital@gmail.com" className="text-[15px] sm:text-lg lg:text-xl font-light hover:text-white/80 transition-colors break-all inline-block">
+              sabarimultispecialityhospital@gmail.com
+            </a>
+          </div>
+          <div>
+            <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mb-1">Location</p>
+            <p className="text-white/80 leading-relaxed font-light text-base sm:text-lg">
+              Coimbatore, Tamil Nadu<br/>India
+            </p>
+          </div>
         </div>
       </div>
 
