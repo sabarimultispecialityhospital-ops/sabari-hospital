@@ -104,9 +104,9 @@ export const doctorsData = [
     role: "Founder",
     speciality: "Obstetrician & Gynaecologist",
     subSpeciality: "Women's Health & High-Risk Pregnancy",
-    experience: "Worked in Coimbatore Medical College for 25 years",
+    experience: "50 Years of Experience",
     image: "/doctors/doctor-1.png",
-    bio: "Dr. Mangaleeswari is the Founder of Sabari Hospital. Having served Coimbatore Medical College for 25 years, her practice is centered on compassionate, comprehensive, and personalised care for women across every phase of life.",
+    bio: "Dr. Mangaleeswari is the Founder of Sabari Hospital. With 50 years of clinical experience, her practice is centered on compassionate, comprehensive, and personalised care for women across every phase of life.",
     profileFocus: "Compassionate, comprehensive and personalised care for women across all stages of life.",
     obstetricServices: [
       "Comprehensive antenatal care",
