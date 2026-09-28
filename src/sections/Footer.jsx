@@ -15,7 +15,7 @@ export function Footer() {
   };
 
   return (
-    <footer data-nav-theme="dark" className="w-full bg-[#0a0a0a] text-white pt-16 sm:pt-24 lg:pt-32 pb-8 px-6 lg:px-16 relative overflow-hidden flex flex-col justify-between">
+    <footer data-nav-theme="dark" className="w-full bg-[#111827] text-white pt-16 sm:pt-24 lg:pt-32 pb-8 px-6 lg:px-16 relative overflow-hidden flex flex-col justify-between">
       
       {/* Top Statement & Action Strip */}
       <div className="max-w-[1600px] w-full mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10 lg:gap-12 border-b border-white/[0.06] pb-12 sm:pb-16 lg:pb-24">
