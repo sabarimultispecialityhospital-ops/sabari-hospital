@@ -107,7 +107,8 @@ export function DoctorsDirectory() {
                     onClick={(e) => handleDoctorClick(doctor.id, e)}
                     className="group relative py-7 lg:py-9 cursor-pointer transition-all duration-200"
                   >
-                    <div className="flex flex-col gap-2.5">
+                    {/* Desktop Editorial Typographic View */}
+                    <div className="hidden lg:flex flex-col gap-2.5">
                       
                       {/* Top Meta Line: Number + Role */}
                       <div className="flex items-center justify-between">
@@ -172,39 +173,52 @@ export function DoctorsDirectory() {
                           </>
                         )}
                       </div>
-
-                      {/* Mobile Portrait & Info (shown only on small devices) */}
-                      <div className="lg:hidden mt-3 pt-3 border-t border-neutral-100 flex flex-col gap-3">
-                        <div className="flex items-center gap-4">
-                          <img 
-                            src={doctor.image} 
-                            alt={doctor.name} 
-                            className="w-16 h-20 object-cover object-top bg-neutral-100 rounded-xl shadow-md shrink-0"
-                          />
-                          <div className="flex flex-col">
-                            <span className="text-[11px] font-semibold uppercase tracking-wider text-neutral-400">
-                              {doctor.role || doctor.speciality}
-                            </span>
-                            <span className="text-[14px] font-medium text-black">{doctor.name}</span>
-                            <span className="text-[12px] text-neutral-600 mt-0.5">{doctor.speciality}</span>
-                            <span className="text-[11px] text-neutral-400 font-light mt-0.5">{doctor.experience}</span>
-                          </div>
-                        </div>
-
-                        <button
-                          type="button"
-                          onClick={(e) => handleDoctorClick(doctor.id, e)}
-                          className="w-full py-2.5 border border-black text-[11px] font-semibold tracking-wider uppercase text-black hover:bg-black hover:text-white transition-colors text-center"
-                        >
-                          View Profile &rarr;
-                        </button>
-                      </div>
-
                     </div>
 
-                    {/* Subtle underline reveal */}
+                    {/* Clean Unified Mobile View */}
+                    <div className="lg:hidden flex flex-col gap-3 py-1">
+                      {/* Top Meta Line: Number + Role + Arrow */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-[12px] font-mono font-bold text-[#00A99D] tracking-wider">
+                            {doctor.num}
+                          </span>
+                          <span className="text-neutral-300">&bull;</span>
+                          <span className="text-[11px] font-sans font-semibold uppercase tracking-[0.16em] text-neutral-500 truncate max-w-[210px]">
+                            {doctor.role || doctor.speciality}
+                          </span>
+                        </div>
+                        <span className="text-[13px] text-[#00A99D] font-medium">&rarr;</span>
+                      </div>
+
+                      {/* Doctor Details Card */}
+                      <div className="flex items-start gap-4">
+                        <img 
+                          src={doctor.image} 
+                          alt={doctor.name} 
+                          className="w-[72px] h-[88px] object-cover object-top bg-neutral-100 rounded-xl shadow-sm border border-neutral-200/80 shrink-0"
+                          loading="lazy"
+                        />
+                        <div className="flex flex-col justify-center min-w-0 flex-1">
+                          <h2 className="text-[17px] font-semibold text-neutral-900 tracking-tight leading-snug">
+                            {doctor.name}
+                          </h2>
+                          <p className="text-[13px] font-medium text-[#0B4A8B] mt-0.5">
+                            {doctor.speciality}
+                          </p>
+                          <p className="text-[12px] text-neutral-500 font-light line-clamp-1 mt-0.5">
+                            {doctor.experience || doctor.subSpeciality}
+                          </p>
+                          <span className="text-[11px] font-semibold uppercase tracking-wider text-black mt-2 inline-flex items-center gap-1 group-hover:text-[#00A99D] transition-colors">
+                            View Profile &rarr;
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Subtle underline reveal (Desktop Only) */}
                     <div 
-                      className={`absolute bottom-0 left-0 h-[1.5px] bg-black transition-all duration-300 ease-out origin-left ${
+                      className={`hidden lg:block absolute bottom-0 left-0 h-[1.5px] bg-black transition-all duration-300 ease-out origin-left ${
                         isActive ? 'w-full' : 'w-0 group-hover:w-full'
                       }`} 
                     />

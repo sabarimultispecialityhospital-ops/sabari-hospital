@@ -49,10 +49,10 @@ export function NumbersSection() {
               transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
               className={`flex flex-col ${idx !== 0 ? 'lg:border-l lg:border-neutral-200 lg:pl-16' : ''}`}
             >
-              <h3 className="text-[38px] sm:text-[56px] lg:text-[72px] font-medium leading-none tracking-tight text-black mb-3 sm:mb-4">
+              <h3 className="text-[38px] sm:text-[56px] lg:text-[72px] font-medium leading-none tracking-tight text-[#0B4A8B] mb-3 sm:mb-4">
                 <AnimatedNumber value={stat.value} />
               </h3>
-              <p className="text-[10px] sm:text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400">
+              <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase text-[#00A99D]">
                 {stat.label}
               </p>
             </motion.div>

@@ -14,13 +14,8 @@ import { WhySabari } from './pages/about/WhySabari';
 import { Accreditations } from './pages/about/Accreditations';
 import { PatientExperiencePage } from './pages/about/PatientExperiencePage';
 import { Careers } from './pages/about/Careers';
-import { CentresLanding } from './pages/centre/CentresLanding';
-import { CategoryPage } from './pages/centre/CategoryPage';
-import { ServicePage } from './pages/centre/ServicePage';
-import { FacilitiesLanding } from './pages/facilities/FacilitiesLanding';
-import { FacilityCategoryPage } from './pages/facilities/FacilityCategoryPage';
-import { FacilityServicePage } from './pages/facilities/FacilityServicePage';
 import { ContactPage } from './pages/ContactPage';
+import { GalleryPage } from './pages/GalleryPage';
 import { PrivacyPolicy } from './pages/legal/PrivacyPolicy';
 import { TermsOfService } from './pages/legal/TermsOfService';
 
@@ -52,15 +47,16 @@ function App() {
         <Route path="/about/patient-experience" element={<PatientExperiencePage />} />
         <Route path="/about/careers" element={<Careers />} />
 
-        {/* Centre of Excellence Experience */}
-        <Route path="/centre-of-excellence" element={<CentresLanding />} />
-        <Route path="/centre-of-excellence/:categorySlug" element={<CategoryPage />} />
-        <Route path="/centre-of-excellence/:categorySlug/:serviceSlug" element={<ServicePage />} />
+        {/* Centre of Excellence - Removed specific pages, redirecting */}
+        <Route path="/centre-of-excellence" element={<Navigate to="/#centres-of-excellence" replace />} />
+        <Route path="/centre-of-excellence/*" element={<Navigate to="/contact" replace />} />
 
-        {/* Facilities Experience */}
-        <Route path="/facilities" element={<FacilitiesLanding />} />
-        <Route path="/facilities/:categorySlug" element={<FacilityCategoryPage />} />
-        <Route path="/facilities/:categorySlug/:serviceSlug" element={<FacilityServicePage />} />
+        {/* Gallery Experience */}
+        <Route path="/gallery" element={<GalleryPage />} />
+
+        {/* Facilities redirect to Gallery */}
+        <Route path="/facilities" element={<Navigate to="/gallery" replace />} />
+        <Route path="/facilities/*" element={<Navigate to="/gallery" replace />} />
 
         {/* Contact Us Experience */}
         <Route path="/contact" element={<ContactPage />} />

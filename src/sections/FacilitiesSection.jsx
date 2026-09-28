@@ -8,12 +8,12 @@ export function FacilitiesSection() {
         
         {/* Left Heading */}
         <div className="lg:col-span-4">
-          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 sm:mb-8 block">
+          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#00A99D] mb-6 sm:mb-8 block">
             INFRASTRUCTURE
           </span>
-          <h2 className="text-[36px] sm:text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-6 sm:mb-8 max-w-none lg:max-w-[280px]">
+          <h2 className="text-[36px] sm:text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-[#0B4A8B] mb-6 sm:mb-8 max-w-none lg:max-w-[280px]">
             DESIGNED<br />
-            FOR BETTER CARE.
+            <span className="text-[#00A99D]">FOR BETTER CARE.</span>
           </h2>
         </div>
 
@@ -23,12 +23,12 @@ export function FacilitiesSection() {
             {facilitiesData.map((item, idx) => (
               <div 
                 key={idx} 
-                className="flex items-center py-5 sm:py-6 border-b border-neutral-200"
+                className="group flex items-center py-5 sm:py-6 border-b border-neutral-200 transition-colors"
               >
-                <span className="text-[12px] font-semibold tracking-[0.1em] text-neutral-400 w-12 sm:w-16 shrink-0">
+                <span className="text-[12px] font-semibold tracking-[0.1em] text-[#00A99D] w-12 sm:w-16 shrink-0">
                   {String(idx + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[18px] sm:text-[22px] lg:text-[28px] font-medium tracking-[-0.01em] text-black">
+                <span className="text-[18px] sm:text-[22px] lg:text-[28px] font-medium tracking-[-0.01em] text-neutral-900 group-hover:text-[#0B4A8B] transition-colors">
                   {item}
                 </span>
               </div>

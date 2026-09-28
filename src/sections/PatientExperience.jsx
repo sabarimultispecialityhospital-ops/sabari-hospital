@@ -9,13 +9,13 @@ export function PatientExperience() {
         
         {/* Left Typography */}
         <div className="lg:col-span-5 flex flex-col justify-start">
-          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-6 sm:mb-8 block">
+          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#00A99D] mb-6 sm:mb-8 block">
             PATIENT EXPERIENCE
           </span>
-          <h2 className="text-[34px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-black mb-6 sm:mb-8">
+          <h2 className="text-[34px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-[#0B4A8B] mb-6 sm:mb-8">
             YOUR CARE.<br />
             YOUR JOURNEY.<br />
-            OUR COMMITMENT.
+            <span className="text-[#00A99D]">OUR COMMITMENT.</span>
           </h2>
         </div>
 
@@ -28,16 +28,16 @@ export function PatientExperience() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
-              className="flex items-start pb-10 sm:pb-12 border-l border-black/10 relative last:pb-0"
+              className="flex items-start pb-10 sm:pb-12 border-l border-[#0B4A8B]/20 relative last:pb-0 group"
             >
               {/* Timeline dot/line styling */}
-              <div className="absolute left-[-5px] top-2 w-[9px] h-[9px] rounded-full bg-black" />
+              <div className="absolute left-[-5px] top-2 w-[9px] h-[9px] rounded-full bg-[#00A99D] ring-4 ring-[#00A99D]/15" />
               
               <div className="pl-6 sm:pl-12 flex flex-col">
-                <span className="text-[11px] sm:text-[12px] font-semibold tracking-[0.1em] text-neutral-400 mb-1.5 sm:mb-2 block">
+                <span className="text-[11px] sm:text-[12px] font-bold tracking-[0.1em] text-[#00A99D] mb-1.5 sm:mb-2 block">
                   {item.step}
                 </span>
-                <span className="text-[20px] sm:text-[24px] lg:text-[32px] font-medium tracking-[-0.01em] text-black">
+                <span className="text-[20px] sm:text-[24px] lg:text-[32px] font-medium tracking-[-0.01em] text-neutral-900 group-hover:text-[#0B4A8B] transition-colors">
                   {item.title}
                 </span>
               </div>

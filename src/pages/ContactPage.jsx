@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Footer } from '../sections/Footer';
 
 export function ContactPage() {
+  const [searchParams] = useSearchParams();
+  const subjectParam = searchParams.get('subject') || '';
+
   useEffect(() => {
     document.title = "Contact Us | Sabari Hospitals";
     window.scrollTo(0, 0);
@@ -12,9 +16,15 @@ export function ContactPage() {
     fullName: '',
     phone: '',
     email: '',
-    subject: '',
+    subject: subjectParam,
     message: ''
   });
+
+  useEffect(() => {
+    if (subjectParam) {
+      setValues(prev => ({ ...prev, subject: subjectParam }));
+    }
+  }, [subjectParam]);
 
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
@@ -150,10 +160,9 @@ export function ContactPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-                className="text-[44px] sm:text-[68px] md:text-[84px] xl:text-[96px] font-display font-light text-black tracking-tight leading-[0.92] uppercase mb-8 break-words"
+                className="text-[30px] sm:text-[44px] md:text-[54px] lg:text-[44px] xl:text-[58px] font-display font-light text-black tracking-tight leading-[1.0] uppercase mb-8 whitespace-nowrap"
               >
-                LET'S<br />
-                CONNECT.
+                LET'S CONNECT.
               </motion.h1>
 
               <motion.p

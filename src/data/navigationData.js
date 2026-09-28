@@ -128,11 +128,7 @@ export const aboutSimpleData = {
   title: "ABOUT US",
   items: [
     { label: "Our Story", href: "/about/our-story" },
-    { label: "Leadership", href: "/about/leadership" },
-    { label: "Why Sabari", href: "/about/why-sabari" },
-    { label: "Accreditations", href: "/about/accreditations" },
-    { label: "Patient Experience", href: "/about/patient-experience" },
-    { label: "Careers", href: "/about/careers" }
+    { label: "Leadership", href: "/about/leadership" }
   ]
 };
 

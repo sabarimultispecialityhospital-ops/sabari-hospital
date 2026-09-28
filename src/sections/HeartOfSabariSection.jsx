@@ -21,12 +21,12 @@ export function HeartOfSabariSection() {
         
         {/* Left Content */}
         <div className="lg:col-span-6 lg:pr-12">
-          <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-white/50 mb-6 sm:mb-8 block">
+          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#00A99D] mb-6 sm:mb-8 block">
             HEART OF SABARI
           </span>
           <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-white mb-6 sm:mb-8">
             COMPASSION<br />
-            IN ACTION.
+            <span className="text-[#00A99D]">IN ACTION.</span>
           </h2>
           <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg font-light">
             Guiding our commitment to excellence with empathy, making sure every patient feels seen, heard, and deeply cared for.
@@ -56,7 +56,7 @@ export function HeartOfSabariSection() {
             {/* Hover Name & Title Reveal - Visible on mobile/touch, hover on desktop */}
             <div className="absolute inset-x-0 bottom-0 pt-28 pb-7 px-7 sm:px-8 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-500 ease-out flex flex-col justify-end pointer-events-none">
               <div className="transform translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                <span className="text-[10px] sm:text-[11px] font-mono tracking-[0.22em] uppercase text-white/70 block mb-1">
+                <span className="text-[10px] sm:text-[11px] font-mono font-semibold tracking-[0.22em] uppercase text-[#00A99D] block mb-1">
                   HEART OF SABARI
                 </span>
                 <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-medium text-white tracking-tight leading-tight">

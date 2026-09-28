@@ -1,35 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Menu, X, ChevronDown, Calendar, Phone, ArrowRight } from 'lucide-react';
-// import { BrandLogo } from '../brand/BrandLogo';
+import { X, ChevronDown, Calendar, Phone, ArrowRight, Menu } from 'lucide-react';
 import { NavItem } from './NavItem';
-import { MegaMenu } from './MegaMenu';
-import { DropdownPanel } from './DropdownPanel';
-import { CentreNavMenu } from './CentreNavMenu';
-import { FacilitiesNavMenu } from './FacilitiesNavMenu';
 import { SimpleDropdown } from './SimpleDropdown';
 import { useNavbarTheme } from '../../hooks/useNavbarTheme';
-import { 
-  aboutSimpleData, 
-  internationalPatientsData 
-} from '../../data/navigationData';
-import { centreCategories } from '../../data/centresOfExcellenceData';
-import { facilityCategories } from '../../data/facilitiesExperienceData';
+import { aboutSimpleData } from '../../data/navigationData';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAppointment } from '../../context/AppointmentContext';
 
 export function Navbar() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mobileSubmenu, setMobileSubmenu] = useState(null); // 'about' | 'specialities' | 'facilities' | null
-  const { theme, isDark } = useNavbarTheme();
+  const [mobileSubmenu, setMobileSubmenu] = useState(null); // 'about' | null
+  const { theme } = useNavbarTheme();
   const { openAppointmentModal } = useAppointment();
   const navRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
   const isAboutActive = location.pathname.startsWith('/about');
-  const isCentreActive = location.pathname.startsWith('/centre-of-excellence');
-  const isFacilitiesActive = location.pathname.startsWith('/facilities');
+  const isGalleryActive = location.pathname.startsWith('/gallery');
   const isContactActive = location.pathname.startsWith('/contact');
 
   // Prevent background scrolling when mobile menu is open
@@ -72,6 +62,32 @@ export function Navbar() {
       document.removeEventListener('keydown', handleEscape);
     };
   }, []);
+
+  // Handle hash scrolling when navigating to /#centres-of-excellence
+  useEffect(() => {
+    if (location.pathname === '/' && location.hash === '#centres-of-excellence') {
+      const timer = setTimeout(() => {
+        const el = document.getElementById('centres-of-excellence');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname, location.hash]);
+
+  const handleScrollToCentres = (e) => {
+    if (e) e.preventDefault();
+    setActiveMenu(null);
+    if (location.pathname === '/') {
+      const element = document.getElementById('centres-of-excellence');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      navigate('/#centres-of-excellence');
+    }
+  };
 
   const toggleMobileSubmenu = (section) => {
     setMobileSubmenu(prev => (prev === section ? null : section));
@@ -117,21 +133,20 @@ export function Navbar() {
           </div>
           
           {/* 4. Centre of Excellence */}
-          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu('specialities')}>
+          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu(null)}>
             <NavItem 
               label="Centre of Excellence" 
-              hasDropdown={true} 
-              isActive={activeMenu === 'specialities' || isCentreActive} 
+              onClick={handleScrollToCentres}
               theme={theme}
             />
           </div>
 
-          {/* 5. Facilities */}
-          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu('facilities')}>
+          {/* 5. Gallery */}
+          <div className="h-full flex items-center" onMouseEnter={() => setActiveMenu(null)}>
             <NavItem 
-              label="Facilities" 
-              hasDropdown={true} 
-              isActive={activeMenu === 'facilities' || isFacilitiesActive} 
+              label="Gallery" 
+              href="/gallery"
+              isActive={isGalleryActive} 
               theme={theme}
             />
           </div>
@@ -156,123 +171,89 @@ export function Navbar() {
           </button>
         </div>
 
-        {/* Mobile Header Bar - Luxury Aesthetic */}
-        <div className="lg:hidden flex items-center justify-between h-[74px] sm:h-[80px]">
-          
-          {/* Left: Architectural Bespoke Menu Trigger */}
-          <button 
-            type="button"
-            onClick={() => setMobileMenuOpen(true)}
-            className="group flex items-center gap-2 p-1.5 -ml-1 text-black focus:outline-none active:scale-95 transition-transform cursor-pointer"
-            aria-label="Open Menu"
-          >
-            <div className="w-10 h-10 rounded-full border border-neutral-200/90 bg-neutral-50/90 backdrop-blur-md flex flex-col items-center justify-center gap-[5px] group-hover:bg-neutral-100 group-hover:border-neutral-300 transition-all shadow-[0_2px_8px_rgba(0,0,0,0.03)]">
-              <span className="w-4 h-[1.5px] bg-neutral-900 rounded-full transition-all group-hover:w-4.5" />
-              <span className="w-3.5 h-[1.5px] bg-neutral-900 rounded-full transition-all group-hover:w-4.5" />
-            </div>
-            <span className="hidden xs:inline-block text-[10px] font-mono tracking-[0.16em] uppercase text-neutral-500 font-semibold">
-              MENU
-            </span>
-          </button>
-          
-          {/* Center: Centered Logo with Subtle Elegance */}
-          <Link to="/" className="flex items-center justify-center shrink-0 py-1 transition-transform duration-200 active:scale-95">
+        {/* Mobile Header Bar - Simple & Clean */}
+        <div className="lg:hidden flex items-center justify-between h-[72px] sm:h-[80px]">
+          {/* Brand Logo on Left */}
+          <Link to="/" className="flex items-center shrink-0">
             <img 
               src="/logo.png" 
               alt="Sabari Hospital" 
-              className="h-10 sm:h-12 w-auto object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.04)]" 
+              className="h-10 sm:h-12 w-auto object-contain" 
             />
           </Link>
           
-          {/* Right: Quick Action Helpline & Consultation Button */}
+          {/* Right Action Buttons */}
           <div className="flex items-center gap-2">
             <a
               href="tel:+914222442200"
-              aria-label="Call Hospital 24/7"
-              className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-neutral-200/90 bg-neutral-50/90 backdrop-blur-md flex items-center justify-center text-neutral-800 hover:text-black hover:bg-neutral-100 transition-all active:scale-95 shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
+              aria-label="Call Hospital"
+              className="w-10 h-10 rounded-full border border-neutral-200 bg-neutral-50 flex items-center justify-center text-neutral-800 hover:text-black hover:bg-neutral-100 active:scale-95 transition-all"
             >
-              <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-800" />
+              <Phone className="w-4 h-4 text-neutral-800" />
             </a>
 
             <button
               type="button"
               onClick={() => openAppointmentModal()}
-              className="group inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full bg-black text-white text-[11px] font-semibold tracking-[0.08em] uppercase hover:bg-neutral-800 active:scale-95 transition-all shadow-[0_4px_12px_rgba(0,0,0,0.12)] shrink-0 cursor-pointer"
+              className="px-3.5 py-2 rounded-full bg-black text-white text-[11px] font-semibold tracking-wider uppercase active:scale-95 transition-all"
             >
-              <Calendar className="w-3 h-3 text-white/90" />
-              <span>Book</span>
+              Book
+            </button>
+
+            <button 
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="w-10 h-10 rounded-full border border-neutral-200 bg-neutral-50 flex items-center justify-center text-black hover:bg-neutral-100 active:scale-95 transition-all cursor-pointer ml-0.5"
+              aria-label="Open Navigation Menu"
+            >
+              <Menu size={20} />
             </button>
           </div>
         </div>
       </div>
 
-      {/* New Centre of Excellence Editorial Navigation */}
-      <CentreNavMenu 
-        isOpen={activeMenu === 'specialities'} 
-        onClose={() => setActiveMenu(null)} 
-      />
-      
-      {/* New Facilities Editorial Navigation */}
-      <FacilitiesNavMenu 
-        isOpen={activeMenu === 'facilities'} 
-        onClose={() => setActiveMenu(null)} 
-      />
-
-      {/* Mobile Drawer - Concierge Style Fullscreen Experience */}
+      {/* Mobile Drawer - Simple, Clean Navigation */}
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              initial={{ opacity: 0, y: -15 }}
+              initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-[99999] bg-white lg:hidden flex flex-col w-full h-[100dvh] overflow-hidden selection:bg-neutral-200"
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.22, ease: "easeOut" }}
+              className="fixed inset-0 z-[99999] bg-white lg:hidden flex flex-col w-full h-[100dvh] overflow-hidden"
             >
-              {/* Drawer Top Navigation Header */}
-              <div className="flex items-center justify-between px-6 h-[74px] sm:h-[80px] border-b border-neutral-100 shrink-0 bg-white/95 backdrop-blur-md">
-                <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-2">
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between px-6 h-[72px] sm:h-[80px] border-b border-neutral-100 shrink-0">
+                <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
                   <img src="/logo.png" alt="Sabari Hospital" className="h-10 sm:h-11 w-auto object-contain" />
                 </Link>
                 
                 <button 
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="w-10 h-10 rounded-full border border-neutral-200 bg-neutral-50 flex items-center justify-center text-neutral-800 hover:text-black hover:bg-neutral-100 transition-all active:scale-90 cursor-pointer"
+                  className="w-10 h-10 rounded-full border border-neutral-200 bg-neutral-50 flex items-center justify-center text-neutral-800 hover:text-black active:scale-90 transition-all cursor-pointer"
                   aria-label="Close Menu"
                 >
                   <X size={20} />
                 </button>
               </div>
 
-              {/* Status Ticker */}
-              <div className="px-6 py-2.5 bg-neutral-50/80 border-b border-neutral-100 flex items-center justify-between text-[11px] font-mono tracking-wider uppercase text-neutral-500 shrink-0">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span className="font-semibold text-neutral-800">24/7 Emergency</span>
-                </div>
-                <span>Coimbatore, TN</span>
-              </div>
-              
-              {/* Drawer Scrollable Content */}
-              <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-6">
+              {/* Navigation Links - Simple & Clean */}
+              <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-4">
                 
-                {/* 01. About Us (Accordion) */}
-                <div className="border-b border-neutral-100 pb-5">
+                {/* About Us */}
+                <div>
                   <button
                     type="button"
                     onClick={() => toggleMobileSubmenu('about')}
-                    className="w-full flex items-center justify-between text-left py-2 group cursor-pointer"
+                    className="w-full flex items-center justify-between text-left py-2 text-[20px] font-medium text-black cursor-pointer"
                   >
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-mono font-semibold tracking-wider text-neutral-400">01</span>
-                      <span className="text-[22px] font-display font-medium text-black tracking-tight group-hover:text-neutral-600 transition-colors">
-                        About Us
-                      </span>
-                    </div>
-                    <div className={`w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center transition-transform duration-300 ${mobileSubmenu === 'about' ? 'rotate-180 bg-black text-white border-black' : 'text-neutral-500 bg-neutral-50'}`}>
-                      <ChevronDown size={16} />
-                    </div>
+                    <span>About Us</span>
+                    <ChevronDown 
+                      size={18} 
+                      className={`text-neutral-400 transition-transform duration-200 ${mobileSubmenu === 'about' ? 'rotate-180 text-black' : ''}`} 
+                    />
                   </button>
 
                   <AnimatePresence initial={false}>
@@ -281,206 +262,91 @@ export function Navbar() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="overflow-hidden mt-3 pl-4 border-l-2 border-black/80 flex flex-col gap-3 py-2 bg-neutral-50/60 rounded-r-xl"
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden pl-4 flex flex-col gap-2.5 pt-2 pb-1"
                       >
-                        <Link to="/about/our-story" onClick={() => setMobileMenuOpen(false)} className="text-[15px] font-medium text-neutral-700 hover:text-black py-0.5 transition-colors">Our Story</Link>
-                        <Link to="/about/leadership" onClick={() => setMobileMenuOpen(false)} className="text-[15px] font-medium text-neutral-700 hover:text-black py-0.5 transition-colors">Leadership</Link>
-                        <Link to="/about/why-sabari" onClick={() => setMobileMenuOpen(false)} className="text-[15px] font-medium text-neutral-700 hover:text-black py-0.5 transition-colors">Why Sabari</Link>
-                        <Link to="/about/accreditations" onClick={() => setMobileMenuOpen(false)} className="text-[15px] font-medium text-neutral-700 hover:text-black py-0.5 transition-colors">Accreditations</Link>
-                        <Link to="/about/patient-experience" onClick={() => setMobileMenuOpen(false)} className="text-[15px] font-medium text-neutral-700 hover:text-black py-0.5 transition-colors">Patient Experience</Link>
-                        <Link to="/about/careers" onClick={() => setMobileMenuOpen(false)} className="text-[15px] font-medium text-neutral-700 hover:text-black py-0.5 transition-colors">Careers</Link>
+                        <Link 
+                          to="/about/our-story" 
+                          onClick={() => setMobileMenuOpen(false)} 
+                          className="text-[16px] text-neutral-600 hover:text-black py-1 transition-colors"
+                        >
+                          Our Story
+                        </Link>
+                        <Link 
+                          to="/about/leadership" 
+                          onClick={() => setMobileMenuOpen(false)} 
+                          className="text-[16px] text-neutral-600 hover:text-black py-1 transition-colors"
+                        >
+                          Leadership
+                        </Link>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
 
-                {/* 02. Doctors Direct Link */}
-                <div className="border-b border-neutral-100 pb-5">
-                  <Link 
-                    to="/doctors" 
-                    onClick={() => setMobileMenuOpen(false)} 
-                    className="flex items-center justify-between py-2 group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-mono font-semibold tracking-wider text-neutral-400">02</span>
-                      <span className="text-[22px] font-display font-medium text-black tracking-tight group-hover:text-neutral-600 transition-colors">
-                        Doctors
-                      </span>
-                    </div>
-                    <span className="text-[12px] font-mono tracking-wider uppercase text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all">
-                      &rarr;
-                    </span>
-                  </Link>
-                </div>
+                <div className="h-[1px] bg-neutral-100" />
+
+                {/* Doctors */}
+                <Link 
+                  to="/doctors" 
+                  onClick={() => setMobileMenuOpen(false)} 
+                  className="text-[20px] font-medium text-black py-2 hover:text-neutral-600 transition-colors"
+                >
+                  Doctors
+                </Link>
+
+                <div className="h-[1px] bg-neutral-100" />
                 
-                {/* 03. Centre of Excellence (Accordion) */}
-                <div className="border-b border-neutral-100 pb-5">
-                  <button
-                    type="button"
-                    onClick={() => toggleMobileSubmenu('specialities')}
-                    className="w-full flex items-center justify-between text-left py-2 group cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-mono font-semibold tracking-wider text-neutral-400">03</span>
-                      <span className="text-[22px] font-display font-medium text-black tracking-tight group-hover:text-neutral-600 transition-colors">
-                        Centre of Excellence
-                      </span>
-                    </div>
-                    <div className={`w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center transition-transform duration-300 ${mobileSubmenu === 'specialities' ? 'rotate-180 bg-black text-white border-black' : 'text-neutral-500 bg-neutral-50'}`}>
-                      <ChevronDown size={16} />
-                    </div>
-                  </button>
+                {/* Centre of Excellence */}
+                <button 
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    handleScrollToCentres();
+                  }} 
+                  className="text-left text-[20px] font-medium text-black py-2 hover:text-neutral-600 transition-colors cursor-pointer"
+                >
+                  Centre of Excellence
+                </button>
 
-                  <AnimatePresence initial={false}>
-                    {mobileSubmenu === 'specialities' && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="overflow-hidden mt-3 pl-4 border-l-2 border-black/80 flex flex-col gap-4 py-3 bg-neutral-50/60 rounded-r-xl"
-                      >
-                        <Link
-                          to="/centre-of-excellence"
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="text-[11px] font-mono tracking-wider uppercase text-neutral-900 font-bold py-1 flex items-center justify-between pr-2"
-                        >
-                          <span>Explore All Centres</span>
-                          <span>&rarr;</span>
-                        </Link>
-                        {centreCategories.map((cat) => (
-                          <div key={cat.id} className="flex flex-col gap-1.5 pt-1.5 border-t border-neutral-200/50">
-                            <Link
-                              to={`/centre-of-excellence/${cat.slug}`}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="text-[14px] font-semibold text-black uppercase tracking-wide flex items-center justify-between pr-2"
-                            >
-                              <span>{cat.number} {cat.title}</span>
-                              <span className="text-neutral-400 text-xs">&rarr;</span>
-                            </Link>
-                            <div className="flex flex-wrap gap-x-2.5 gap-y-1 pl-1">
-                              {cat.services.map((svc) => (
-                                <Link
-                                  key={svc.slug}
-                                  to={`/centre-of-excellence/${cat.slug}/${svc.slug}`}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                  className="text-[12px] text-neutral-600 hover:text-black py-0.5"
-                                >
-                                  {svc.title}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <div className="h-[1px] bg-neutral-100" />
 
-                {/* 04. Facilities (Accordion) */}
-                <div className="border-b border-neutral-100 pb-5">
-                  <button
-                    type="button"
-                    onClick={() => toggleMobileSubmenu('facilities')}
-                    className="w-full flex items-center justify-between text-left py-2 group cursor-pointer"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-mono font-semibold tracking-wider text-neutral-400">04</span>
-                      <span className="text-[22px] font-display font-medium text-black tracking-tight group-hover:text-neutral-600 transition-colors">
-                        Facilities
-                      </span>
-                    </div>
-                    <div className={`w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center transition-transform duration-300 ${mobileSubmenu === 'facilities' ? 'rotate-180 bg-black text-white border-black' : 'text-neutral-500 bg-neutral-50'}`}>
-                      <ChevronDown size={16} />
-                    </div>
-                  </button>
+                {/* Gallery */}
+                <Link 
+                  to="/gallery" 
+                  onClick={() => setMobileMenuOpen(false)} 
+                  className="text-[20px] font-medium text-black py-2 hover:text-neutral-600 transition-colors"
+                >
+                  Gallery
+                </Link>
 
-                  <AnimatePresence initial={false}>
-                    {mobileSubmenu === 'facilities' && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="overflow-hidden mt-3 pl-4 border-l-2 border-black/80 flex flex-col gap-4 py-3 bg-neutral-50/60 rounded-r-xl"
-                      >
-                        <Link
-                          to="/facilities"
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="text-[11px] font-mono tracking-wider uppercase text-neutral-900 font-bold py-1 flex items-center justify-between pr-2"
-                        >
-                          <span>Explore All Facilities</span>
-                          <span>&rarr;</span>
-                        </Link>
-                        {facilityCategories.map((cat) => (
-                          <div key={cat.id} className="flex flex-col gap-1.5 pt-1.5 border-t border-neutral-200/50">
-                            <Link
-                              to={`/facilities/${cat.slug}`}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="text-[14px] font-semibold text-black uppercase tracking-wide flex items-center justify-between pr-2"
-                            >
-                              <span>{cat.number} {cat.title}</span>
-                              <span className="text-neutral-400 text-xs">&rarr;</span>
-                            </Link>
-                            <div className="flex flex-wrap gap-x-2.5 gap-y-1 pl-1">
-                              {cat.services.map((svc) => (
-                                <Link
-                                  key={svc.slug}
-                                  to={`/facilities/${cat.slug}/${svc.slug}`}
-                                  onClick={() => setMobileMenuOpen(false)}
-                                  className="text-[12px] text-neutral-600 hover:text-black py-0.5"
-                                >
-                                  {svc.title}
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                <div className="h-[1px] bg-neutral-100" />
 
-                {/* 05. Contact Us Direct Link */}
-                <div className="pb-4">
-                  <Link 
-                    to="/contact" 
-                    onClick={() => setMobileMenuOpen(false)} 
-                    className="flex items-center justify-between py-2 group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="text-[11px] font-mono font-semibold tracking-wider text-neutral-400">05</span>
-                      <span className="text-[22px] font-display font-medium text-black tracking-tight group-hover:text-neutral-600 transition-colors">
-                        Contact Us
-                      </span>
-                    </div>
-                    <span className="text-[12px] font-mono tracking-wider uppercase text-neutral-400 group-hover:text-black group-hover:translate-x-1 transition-all">
-                      &rarr;
-                    </span>
-                  </Link>
-                </div>
+                {/* Contact Us */}
+                <Link 
+                  to="/contact" 
+                  onClick={() => setMobileMenuOpen(false)} 
+                  className="text-[20px] font-medium text-black py-2 hover:text-neutral-600 transition-colors"
+                >
+                  Contact Us
+                </Link>
               </div>
 
-              {/* Bottom Sticky Concierge Bar */}
-              <div className="p-5 border-t border-neutral-200/80 bg-neutral-900 text-white shrink-0 flex flex-col gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+              {/* Simple Bottom Action Section */}
+              <div className="p-6 border-t border-neutral-100 bg-white shrink-0 flex flex-col gap-3">
                 <button
                   type="button"
                   onClick={() => {
                     setMobileMenuOpen(false);
                     openAppointmentModal();
                   }}
-                  className="w-full py-4 bg-white text-black text-[12px] font-semibold tracking-[0.14em] uppercase text-center rounded-xl hover:bg-neutral-100 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                  className="w-full py-3.5 bg-black text-white text-[13px] font-semibold tracking-wider uppercase text-center rounded-xl hover:bg-neutral-800 active:scale-[0.98] transition-all cursor-pointer shadow-sm"
                 >
-                  <Calendar className="w-4 h-4 text-black" />
-                  <span>Book a Consultation</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  Book Appointment
                 </button>
-                <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 uppercase tracking-wider px-1 pt-1">
-                  <span>24/7 HELPLINE</span>
-                  <a href="tel:+914222442200" className="text-white font-medium hover:underline flex items-center gap-1.5">
-                    <Phone className="w-3 h-3 text-emerald-400" />
-                    <span>0422-2442200</span>
+                <div className="text-center pt-1">
+                  <a href="tel:+914222442200" className="text-[13px] text-neutral-600 hover:text-black font-medium transition-colors">
+                    Emergency Helpline: <span className="text-black font-semibold">0422-2442200</span>
                   </a>
                 </div>
               </div>

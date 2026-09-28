@@ -36,19 +36,19 @@ export function Footer() {
         
         <div className="flex flex-col gap-4 text-[14px] lg:text-right">
           <div>
-            <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mb-1">Direct Helpline</p>
+            <p className="text-white/40 font-sans tracking-[0.16em] uppercase text-[11px] font-medium mb-1">Direct Helpline</p>
             <a href="tel:+914222442200" className="text-[17px] sm:text-lg lg:text-xl font-light hover:text-white/80 transition-colors inline-block">
               0422-2442200
             </a>
           </div>
           <div>
-            <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mb-1">Direct Enquiries</p>
+            <p className="text-white/40 font-sans tracking-[0.16em] uppercase text-[11px] font-medium mb-1">Direct Enquiries</p>
             <a href="mailto:sabarimultispecialityhospital@gmail.com" className="text-[15px] sm:text-lg lg:text-xl font-light hover:text-white/80 transition-colors break-all inline-block">
               sabarimultispecialityhospital@gmail.com
             </a>
           </div>
           <div>
-            <p className="text-white/40 font-mono tracking-widest uppercase text-[10px] mb-1">Location</p>
+            <p className="text-white/40 font-sans tracking-[0.16em] uppercase text-[11px] font-medium mb-1">Location</p>
             <p className="text-white/80 leading-relaxed font-light text-base sm:text-lg">
               Coimbatore, Tamil Nadu<br/>India
             </p>
@@ -62,7 +62,7 @@ export function Footer() {
           SABARI HOSPITAL
         </h1>
         
-        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 text-[10px] font-mono uppercase tracking-wider sm:tracking-widest text-white/30 mt-12 relative z-10">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between gap-6 text-[11px] sm:text-[12px] font-sans uppercase tracking-[0.12em] text-white/40 mt-12 relative z-10">
           {/* Left Side: Copyright, Privacy Policy, Terms of Service */}
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-2 text-center md:text-left">
             <p>&copy; {new Date().getFullYear()} Sabari Hospital.</p>
@@ -78,10 +78,10 @@ export function Footer() {
               href="https://javixtechnologies.com/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-white transition-colors py-1 group flex items-center gap-1.5 whitespace-nowrap text-[9px] sm:text-[10px]"
+              className="hover:text-white transition-colors py-1 group flex items-center gap-1.5 whitespace-nowrap text-[11px] sm:text-[12px]"
             >
               <span>Design & Developed by</span>
-              <span className="text-white/60 group-hover:text-white font-semibold transition-colors">Javix Technologies</span>
+              <span className="text-white/70 group-hover:text-white font-semibold transition-colors">Javix Technologies</span>
             </a>
             <button
               type="button"
