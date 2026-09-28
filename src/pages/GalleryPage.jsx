@@ -108,16 +108,6 @@ export function GalleryPage() {
         {/* Ambient Top Subtle Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#00A99D]/10 rounded-full blur-[140px] pointer-events-none" />
 
-        {/* Floating Header Hint */}
-        <div className="absolute top-6 left-0 right-0 z-20 flex flex-col items-center pointer-events-none px-4 text-center">
-          <span className="text-[11px] sm:text-[12px] font-mono tracking-[0.25em] uppercase text-[#00A99D] mb-1.5 font-semibold">
-            EXPLORE SABARI HOSPITAL
-          </span>
-          <p className="text-[13px] sm:text-[14px] text-white/60 font-light">
-            Drag or scroll to rotate the spiral &bull; Click any frame to view
-          </p>
-        </div>
-
         {/* InfiniteSpiral 3D Stage */}
         <div className="w-full h-full relative overflow-hidden">
           <InfiniteSpiral
@@ -133,7 +123,7 @@ export function GalleryPage() {
             centerScale={1.25}
             edgeBlur={5}
             cardsPerTurn={spiralConfig.cardsPerTurn}
-            pauseOnHover
+            pauseOnHover={false}
             direction="up"
             rotation={0}
             cardTilt={0}
