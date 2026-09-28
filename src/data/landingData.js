@@ -1,7 +1,5 @@
 export const numbersData = [
-  { value: "25+", label: "YEARS OF EXPERIENCE" },
-  { value: "50+", label: "SPECIALISTS" },
-  { value: "10+", label: "CENTRES OF EXCELLENCE" },
+  { value: "50+", label: "YEARS OF EXPERIENCE" },
   { value: "100K+", label: "PATIENTS CARED FOR" }
 ];
 

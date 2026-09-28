@@ -42,12 +42,13 @@ export function Hero() {
             MULTI SPECIALITY HOSPITAL
           </span>
           <h1 className="text-[36px] xs:text-[42px] sm:text-[58px] lg:text-[76px] xl:text-[88px] font-medium leading-[1.0] sm:leading-[0.98] tracking-[-0.03em] text-[#0B4A8B] mb-4 sm:mb-8 text-center lg:text-left">
-            WHERE CARE<br />
-            BECOMES<br />
-            <span className="text-[#00A99D]">HUMAN.</span>
+            YOUR HEALTH<br />
+            IS OUR<br />
+            <span className="text-[#00A99D]">PRIORITY.</span>
           </h1>
           <p className="text-[15px] sm:text-[19px] lg:text-[22px] text-neutral-600 leading-[1.45] max-w-md mb-6 sm:mb-10 font-normal text-center lg:text-left mx-auto lg:mx-0">
-            Advanced healthcare built around precision, expertise and compassion.
+            <span className="font-semibold text-neutral-900 block tracking-wide">SABARI HOSPITAL</span>
+            Where expertise and empathy align.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-6 w-full sm:w-auto mb-8 lg:mb-0">

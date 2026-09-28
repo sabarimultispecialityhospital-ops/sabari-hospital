@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Hero } from '../sections/Hero';
 import { OurApproach } from '../sections/OurApproach';
 import { NumbersSection } from '../sections/NumbersSection';
+import { VisionMissionSection } from '../sections/VisionMissionSection';
 import { CentresOfExcellence } from '../sections/CentresOfExcellence';
 import { HumanCare } from '../sections/HumanCare';
 import { FacilitiesSection } from '../sections/FacilitiesSection';
@@ -31,6 +32,7 @@ export function Home() {
       <Hero />
       <OurApproach />
       <NumbersSection />
+      <VisionMissionSection />
       <CentresOfExcellence />
       <HumanCare />
       <FacilitiesSection />

@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useAnimation, useReducedMotion } from 'framer-motion';
-import { BrandLogo } from '../brand/BrandLogo';
+import React, { useEffect } from 'react';
+import { motion, useAnimation } from 'framer-motion';
 
 export function Preloader({ onComplete, className = "" }) {
-  const [windowDimensions, setWindowDimensions] = useState({ width: 0, height: 0 });
-  const circleControls = useAnimation();
-  const brandControls = useAnimation();
+  const logoControls = useAnimation();
   const containerControls = useAnimation();
-  const prefersReducedMotion = useReducedMotion();
 
   // Prevent scrolling while preloader is active
   useEffect(() => {
@@ -17,91 +13,53 @@ export function Preloader({ onComplete, className = "" }) {
     };
   }, []);
 
-  // Get accurate window dimensions on mount
   useEffect(() => {
-    setWindowDimensions({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
-    
-    const handleResize = () => {
-      setWindowDimensions({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-    
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+    let isMounted = true;
 
-  useEffect(() => {
     async function sequence() {
-      const diagonal = Math.hypot(windowDimensions.width, windowDimensions.height);
-      const targetScale = (diagonal / 12) + 2; // +2 for safety margin
-
-      // If user prefers reduced motion, skip the expansion and just fade
-      if (prefersReducedMotion) {
-        circleControls.set({ scale: targetScale });
-        await brandControls.start({ opacity: 1, y: 0, transition: { duration: 0.5 } });
-        await new Promise(r => setTimeout(r, 1000));
-        await containerControls.start({ opacity: 0, transition: { duration: 0.5 } });
-        onComplete?.();
-        return;
-      }
-
-      // Stage 1: Hold the initial white screen with tiny dot
-      await new Promise(resolve => setTimeout(resolve, 300));
-
-      // Stage 2: Circle Expansion
-      await circleControls.start({
-        scale: targetScale,
-        transition: { duration: 0.85, ease: [0.76, 0, 0.24, 1] }
-      });
-
-      // Stage 3: Brand Reveal
-      await brandControls.start({
+      // 1. Logo smoothly fades and scales in
+      await logoControls.start({
         opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, ease: "easeOut" }
+        scale: 1,
+        transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
       });
 
-      // Stage 4: Hold
-      await new Promise(resolve => setTimeout(resolve, 600));
+      // 2. Brief pause for pleasant brand recognition
+      await new Promise(resolve => setTimeout(resolve, 800));
 
-      // Stage 5: Page Reveal
-      await containerControls.start({
-        opacity: 0,
-        transition: { duration: 0.6, ease: "easeInOut" }
-      });
-
-      onComplete?.();
+      // 3. Smooth fade out of the white preloader curtain
+      if (isMounted) {
+        await containerControls.start({
+          opacity: 0,
+          transition: { duration: 0.5, ease: "easeInOut" }
+        });
+        onComplete?.();
+      }
     }
 
-    if (windowDimensions.width > 0) {
-      sequence();
-    }
-  }, [windowDimensions, circleControls, brandControls, containerControls, prefersReducedMotion, onComplete]);
+    sequence();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [logoControls, containerControls, onComplete]);
 
   return (
     <motion.div
       animate={containerControls}
       className={`fixed inset-0 z-[9999] flex items-center justify-center bg-white ${className}`}
     >
-      {/* Expanding Black Circle */}
+      {/* Hospital Logo only, centered on clean white background */}
       <motion.div
-        initial={{ scale: 1 }}
-        animate={circleControls}
-        className="absolute w-[12px] h-[12px] bg-black rounded-full"
-      />
-      
-      {/* Brand Reveal */}
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={brandControls}
-        className="relative z-10"
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={logoControls}
+        className="flex items-center justify-center p-6 select-none"
       >
-        <BrandLogo size="lg" dark={true} />
+        <img 
+          src="/logo.png" 
+          alt="Sabari Hospital" 
+          className="h-20 sm:h-24 md:h-28 w-auto object-contain"
+        />
       </motion.div>
     </motion.div>
   );
