@@ -118,6 +118,8 @@ const InfiniteSpiral = ({
       const responsiveRadius = Math.min(radius, Math.max(72, width * 0.36)) * fit;
       const fadeStart = clamp(1 - edgeFade, 0, 0.98);
       const turnSize = Math.max(cardsPerTurn, 1);
+      const isTouchOrMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || 'ontouchstart' in window);
+      const allowBlur = !isTouchOrMobile && edgeBlur > 0.05;
 
       cardRefs.current.forEach((card, index) => {
         if (!card) return;
@@ -126,6 +128,20 @@ const InfiniteSpiral = ({
 
         const edge = Math.min(Math.abs(offset) / Math.max(half, 1), 1);
         const opacity = 1 - smoothstep(fadeStart, 1, edge);
+
+        // Visibility Culling: completely skip calculations and GPU rendering for out-of-view cards
+        if (opacity <= 0.015) {
+          if (card.style.visibility !== 'hidden') {
+            card.style.visibility = 'hidden';
+            card.style.pointerEvents = 'none';
+          }
+          return;
+        }
+
+        if (card.style.visibility !== 'visible') {
+          card.style.visibility = 'visible';
+        }
+
         const focus = 1 - Math.min(Math.abs(offset) / Math.max(turnSize * 0.65, 1), 1);
         const scale = (1 + (centerScale - 1) * focus) * fit;
         const angle = offset * (360 / turnSize) + rotation;
@@ -135,11 +151,24 @@ const InfiniteSpiral = ({
         const depthScale = clamp(perspective / Math.max(perspective - z, 1), 0.72, 1.45);
         const visualScale = scale * depthScale;
         const depth = (z / Math.max(responsiveRadius, 1) + 1) / 2;
-        const blur = edgeBlur * smoothstep(0.35, 1, edge);
-        card.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${offset * verticalSpacing * fit}px, 0) rotateZ(${cardTilt}deg) scale(${visualScale})`;
-        card.style.opacity = opacity.toFixed(3);
-        card.style.filter = blur > 0.01 ? `blur(${blur.toFixed(2)}px)` : 'none';
-        card.style.zIndex = String(Math.round(depth * 100000) + index);
+
+        const yPos = offset * verticalSpacing * fit;
+        card.style.transform = `translate3d(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${yPos.toFixed(1)}px), 0) rotateZ(${cardTilt}deg) scale(${visualScale.toFixed(3)})`;
+        card.style.opacity = opacity.toFixed(2);
+
+        if (allowBlur) {
+          const blur = edgeBlur * smoothstep(0.35, 1, edge);
+          card.style.filter = blur > 0.1 ? `blur(${blur.toFixed(1)}px)` : 'none';
+        } else if (card.style.filter && card.style.filter !== 'none') {
+          card.style.filter = 'none';
+        }
+
+        const newZ = Math.round(depth * 1000) + index;
+        if (card._lastZ !== newZ) {
+          card.style.zIndex = newZ;
+          card._lastZ = newZ;
+        }
+
         card.style.pointerEvents = opacity > 0.25 ? 'auto' : 'none';
       });
 

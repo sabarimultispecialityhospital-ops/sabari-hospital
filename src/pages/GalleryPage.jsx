@@ -44,12 +44,13 @@ const ALL_WEBSITE_IMAGES = [
 export function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [spiralConfig, setSpiralConfig] = useState({
-    radius: 200,
-    cardWidth: 160,
-    cardHeight: 150,
-    verticalSpacing: 70,
-    perspective: 1000,
-    cardsPerTurn: 7
+    radius: 220,
+    cardWidth: 175,
+    cardHeight: 155,
+    verticalSpacing: 75,
+    perspective: 1050,
+    cardsPerTurn: 7,
+    edgeBlur: 4
   });
 
   useEffect(() => {
@@ -59,34 +60,37 @@ export function GalleryPage() {
     const updateConfig = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        // Mobile phones
+        // Mobile phones: ultra-lightweight, 60fps zero-blur
         setSpiralConfig({
-          radius: 140,
-          cardWidth: 120,
-          cardHeight: 110,
-          verticalSpacing: 55,
-          perspective: 850,
-          cardsPerTurn: 6
+          radius: 120,
+          cardWidth: 110,
+          cardHeight: 95,
+          verticalSpacing: 50,
+          perspective: 800,
+          cardsPerTurn: 6,
+          edgeBlur: 0
         });
       } else if (width < 1024) {
         // Tablet / Small Laptop
         setSpiralConfig({
-          radius: 175,
-          cardWidth: 140,
-          cardHeight: 130,
-          verticalSpacing: 65,
+          radius: 170,
+          cardWidth: 135,
+          cardHeight: 120,
+          verticalSpacing: 60,
           perspective: 950,
-          cardsPerTurn: 7
+          cardsPerTurn: 7,
+          edgeBlur: 0
         });
       } else {
         // Standard & Large Desktop
         setSpiralConfig({
           radius: 220,
           cardWidth: 175,
-          cardHeight: 160,
+          cardHeight: 155,
           verticalSpacing: 75,
           perspective: 1050,
-          cardsPerTurn: 7
+          cardsPerTurn: 7,
+          edgeBlur: 4
         });
       }
     };
@@ -103,7 +107,7 @@ export function GalleryPage() {
         Full Page InfiniteSpiral Section
         Takes full height below navbar (88px desktop / 72px mobile)
       */}
-      <section className="relative w-full h-[calc(100dvh-72px)] sm:h-[calc(100vh-88px)] min-h-[620px] mt-[72px] sm:mt-[88px] overflow-hidden bg-[#111827]">
+      <section className="relative w-full h-[calc(100dvh-72px)] sm:h-[calc(100vh-88px)] min-h-[600px] mt-[72px] sm:mt-[88px] overflow-hidden bg-[#111827]">
         
         {/* Ambient Top Subtle Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#00A99D]/10 rounded-full blur-[140px] pointer-events-none" />
@@ -120,8 +124,8 @@ export function GalleryPage() {
             verticalSpacing={spiralConfig.verticalSpacing}
             perspective={spiralConfig.perspective}
             cardRadius={12}
-            centerScale={1.25}
-            edgeBlur={5}
+            centerScale={1.22}
+            edgeBlur={spiralConfig.edgeBlur}
             cardsPerTurn={spiralConfig.cardsPerTurn}
             pauseOnHover={false}
             direction="up"
