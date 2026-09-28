@@ -2,59 +2,54 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Footer } from '../sections/Footer';
-import DriftWall from '../components/ui/DriftWall';
+import InfiniteSpiral from '../components/ui/InfiniteSpiral';
 
 // Only authentic Sabari Hospital photographs (all AI generated images removed)
 const ALL_WEBSITE_IMAGES = [
   // Hospital Campus & External Architecture
-  { image: '/hero_image.png', title: 'Sabari Multispeciality Hospital Main Campus' },
-  { image: '/gallery/image-5.png', title: 'Hospital Main Entrance & 24/7 Facade' },
-  { image: '/hero/image-10.png', title: 'Hospital Main Entrance' },
+  { src: '/hero_image.png', alt: 'Sabari Multispeciality Hospital Main Campus', title: 'Sabari Multispeciality Hospital Main Campus' },
+  { src: '/gallery/image-5.png', alt: 'Hospital Main Entrance & 24/7 Facade', title: 'Hospital Main Entrance & 24/7 Facade' },
+  { src: '/hero/image-10.png', alt: 'Hospital Main Entrance', title: 'Hospital Main Entrance' },
 
   // Hospital Ceremonies, Doctors & Healthcare Team
-  { image: '/hero/image-11.png', title: 'Hospital Opening Ceremony' },
-  { image: '/hero/image-12.png', title: 'Lamp Lighting Ceremony' },
-  { image: '/hero/image-13.png', title: 'Sabari Hospital Medical Staff & Healthcare Team' },
-  { image: '/hero/image-17.png', title: 'Dedicated Nursing & Patient Care Team' },
+  { src: '/hero/image-11.png', alt: 'Hospital Opening Ceremony', title: 'Hospital Opening Ceremony' },
+  { src: '/hero/image-12.png', alt: 'Lamp Lighting Ceremony', title: 'Lamp Lighting Ceremony' },
+  { src: '/hero/image-13.png', alt: 'Sabari Hospital Medical Staff & Healthcare Team', title: 'Sabari Hospital Medical Staff & Healthcare Team' },
+  { src: '/hero/image-17.png', alt: 'Dedicated Nursing & Patient Care Team', title: 'Dedicated Nursing & Patient Care Team' },
 
   // Clinical Facilities, Operation Theatre & Consultation Rooms
-  { image: '/hero/image-14.png', title: 'Executive Consultation Suite' },
-  { image: '/hero/image-15.png', title: 'Surgical Team in Operation Theatre' },
-  { image: '/hero/image-16.png', title: 'Critical Care & Patient Recovery Infrastructure' },
-  { image: '/gallery/image-18.png', title: 'Consultation Room 4 - Dr. R. Rashmi' },
-  { image: '/gallery/image-19.png', title: 'Consultant Gynecologist & Urologist Chambers' },
-  { image: '/gallery/image-20.png', title: 'Specialist Consultation Suites' },
-  { image: '/gallery/image-21.png', title: 'Outpatient Consultation Room' },
-  { image: '/gallery/image-22.png', title: 'Doctor Consultation Chamber' },
-  { image: '/gallery/image-23.png', title: 'In-House Pharmacy Counter' },
-  { image: '/gallery/image-24.png', title: 'Main Hospital Reception Desk' },
-  { image: '/gallery/image-25.png', title: 'Outpatient Waiting Lounge' },
-  { image: '/gallery/image-26.png', title: 'Hospital Consultants Directory Board' },
-  { image: '/gallery/image-27.png', title: 'Inpatient Ward Corridor & Consultation Chambers' },
+  { src: '/hero/image-14.png', alt: 'Executive Consultation Suite', title: 'Executive Consultation Suite' },
+  { src: '/hero/image-15.png', alt: 'Surgical Team in Operation Theatre', title: 'Surgical Team in Operation Theatre' },
+  { src: '/hero/image-16.png', alt: 'Critical Care & Patient Recovery Infrastructure', title: 'Critical Care & Patient Recovery Infrastructure' },
+  { src: '/gallery/image-18.png', alt: 'Consultation Room 4 - Dr. R. Rashmi', title: 'Consultation Room 4 - Dr. R. Rashmi' },
+  { src: '/gallery/image-19.png', alt: 'Consultant Gynecologist & Urologist Chambers', title: 'Consultant Gynecologist & Urologist Chambers' },
+  { src: '/gallery/image-20.png', alt: 'Specialist Consultation Suites', title: 'Specialist Consultation Suites' },
+  { src: '/gallery/image-21.png', alt: 'Outpatient Consultation Room', title: 'Outpatient Consultation Room' },
+  { src: '/gallery/image-22.png', alt: 'Doctor Consultation Chamber', title: 'Doctor Consultation Chamber' },
+  { src: '/gallery/image-23.png', alt: 'In-House Pharmacy Counter', title: 'In-House Pharmacy Counter' },
+  { src: '/gallery/image-24.png', alt: 'Main Hospital Reception Desk', title: 'Main Hospital Reception Desk' },
+  { src: '/gallery/image-25.png', alt: 'Outpatient Waiting Lounge', title: 'Outpatient Waiting Lounge' },
+  { src: '/gallery/image-26.png', alt: 'Hospital Consultants Directory Board', title: 'Hospital Consultants Directory Board' },
+  { src: '/gallery/image-27.png', alt: 'Inpatient Ward Corridor & Consultation Chambers', title: 'Inpatient Ward Corridor & Consultation Chambers' },
 
   // Hospital Leadership & Medical Specialists
-  { image: '/dr-mangaleeswari.png', title: 'Dr. Mangaleeswari - Founder & Consultant Gynecologist' },
-  { image: '/dr-saravana-kumar.png', title: 'Dr. Saravana Kumar S - Managing Director & Surgeon' },
-  { image: '/rashmi.png', title: 'Dr. Rashmi Saravanakumar - Consultant Diabetologist' },
-  { image: '/doctors/doctor-4.png', title: 'Dr. Deepika Mohankumar PT - Physiotherapy Specialist' },
-  { image: '/doctors/doctor-5.png', title: 'Dr. Uthara Vijai Kumar - Pulmonologist' },
-  { image: '/doctors/dr-deepika.png', title: 'Dr. Deepika - Obstetrician & Gynaecologist' }
+  { src: '/dr-mangaleeswari.png', alt: 'Dr. Mangaleeswari - Founder & Consultant Gynecologist', title: 'Dr. Mangaleeswari - Founder & Consultant Gynecologist' },
+  { src: '/dr-saravana-kumar.png', alt: 'Dr. Saravana Kumar S - Managing Director & Surgeon', title: 'Dr. Saravana Kumar S - Managing Director & Surgeon' },
+  { src: '/rashmi.png', alt: 'Dr. Rashmi Saravanakumar - Consultant Diabetologist', title: 'Dr. Rashmi Saravanakumar - Consultant Diabetologist' },
+  { src: '/doctors/doctor-4.png', alt: 'Dr. Deepika Mohankumar PT - Physiotherapy Specialist', title: 'Dr. Deepika Mohankumar PT - Physiotherapy Specialist' },
+  { src: '/doctors/doctor-5.png', alt: 'Dr. Uthara Vijai Kumar - Pulmonologist', title: 'Dr. Uthara Vijai Kumar - Pulmonologist' },
+  { src: '/doctors/dr-deepika.png', alt: 'Dr. Deepika - Obstetrician & Gynaecologist', title: 'Dr. Deepika - Obstetrician & Gynaecologist' }
 ];
 
 export function GalleryPage() {
   const [selectedImage, setSelectedImage] = useState(null);
-  const [wallConfig, setWallConfig] = useState({
-    columns: 6,
-    tileWidth: 230,
-    tileHeight: 148,
-    gap: 20,
-    tilt: 15,
-    turn: -13,
-    perspective: 1300,
-    depth: 120,
-    lift: 72,
-    speed: 40,
-    offsetX: -70
+  const [spiralConfig, setSpiralConfig] = useState({
+    radius: 200,
+    cardWidth: 160,
+    cardHeight: 150,
+    verticalSpacing: 70,
+    perspective: 1000,
+    cardsPerTurn: 7
   });
 
   useEffect(() => {
@@ -65,63 +60,33 @@ export function GalleryPage() {
       const width = window.innerWidth;
       if (width < 640) {
         // Mobile phones
-        setWallConfig({
-          columns: 3,
-          tileWidth: 145,
-          tileHeight: 96,
-          gap: 12,
-          tilt: 12,
-          turn: -10,
+        setSpiralConfig({
+          radius: 140,
+          cardWidth: 120,
+          cardHeight: 110,
+          verticalSpacing: 55,
           perspective: 850,
-          depth: 70,
-          lift: 36,
-          speed: 32,
-          offsetX: -40
+          cardsPerTurn: 6
         });
       } else if (width < 1024) {
         // Tablet / Small Laptop
-        setWallConfig({
-          columns: 4,
-          tileWidth: 185,
-          tileHeight: 122,
-          gap: 16,
-          tilt: 14,
-          turn: -12,
-          perspective: 1100,
-          depth: 95,
-          lift: 52,
-          speed: 36,
-          offsetX: -80
-        });
-      } else if (width < 1440) {
-        // Standard Desktop
-        setWallConfig({
-          columns: 5,
-          tileWidth: 215,
-          tileHeight: 140,
-          gap: 18,
-          tilt: 15,
-          turn: -13,
-          perspective: 1250,
-          depth: 110,
-          lift: 65,
-          speed: 40,
-          offsetX: -130
+        setSpiralConfig({
+          radius: 175,
+          cardWidth: 140,
+          cardHeight: 130,
+          verticalSpacing: 65,
+          perspective: 950,
+          cardsPerTurn: 7
         });
       } else {
-        // Large Displays / 4K
-        setWallConfig({
-          columns: 6,
-          tileWidth: 235,
-          tileHeight: 150,
-          gap: 20,
-          tilt: 15,
-          turn: -13,
-          perspective: 1300,
-          depth: 120,
-          lift: 72,
-          speed: 40,
-          offsetX: -160
+        // Standard & Large Desktop
+        setSpiralConfig({
+          radius: 220,
+          cardWidth: 175,
+          cardHeight: 160,
+          verticalSpacing: 75,
+          perspective: 1050,
+          cardsPerTurn: 7
         });
       }
     };
@@ -132,44 +97,50 @@ export function GalleryPage() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-[#060010] text-white flex flex-col justify-between selection:bg-neutral-800">
+    <div className="w-full min-h-screen bg-[#111827] text-white flex flex-col justify-between selection:bg-neutral-800">
       
       {/* 
-        Full Page DriftWall Section
-        Takes 100% of remaining screen height below navbar (88px desktop / 72px mobile)
-        Uses dynamic viewport units (dvh) for seamless mobile browsing
+        Full Page InfiniteSpiral Section
+        Takes full height below navbar (88px desktop / 72px mobile)
       */}
-      <section className="relative w-full h-[calc(100dvh-72px)] sm:h-[calc(100vh-88px)] min-h-[480px] sm:min-h-[620px] mt-[72px] sm:mt-[88px] overflow-hidden bg-[#060010]">
+      <section className="relative w-full h-[calc(100dvh-72px)] sm:h-[calc(100vh-88px)] min-h-[620px] mt-[72px] sm:mt-[88px] overflow-hidden bg-[#111827]">
         
         {/* Ambient Top Subtle Glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-sky-950/20 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[#00A99D]/10 rounded-full blur-[140px] pointer-events-none" />
 
-        {/* 3D DriftWall Canvas filling 100% width and height */}
-        <div className="w-full h-full">
-          <DriftWall
+        {/* Floating Header Hint */}
+        <div className="absolute top-6 left-0 right-0 z-20 flex flex-col items-center pointer-events-none px-4 text-center">
+          <span className="text-[11px] sm:text-[12px] font-mono tracking-[0.25em] uppercase text-[#00A99D] mb-1.5 font-semibold">
+            EXPLORE SABARI HOSPITAL
+          </span>
+          <p className="text-[13px] sm:text-[14px] text-white/60 font-light">
+            Drag or scroll to rotate the spiral &bull; Click any frame to view
+          </p>
+        </div>
+
+        {/* InfiniteSpiral 3D Stage */}
+        <div className="w-full h-full relative overflow-hidden">
+          <InfiniteSpiral
             items={ALL_WEBSITE_IMAGES}
-            columns={wallConfig.columns}
-            tileWidth={wallConfig.tileWidth}
-            tileHeight={wallConfig.tileHeight}
-            gap={wallConfig.gap}
-            tilt={wallConfig.tilt}
-            turn={wallConfig.turn}
-            perspective={wallConfig.perspective}
-            depth={wallConfig.depth}
-            speed={wallConfig.speed}
+            animationMode="auto"
+            speed={0.55}
+            radius={spiralConfig.radius}
+            cardWidth={spiralConfig.cardWidth}
+            cardHeight={spiralConfig.cardHeight}
+            verticalSpacing={spiralConfig.verticalSpacing}
+            perspective={spiralConfig.perspective}
+            cardRadius={12}
+            centerScale={1.25}
+            edgeBlur={5}
+            cardsPerTurn={spiralConfig.cardsPerTurn}
+            pauseOnHover
             direction="up"
-            variance={0.45}
-            parallax={0.65}
-            lift={wallConfig.lift}
-            fade={0.55}
-            dim={0.6}
-            overlayColor="#060010"
-            radius={14}
-            roll={0}
-            pauseOnHover={false}
-            grayscale={false}
-            offsetX={wallConfig.offsetX}
-            onTileClick={(item) => setSelectedImage(item)}
+            rotation={0}
+            cardTilt={0}
+            edgeFade={0.35}
+            imageFit="cover"
+            grayscale={0}
+            onItemClick={(item) => setSelectedImage(item)}
           />
         </div>
       </section>
@@ -203,12 +174,17 @@ export function GalleryPage() {
               </button>
 
               {/* Lightbox Image */}
-              <div className="w-full max-h-[85vh] flex items-center justify-center overflow-hidden">
+              <div className="w-full max-h-[80vh] flex flex-col items-center justify-center p-2">
                 <img
-                  src={selectedImage.image}
-                  alt={selectedImage.title || 'Hospital Gallery'}
-                  className="w-full h-auto max-h-[85vh] object-contain rounded-2xl"
+                  src={selectedImage.src || selectedImage.image}
+                  alt={selectedImage.title || selectedImage.alt || 'Hospital Gallery'}
+                  className="w-full h-auto max-h-[75vh] object-contain rounded-xl"
                 />
+                {(selectedImage.title || selectedImage.alt) && (
+                  <p className="mt-3 text-[14px] text-white/80 font-medium text-center">
+                    {selectedImage.title || selectedImage.alt}
+                  </p>
+                )}
               </div>
             </motion.div>
           </motion.div>
