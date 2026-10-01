@@ -133,3 +133,59 @@ export function validateAppointment(body) {
     },
   };
 }
+
+/**
+ * Validates and sanitises a contact message payload.
+ * Returns { valid: true, data } or { valid: false, errors }.
+ */
+export function validateContactMessage(body) {
+  const errors = {};
+  const raw = body && typeof body === 'object' ? body : {};
+
+  // 1. Full Name
+  const fullName = sanitizeSingleLine(raw.fullName, 120);
+  if (!isNonEmptyString(fullName) || fullName.length < 2) {
+    errors.fullName = 'Full name must be at least 2 characters';
+  }
+
+  // 2. Phone Number (10-digit Indian mobile number with optional +91 prefix)
+  const phone = sanitizeSingleLine(raw.phone, 30);
+  const cleanPhone = phone.replace(/[\s()-]/g, '');
+  if (!PHONE_CLEAN_RE.test(cleanPhone)) {
+    errors.phone = 'Please provide a valid 10-digit mobile number';
+  }
+  const formattedPhone = cleanPhone.length >= 10 ? `+91 ${cleanPhone.slice(-10)}` : phone;
+
+  // 3. Email Address
+  const email = sanitizeSingleLine(raw.email, 160);
+  if (!isNonEmptyString(email) || !EMAIL_RE.test(email)) {
+    errors.email = 'Please provide a valid email address';
+  }
+
+  // 4. Subject
+  const subject = sanitizeSingleLine(raw.subject, 200);
+  if (!isNonEmptyString(subject) || subject.length < 3) {
+    errors.subject = 'Subject must be at least 3 characters';
+  }
+
+  // 5. Message
+  const message = sanitizeMultiLine(raw.message, 3000);
+  if (!isNonEmptyString(message) || message.length < 5) {
+    errors.message = 'Message must be at least 5 characters';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { valid: false, errors };
+  }
+
+  return {
+    valid: true,
+    data: {
+      fullName,
+      phone: formattedPhone,
+      email,
+      subject,
+      message,
+    },
+  };
+}

@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import express from 'express';
 import cors from 'cors';
 import { appointmentsRouter } from './routes/appointments.js';
+import { contactRouter } from './routes/contact.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -21,6 +22,7 @@ app.get('/api/health', (_req, res) => {
 });
 
 app.use('/api', appointmentsRouter);
+app.use('/api', contactRouter);
 
 // In production this same server can also serve the built frontend (`vite build`
 // output in /dist), so the site and the API share one origin — no CORS or extra

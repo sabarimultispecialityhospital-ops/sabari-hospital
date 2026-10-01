@@ -30,6 +30,7 @@ export function ContactPage() {
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const validate = (fieldValues = values) => {
     const temp = { ...errors };
@@ -45,20 +46,24 @@ export function ContactPage() {
     }
 
     if ('phone' in fieldValues) {
-      if (!fieldValues.phone.trim()) {
-        temp.phone = 'Phone number is required';
-      } else if (!/^[0-9+() -]{7,20}$/.test(fieldValues.phone.trim())) {
-        temp.phone = 'Please enter a valid phone number';
+      const rawPhone = (fieldValues.phone || '').trim().replace(/\D/g, '');
+      if (!rawPhone) {
+        temp.phone = 'Mobile number is required';
+      } else if (rawPhone.length !== 10) {
+        temp.phone = 'Mobile number must be exactly 10 digits';
+      } else if (!/^[6-9]\d{9}$/.test(rawPhone)) {
+        temp.phone = 'Mobile number must start with 6, 7, 8, or 9';
       } else {
         delete temp.phone;
       }
     }
 
     if ('email' in fieldValues) {
-      if (!fieldValues.email.trim()) {
+      const emailVal = (fieldValues.email || '').trim();
+      if (!emailVal) {
         temp.email = 'Email address is required';
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fieldValues.email.trim())) {
-        temp.email = 'Please enter a valid email address';
+      } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(emailVal)) {
+        temp.email = 'Please enter a valid email address (e.g. name@example.com)';
       } else {
         delete temp.email;
       }
@@ -77,8 +82,8 @@ export function ContactPage() {
     if ('message' in fieldValues) {
       if (!fieldValues.message.trim()) {
         temp.message = 'Message is required';
-      } else if (fieldValues.message.trim().length < 10) {
-        temp.message = 'Message must be at least 10 characters';
+      } else if (fieldValues.message.trim().length < 5) {
+        temp.message = 'Message must be at least 5 characters';
       } else {
         delete temp.message;
       }
@@ -90,9 +95,20 @@ export function ContactPage() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setValues(prev => ({ ...prev, [name]: value }));
+    let nextValue = value;
+    if (name === 'phone') {
+      let digits = value.replace(/\D/g, '');
+      if (digits.length > 10 && digits.startsWith('91')) {
+        digits = digits.slice(2);
+      } else if (digits.length > 10 && digits.startsWith('0')) {
+        digits = digits.slice(1);
+      }
+      nextValue = digits.slice(0, 10);
+    }
+
+    setValues(prev => ({ ...prev, [name]: nextValue }));
     if (touched[name]) {
-      validate({ [name]: value });
+      validate({ [name]: nextValue });
     }
   };
 
@@ -102,22 +118,52 @@ export function ContactPage() {
     validate({ [name]: values[name] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setTouched({
+    const allTouched = {
       fullName: true,
       phone: true,
       email: true,
       subject: true,
       message: true
-    });
+    };
+    setTouched(allTouched);
 
-    if (validate(values)) {
-      setIsSubmitting(true);
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-      }, 500);
+    if (!validate(values)) return;
+
+    setSubmitError('');
+    setIsSubmitting(true);
+
+    const cleanDigits = values.phone.trim().replace(/\D/g, '').slice(-10);
+    const payload = {
+      fullName: values.fullName.trim(),
+      phone: `+91 ${cleanDigits}`,
+      email: values.email.trim(),
+      subject: values.subject.trim(),
+      message: values.message.trim(),
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || !result?.success) {
+        throw new Error(
+          result?.message || 'Unable to send your message right now. Please try again or contact us directly.'
+        );
+      }
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+    } catch (err) {
+      console.error('[ContactPage] Failed to submit message:', err);
+      setIsSubmitting(false);
+      setSubmitError(err.message || 'Unable to send your message right now.');
     }
   };
 
@@ -131,6 +177,7 @@ export function ContactPage() {
     });
     setErrors({});
     setTouched({});
+    setSubmitError('');
     setIsSubmitted(false);
   };
 
@@ -329,18 +376,25 @@ export function ContactPage() {
                       htmlFor="phone"
                       className="block text-[11px] font-mono tracking-[0.2em] uppercase text-black mb-2"
                     >
-                      PHONE NUMBER
+                      MOBILE NUMBER
                     </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      value={values.phone}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      placeholder="Enter your phone number"
-                      className={`w-full bg-transparent border-b ${errors.phone && touched.phone ? 'border-neutral-900' : 'border-neutral-300'} py-3.5 text-[16px] text-black placeholder-neutral-400 focus:outline-none focus:border-black transition-colors rounded-none`}
-                    />
+                    <div className={`flex items-center border-b ${errors.phone && touched.phone ? 'border-neutral-900' : 'border-neutral-300'} focus-within:border-black transition-colors`}>
+                      <span className="text-[15px] font-mono font-semibold text-neutral-700 pr-2.5 select-none">
+                        +91
+                      </span>
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        inputMode="numeric"
+                        maxLength={10}
+                        value={values.phone}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        placeholder="Enter 10-digit number"
+                        className="w-full bg-transparent py-3.5 text-[16px] text-black placeholder-neutral-400 focus:outline-none rounded-none"
+                      />
+                    </div>
                     {errors.phone && touched.phone && (
                       <span className="block text-[11px] font-mono text-neutral-500 mt-1.5">
                         {errors.phone}
@@ -423,12 +477,19 @@ export function ContactPage() {
                     )}
                   </div>
 
+                  {/* ERROR ALERT */}
+                  {submitError && (
+                    <div className="p-3 bg-red-50 border-l-2 border-red-600 text-red-700 text-[13px] font-mono">
+                      {submitError}
+                    </div>
+                  )}
+
                   {/* SUBMIT BUTTON - Sabari Button Style */}
                   <div className="pt-4 flex items-center justify-end">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="group inline-flex items-center gap-3 px-9 py-4 bg-black text-white border border-black text-[13px] font-mono font-semibold tracking-[0.08em] uppercase hover:bg-white hover:text-black transition-all duration-200 disabled:opacity-50"
+                      className="group inline-flex items-center gap-3 px-9 py-4 bg-black text-white border border-black text-[13px] font-mono font-semibold tracking-[0.08em] uppercase hover:bg-white hover:text-black transition-all duration-200 disabled:opacity-50 cursor-pointer"
                     >
                       <span>{isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}</span>
                       <span className="group-hover:translate-x-1.5 transition-transform duration-200">&rarr;</span>

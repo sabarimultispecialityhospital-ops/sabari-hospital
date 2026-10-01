@@ -262,3 +262,118 @@ export async function sendAppointmentEmail(data) {
   const info = await transporter.sendMail(mailOptions);
   return info;
 }
+
+/**
+ * Builds the plain-text email body for Contact Us inquiries.
+ */
+export function formatContactMessageEmailText(data) {
+  const fullName = data.fullName || 'Not provided';
+  const phone = data.phone || 'Not provided';
+  const email = data.email || 'Not provided';
+  const subject = data.subject || 'General Inquiry';
+  const message = data.message || 'Not provided';
+
+  return `NEW CONTACT INQUIRY
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+SENDER DETAILS
+
+Full Name: ${fullName}
+Phone Number: ${phone}
+Email: ${email}
+Subject: ${subject}
+
+MESSAGE
+
+${message}
+
+━━━━━━━━━━━━━━━━━━━━━━━━
+Sabari Hospitals
+Contact Form Submission`.replace(/\n{3,}/g, '\n\n');
+}
+
+/**
+ * Builds the HTML version of the Contact Us email.
+ */
+export function formatContactMessageEmailHtml(data) {
+  const fullName = data.fullName || 'Not provided';
+  const phone = data.phone || 'Not provided';
+  const email = data.email || 'Not provided';
+  const subject = data.subject || 'General Inquiry';
+  const message = data.message || 'Not provided';
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>New Contact Message</title>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f7f9fa; margin: 0; padding: 24px; color: #1a202c; line-height: 1.5;">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 620px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.04);">
+    <tr>
+      <td style="background-color: #0B4A8B; padding: 24px 32px; color: #ffffff;">
+        <h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;">New Website Inquiry</h1>
+        <p style="margin: 6px 0 0 0; font-size: 13px; color: #b8d5f3;">Sabari Hospitals — Contact Desk Notification</p>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 28px 32px;">
+        <h2 style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #00A99D; margin: 0 0 16px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Sender Details</h2>
+        <table width="100%" border="0" cellspacing="0" cellpadding="4" style="font-size: 14px; margin-bottom: 24px;">
+          <tr>
+            <td width="38%" style="color: #64748b; font-weight: 500;">Full Name:</td>
+            <td style="color: #0f172a; font-weight: 600;">${fullName}</td>
+          </tr>
+          <tr>
+            <td style="color: #64748b; font-weight: 500;">Phone Number:</td>
+            <td style="color: #0f172a; font-weight: 600;"><a href="tel:${phone}" style="color: #0B4A8B; text-decoration: none;">${phone}</a></td>
+          </tr>
+          <tr>
+            <td style="color: #64748b; font-weight: 500;">Email:</td>
+            <td style="color: #0f172a;"><a href="mailto:${email}" style="color: #0B4A8B; text-decoration: none;">${email}</a></td>
+          </tr>
+          <tr>
+            <td style="color: #64748b; font-weight: 500;">Subject:</td>
+            <td style="color: #0f172a; font-weight: 600;">${subject}</td>
+          </tr>
+        </table>
+
+        <h2 style="font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #00A99D; margin: 0 0 16px 0; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px;">Message</h2>
+        <div style="background-color: #f8fafc; border-left: 3px solid #00A99D; padding: 12px 16px; font-size: 14px; color: #334155; white-space: pre-wrap; margin-bottom: 24px;">${message}</div>
+
+        <p style="font-size: 12px; color: #94a3b8; margin: 24px 0 0 0; padding-top: 16px; border-top: 1px solid #e2e8f0; text-align: center;">
+          Sabari Hospitals &bull; Contact Form Notification
+        </p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+}
+
+/**
+ * Sends the contact message email to the hospital using Nodemailer.
+ */
+export async function sendContactMessageEmail(data) {
+  const transporter = getMailTransporter();
+  const receiver = process.env.APPOINTMENT_RECEIVER || 'sabarimultispecialityhospital@gmail.com';
+  const fromAddress = process.env.SMTP_FROM || `"Sabari Hospitals Contact" <${process.env.SMTP_USER}>`;
+
+  const textBody = formatContactMessageEmailText(data);
+  const htmlBody = formatContactMessageEmailHtml(data);
+
+  const mailOptions = {
+    from: fromAddress,
+    to: receiver,
+    subject: `New Contact Inquiry: ${data.subject || 'Website Message'} — Sabari Hospitals`,
+    text: textBody,
+    html: htmlBody,
+  };
+
+  if (data.email && typeof data.email === 'string' && data.email.trim().length > 0) {
+    mailOptions.replyTo = data.email.trim();
+  }
+
+  const info = await transporter.sendMail(mailOptions);
+  return info;
+}
