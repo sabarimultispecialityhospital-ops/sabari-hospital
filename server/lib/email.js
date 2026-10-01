@@ -59,6 +59,36 @@ export function getMailTransporter() {
 }
 
 /**
+ * Formats a YYYY-MM-DD date into Indian date format (DD-MM-YYYY).
+ */
+export function formatIndianDate(dateStr) {
+  if (!dateStr || typeof dateStr !== 'string') return dateStr || 'Not specified';
+  const match = dateStr.trim().match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (match) {
+    const [, yyyy, mm, dd] = match;
+    return `${dd}-${mm}-${yyyy}`;
+  }
+  return dateStr;
+}
+
+/**
+ * Formats a 24-hour time string (HH:MM) into 12-hour AM/PM format (e.g. 01:06 PM).
+ */
+export function format12HourTime(timeStr) {
+  if (!timeStr || typeof timeStr !== 'string') return timeStr || 'Not specified';
+  const parts = timeStr.trim().split(':');
+  if (parts.length < 2) return timeStr;
+  let hours = parseInt(parts[0], 10);
+  const minutes = parts[1].padStart(2, '0');
+  if (isNaN(hours)) return timeStr;
+  const period = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const formattedHours = String(hours).padStart(2, '0');
+  return `${formattedHours}:${minutes} ${period}`;
+}
+
+/**
  * Builds the plain-text email body matching the hospital specification.
  * If no specific doctor was selected, the Preferred Doctor line is omitted.
  */
@@ -69,8 +99,8 @@ export function formatAppointmentEmailText(data) {
   const phone = data.phone || 'Not provided';
   const email = data.email || 'Not provided';
   const department = data.department || 'Not specified';
-  const date = data.date || 'Not specified';
-  const time = data.time || 'Not specified';
+  const date = formatIndianDate(data.date);
+  const time = format12HourTime(data.time);
   const reason = data.reason || 'Not specified';
 
   const doctorVal = typeof data.doctor === 'string' ? data.doctor.trim() : '';
@@ -119,8 +149,8 @@ export function formatAppointmentEmailHtml(data) {
   const phone = data.phone || 'Not provided';
   const email = data.email || 'Not provided';
   const department = data.department || 'Not specified';
-  const date = data.date || 'Not specified';
-  const time = data.time || 'Not specified';
+  const date = formatIndianDate(data.date);
+  const time = format12HourTime(data.time);
   const reason = data.reason || 'Not specified';
 
   const doctorVal = typeof data.doctor === 'string' ? data.doctor.trim() : '';
