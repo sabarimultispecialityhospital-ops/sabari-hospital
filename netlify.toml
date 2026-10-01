@@ -5,6 +5,14 @@
 [build.environment]
   SECRETS_SCAN_OMIT_KEYS = "APPOINTMENT_RECEIVER,PORT,CORS_ORIGIN,SMTP_USER,SMTP_HOST,SMTP_PORT"
 
+[functions]
+  directory = "netlify/functions"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

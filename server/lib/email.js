@@ -10,11 +10,13 @@ let lastConfigKey = null;
  * Throws a descriptive error if SMTP credentials are not configured.
  */
 export function getMailTransporter() {
-  try {
-    dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: true });
-  } catch {
-    // fallback if path resolution fails
-    dotenv.config({ override: true });
+  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASSWORD) {
+    try {
+      dotenv.config({ path: path.resolve(process.cwd(), '.env'), override: true });
+    } catch {
+      // fallback if path resolution fails
+      dotenv.config({ override: true });
+    }
   }
 
   const host = process.env.SMTP_HOST?.trim();
