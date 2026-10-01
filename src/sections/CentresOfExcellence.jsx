@@ -17,7 +17,7 @@ export function CentresOfExcellence() {
           </span>
           <Link to="/contact" className="hover:opacity-80 transition-opacity">
             <h2 className="text-[36px] sm:text-[44px] lg:text-[56px] font-medium leading-[1.05] tracking-[-0.02em] text-[#0B4A8B] mb-6 sm:mb-8">
-              CENTRES<br />
+              CENTRE<br />
               OF EXCELLENCE
             </h2>
           </Link>

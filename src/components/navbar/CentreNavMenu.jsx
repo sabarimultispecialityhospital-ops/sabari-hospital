@@ -18,7 +18,7 @@ export function CentreNavMenu({ isOpen, onClose }) {
             
             {/* Top Bar */}
             <div className="flex items-center justify-between pb-6 mb-8 border-b border-neutral-100">
-              <h3 className="text-xl font-medium text-black">Centres of Excellence</h3>
+              <h3 className="text-xl font-medium text-black">Centre of Excellence</h3>
               <Link
                 to="/centre-of-excellence"
                 onClick={onClose}
