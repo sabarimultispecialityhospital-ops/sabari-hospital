@@ -16,8 +16,9 @@ export const DEPARTMENT_OPTIONS = [
   'Other',
 ];
 
-const PHONE_RE = /^[0-9+() -]{7,20}$/;
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Strictly validate Indian mobile numbers: exactly 10 digits starting with 6-9, with optional +91, 91, or 0 prefix
+const PHONE_CLEAN_RE = /^(?:\+91|91|0)?[6-9]\d{9}$/;
+const EMAIL_RE = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const TIME_RE = /^\d{2}:\d{2}$/;
 
@@ -72,9 +73,13 @@ export function validateAppointment(body) {
     errors.age = 'A valid age is required';
   }
 
-  // 4. Phone Number
+  // 4. Phone Number (10-digit Indian mobile number with optional +91 prefix)
   const phone = sanitizeSingleLine(raw.phone, 30);
-  if (!PHONE_RE.test(phone)) errors.phone = 'A valid phone number is required';
+  const cleanPhone = phone.replace(/[\s()-]/g, '');
+  if (!PHONE_CLEAN_RE.test(cleanPhone)) {
+    errors.phone = 'Please provide a valid 10-digit mobile number (e.g. 9876543210 or +91 9876543210)';
+  }
+  const formattedPhone = cleanPhone.length >= 10 ? `+91 ${cleanPhone.slice(-10)}` : phone;
 
   // 5. Email (Optional, but if provided must be valid)
   const email = sanitizeSingleLine(raw.email, 160);
@@ -118,7 +123,7 @@ export function validateAppointment(body) {
       fullName,
       gender,
       age: ageNum,
-      phone,
+      phone: formattedPhone,
       email,
       department,
       doctor: doctor || '',

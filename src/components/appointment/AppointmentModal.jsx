@@ -84,15 +84,22 @@ export function AppointmentModal() {
         if (!Number.isFinite(n) || n <= 0 || n > 120) return 'Please enter a valid age';
         return '';
       }
-      case 'phone':
-        if (!vals.phone.trim()) return 'Please enter your phone number';
-        if (!/^[0-9+() -]{7,20}$/.test(vals.phone.trim())) return 'Please enter a valid phone number';
-        return '';
-      case 'email':
-        if (vals.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vals.email.trim())) {
-          return 'Please enter a valid email address';
+      case 'phone': {
+        const rawPhone = vals.phone.trim();
+        if (!rawPhone) return 'Please enter your mobile number';
+        const cleanPhone = rawPhone.replace(/[\s()-]/g, '');
+        if (!/^(?:\+91|91|0)?[6-9]\d{9}$/.test(cleanPhone)) {
+          return 'Please enter a valid 10-digit mobile number (e.g. 9876543210 or +91 9876543210)';
         }
         return '';
+      }
+      case 'email': {
+        const rawEmail = vals.email.trim();
+        if (rawEmail && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(rawEmail)) {
+          return 'Please enter a valid email address (e.g. name@example.com)';
+        }
+        return '';
+      }
       case 'department':
         if (!vals.department) return 'Please select a department';
         return '';
@@ -324,12 +331,13 @@ export function AppointmentModal() {
 
                     {/* Phone */}
                     <div>
-                      <label className={labelClasses} htmlFor="phone">Phone Number</label>
+                      <label className={labelClasses} htmlFor="phone">Mobile Number</label>
                       <input
                         id="phone"
                         name="phone"
                         type="tel"
-                        placeholder="+91 XXXXX XXXXX"
+                        maxLength={16}
+                        placeholder="+91 XXXXX XXXXX or 10 digits"
                         className={inputClasses}
                         value={values.phone}
                         onChange={handleChange}
