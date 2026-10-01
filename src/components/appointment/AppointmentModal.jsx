@@ -249,13 +249,13 @@ export function AppointmentModal() {
             {submitted ? (
               <div className="px-6 py-16 sm:px-16 sm:py-20 flex flex-col items-center text-center overflow-y-auto">
                 <span className="text-[11px] font-semibold tracking-[0.2em] uppercase text-neutral-400 mb-4">
-                  Request Received
+                  Request Submitted
                 </span>
                 <h2 className="text-[26px] sm:text-[34px] font-medium tracking-tight text-black mb-4">
-                  Appointment Request Received
+                  Appointment Request Submitted
                 </h2>
                 <p className="text-neutral-600 text-[15px] leading-relaxed max-w-[460px] mb-10">
-                  Thank you, {submittedName.split(' ')[0] || 'there'}. Your appointment request has been sent to
+                  Thank you, {submittedName.split(' ')[0] || 'there'}. Your appointment request has been submitted to
                   Sabari Hospitals. Our team will contact you shortly to confirm your appointment.
                 </p>
                 <button
