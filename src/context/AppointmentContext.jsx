@@ -3,7 +3,7 @@ import { getDoctorById } from '../data/appointmentData';
 
 const AppointmentContext = createContext(null);
 
-const initialPreset = { department: '' };
+const initialPreset = { department: '', doctor: '', doctorId: '' };
 
 export function AppointmentProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +12,13 @@ export function AppointmentProvider({ children }) {
   const openAppointmentModal = useCallback((opts = {}) => {
     const { doctor, doctorId, department } = opts;
     const resolvedDoctor = doctorId ? getDoctorById(doctorId) : null;
+    const resolvedDoctorName = resolvedDoctor?.name || doctor?.name || (typeof doctor === 'string' ? doctor : '') || '';
+    const resolvedDepartment = department || resolvedDoctor?.department || doctor?.department || '';
+
     setPreset({
-      department: department || resolvedDoctor?.department || doctor?.department || '',
+      department: resolvedDepartment,
+      doctor: resolvedDoctorName,
+      doctorId: doctorId || resolvedDoctor?.id || doctor?.id || '',
     });
     setIsOpen(true);
   }, []);

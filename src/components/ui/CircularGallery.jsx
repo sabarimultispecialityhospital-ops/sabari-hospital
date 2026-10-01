@@ -388,6 +388,8 @@ class App {
       font = 'bold 30px Figtree',
       scrollSpeed = 2,
       scrollEase = 0.05,
+      autoScroll = true,
+      autoScrollSpeed = 0.025,
       onItemClick
     } = {}
   ) {
@@ -395,6 +397,9 @@ class App {
     this.container = container;
     this.onItemClick = onItemClick;
     this.scrollSpeed = scrollSpeed;
+    this.autoScroll = autoScroll;
+    this.autoScrollSpeed = autoScrollSpeed;
+    this.isHovered = false;
     this.scroll = { ease: scrollEase, current: 0, target: 0, last: 0 };
     this.onCheckDebounce = debounce(this.onCheck, 200);
     this.createRenderer();
@@ -478,6 +483,7 @@ class App {
     }
     this.isDown = true;
     this.hasMoved = false;
+    this.hasMovedHorizontally = false;
     this.scroll.position = this.scroll.current;
     this.start = e.touches ? e.touches[0].clientX : e.clientX;
     this.startY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -487,8 +493,20 @@ class App {
     if (!this.isDown) return;
     const x = e.touches ? e.touches[0].clientX : e.clientX;
     const y = e.touches ? e.touches[0].clientY : e.clientY;
-    if (Math.abs(this.start - x) > 6 || Math.abs(this.startY - y) > 6) {
+    const deltaX = Math.abs(this.start - x);
+    const deltaY = Math.abs(this.startY - y);
+
+    // If on mobile touch and dominant motion is vertical page scrolling, release horizontal drag
+    if (e.touches && deltaY > deltaX * 1.2 && deltaY > 12 && !this.hasMovedHorizontally) {
+      this.isDown = false;
+      return;
+    }
+
+    if (deltaX > 15 || deltaY > 15) {
       this.hasMoved = true;
+    }
+    if (deltaX > 15) {
+      this.hasMovedHorizontally = true;
     }
     const distance = (this.start - x) * (this.scrollSpeed * 0.025);
     this.scroll.target = this.scroll.position + distance;
@@ -496,9 +514,9 @@ class App {
   onTouchUp(e) {
     if (!this.isDown) return;
     this.isDown = false;
-    this.onCheck();
-
-    if (this.hasMoved) return;
+    if (!this.autoScroll) {
+      this.onCheck();
+    }
 
     if (!this.container) return;
     const rect = this.container.getBoundingClientRect();
@@ -515,18 +533,67 @@ class App {
 
     const distanceX = Math.abs(this.start - endX);
     const distanceY = Math.abs(this.startY - endY);
+    const tapDistance = Math.hypot(distanceX, distanceY);
     const time = Date.now() - this.startTime;
 
-    // Detect click only if user made an intentional tap inside the gallery container
-    if (distanceX < 6 && distanceY < 6 && time < 300 && this.originalItems) {
-      if (!this.medias || !this.medias[0]) return;
-      const width = this.medias[0].width;
-      const itemIndex = Math.round(Math.abs(this.scroll.target) / width);
-      const actualIndex = itemIndex % this.originalItems.length;
-      const clickedItem = this.originalItems[actualIndex];
+    // Detect intentional tap/click: small movement and under 700ms
+    const isTap = (!this.hasMoved || tapDistance < 22) && time < 700;
+
+    if (isTap && this.originalItems && this.originalItems.length > 0) {
+      const now = Date.now();
+      if (now - (this.lastTapTime || 0) < 400) return;
+      this.lastTapTime = now;
+
+      // Project tap position into WebGL viewport coordinates
+      const tapX_px = endX - (rect.left + rect.width / 2);
+      const tapY_px = (rect.top + rect.height / 2) - endY;
       
-      if (this.onItemClick && clickedItem) {
-        this.onItemClick(clickedItem, actualIndex);
+      const tapX_gl = (tapX_px / rect.width) * this.viewport.width;
+      const tapY_gl = (tapY_px / rect.height) * this.viewport.height;
+
+      let bestMedia = null;
+      let minDistance = Infinity;
+
+      if (this.medias && this.medias.length > 0) {
+        // Priority 1: Check cards directly under tap coordinates
+        for (const media of this.medias) {
+          const posX = media.plane.position.x;
+          const posY = media.plane.position.y;
+          const halfW = (media.plane.scale.x / 2) + 0.6;
+          const halfH = (media.plane.scale.y / 2) + 1.2;
+
+          const inBounds = (
+            Math.abs(tapX_gl - posX) <= halfW &&
+            Math.abs(tapY_gl - posY) <= halfH
+          );
+
+          if (inBounds) {
+            const dist = Math.abs(tapX_gl - posX);
+            if (dist < minDistance) {
+              minDistance = dist;
+              bestMedia = media;
+            }
+          }
+        }
+
+        // Priority 2: Fallback to closest visible card on screen
+        if (!bestMedia) {
+          for (const media of this.medias) {
+            const dist = Math.abs(tapX_gl - media.plane.position.x);
+            if (dist < minDistance) {
+              minDistance = dist;
+              bestMedia = media;
+            }
+          }
+        }
+      }
+
+      if (bestMedia) {
+        const actualIndex = ((bestMedia.index % this.originalItems.length) + this.originalItems.length) % this.originalItems.length;
+        const clickedItem = this.originalItems[actualIndex];
+        if (this.onItemClick && clickedItem) {
+          this.onItemClick(clickedItem, actualIndex);
+        }
       }
     }
   }
@@ -586,8 +653,11 @@ class App {
     }
   }
   update() {
+    if (this.autoScroll && !this.isDown && !this.isHovered) {
+      this.scroll.target += this.autoScrollSpeed;
+    }
     this.scroll.current = lerp(this.scroll.current, this.scroll.target, this.scroll.ease);
-    const direction = this.scroll.current > this.scroll.last ? 'right' : 'left';
+    const direction = this.scroll.current >= this.scroll.last ? 'right' : 'left';
     if (this.medias) {
       this.medias.forEach(media => media.update(this.scroll, direction));
     }
@@ -602,10 +672,14 @@ class App {
     this.boundOnTouchMove = this.onTouchMove.bind(this);
     this.boundOnTouchUp = this.onTouchUp.bind(this);
     this.boundOnKeyDown = this.onKeyDown.bind(this);
+    this.boundOnMouseEnter = () => { this.isHovered = true; };
+    this.boundOnMouseLeave = () => { this.isHovered = false; };
 
     window.addEventListener('resize', this.boundOnResize);
 
     if (this.container) {
+      this.container.addEventListener('mouseenter', this.boundOnMouseEnter);
+      this.container.addEventListener('mouseleave', this.boundOnMouseLeave);
       this.container.addEventListener('wheel', this.boundOnWheel, { passive: true });
       this.container.addEventListener('mousedown', this.boundOnTouchDown);
       this.container.addEventListener('touchstart', this.boundOnTouchDown, { passive: true });
@@ -626,6 +700,8 @@ class App {
     window.removeEventListener('touchend', this.boundOnTouchUp);
 
     if (this.container) {
+      this.container.removeEventListener('mouseenter', this.boundOnMouseEnter);
+      this.container.removeEventListener('mouseleave', this.boundOnMouseLeave);
       this.container.removeEventListener('wheel', this.boundOnWheel);
       this.container.removeEventListener('mousedown', this.boundOnTouchDown);
       this.container.removeEventListener('touchstart', this.boundOnTouchDown);
@@ -638,8 +714,22 @@ class App {
   }
 }
 
-function FallbackGallery({ items = [], onItemClick }) {
+function FallbackGallery({ items = [], onItemClick, autoScroll = true }) {
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (!autoScroll) return;
+    const interval = setInterval(() => {
+      if (scrollRef.current) {
+        if (scrollRef.current.scrollLeft + scrollRef.current.clientWidth >= scrollRef.current.scrollWidth - 10) {
+          scrollRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+          scrollRef.current.scrollBy({ left: 240, behavior: 'smooth' });
+        }
+      }
+    }, 3500);
+    return () => clearInterval(interval);
+  }, [autoScroll]);
 
   const scroll = (direction) => {
     if (scrollRef.current) {
@@ -717,6 +807,8 @@ export default function CircularGallery({
   fontUrl,
   scrollSpeed = 2,
   scrollEase = 0.05,
+  autoScroll = true,
+  autoScrollSpeed = 0.025,
   onItemClick
 }) {
   const containerRef = useRef(null);
@@ -752,6 +844,8 @@ export default function CircularGallery({
             font: resolvedFont,
             scrollSpeed,
             scrollEase,
+            autoScroll,
+            autoScrollSpeed,
             onItemClick
           });
         } catch (err) {
@@ -774,7 +868,7 @@ export default function CircularGallery({
         }
       }
     };
-  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, onItemClick]);
+  }, [items, bend, textColor, borderRadius, font, fontUrl, scrollSpeed, scrollEase, autoScroll, autoScrollSpeed, onItemClick]);
 
   if (webglFailed) {
     return <FallbackGallery items={items} onItemClick={onItemClick} />;

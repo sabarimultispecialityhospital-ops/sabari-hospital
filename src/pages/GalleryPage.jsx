@@ -14,12 +14,13 @@ const ALL_WEBSITE_IMAGES = [
   // Hospital Ceremonies, Doctors & Healthcare Team
   { src: '/hero/image-11.png', alt: 'Hospital Opening Ceremony', title: 'Hospital Opening Ceremony' },
   { src: '/hero/image-12.png', alt: 'Lamp Lighting Ceremony', title: 'Lamp Lighting Ceremony' },
+  { src: '/gallery/image-28.png', alt: 'Hospital Blessing & Puja Ceremony', title: 'Hospital Blessing & Puja Ceremony' },
+  { src: '/gallery/image-29.png', alt: 'Auspicious Deepam Lighting Ceremony', title: 'Auspicious Deepam Lighting Ceremony' },
   { src: '/hero/image-13.png', alt: 'Sabari Hospital Medical Staff & Healthcare Team', title: 'Sabari Hospital Medical Staff & Healthcare Team' },
   { src: '/hero/image-17.png', alt: 'Dedicated Nursing & Patient Care Team', title: 'Dedicated Nursing & Patient Care Team' },
 
   // Clinical Facilities, Operation Theatre & Consultation Rooms
   { src: '/hero/image-14.png', alt: 'Executive Consultation Suite', title: 'Executive Consultation Suite' },
-  { src: '/hero/image-15.png', alt: 'Surgical Team in Operation Theatre', title: 'Surgical Team in Operation Theatre' },
   { src: '/hero/image-16.png', alt: 'Critical Care & Patient Recovery Infrastructure', title: 'Critical Care & Patient Recovery Infrastructure' },
   { src: '/gallery/image-18.png', alt: 'Consultation Room 4 - Dr. R. Rashmi', title: 'Consultation Room 4 - Dr. R. Rashmi' },
   { src: '/gallery/image-19.png', alt: 'Consultant Gynecologist & Urologist Chambers', title: 'Consultant Gynecologist & Urologist Chambers' },
@@ -33,9 +34,9 @@ const ALL_WEBSITE_IMAGES = [
   { src: '/gallery/image-27.png', alt: 'Inpatient Ward Corridor & Consultation Chambers', title: 'Inpatient Ward Corridor & Consultation Chambers' },
 
   // Hospital Leadership & Medical Specialists
-  { src: '/dr-mangaleeswari.png', alt: 'Dr. Mangaleeswari - Founder & Consultant Gynecologist', title: 'Dr. Mangaleeswari - Founder & Consultant Gynecologist' },
+  { src: '/dr-mangaleswari.png', alt: 'Dr. Mangaleswari - Founder & Consultant Gynecologist', title: 'Dr. Mangaleswari - Founder & Consultant Gynecologist' },
   { src: '/dr-saravana-kumar.png', alt: 'Dr. Saravana Kumar S - Managing Director & Surgeon', title: 'Dr. Saravana Kumar S - Managing Director & Surgeon' },
-  { src: '/rashmi.png', alt: 'Dr. Rashmi Saravanakumar - Consultant Diabetologist', title: 'Dr. Rashmi Saravanakumar - Consultant Diabetologist' },
+  { src: '/rashmi.png', alt: 'Dr. Rashmi Saravanakumar - General Physician & Diabetologist', title: 'Dr. Rashmi Saravanakumar - General Physician & Diabetologist' },
   { src: '/doctors/doctor-4.png', alt: 'Dr. Deepika Mohankumar PT - Physiotherapy Specialist', title: 'Dr. Deepika Mohankumar PT - Physiotherapy Specialist' },
   { src: '/doctors/doctor-5.png', alt: 'Dr. Uthara Vijai Kumar - Pulmonologist', title: 'Dr. Uthara Vijai Kumar - Pulmonologist' },
   { src: '/doctors/dr-deepika.png', alt: 'Dr. Deepika - Obstetrician & Gynaecologist', title: 'Dr. Deepika - Obstetrician & Gynaecologist' }

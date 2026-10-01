@@ -41,6 +41,8 @@ export function DoctorsSection() {
           textColor="#ffffff"
           borderRadius={0.05}
           scrollEase={0.05}
+          autoScroll={true}
+          autoScrollSpeed={0.025}
           font="600 20px 'Plus Jakarta Sans', Manrope, sans-serif"
           fontUrl="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&display=swap"
           scrollSpeed={2}

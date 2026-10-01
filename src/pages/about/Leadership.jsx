@@ -29,14 +29,14 @@ export function Leadership() {
       ]
     },
     {
-      id: "dr-mangaleeswari",
-      name: "Dr. Mangaleeswari",
+      id: "dr-mangaleswari",
+      name: "Dr. Mangaleswari",
       title: "FOUNDER",
       speciality: "Obstetrician & Gynaecologist",
       image: "/doctors/doctor-1.png",
       qualifications: "MBBS • DGO (Obstetrics & Gynaecology)",
       experience: "50 Years of Experience (incl. Coimbatore Medical College)",
-      bio: "Dr. Mangaleeswari is the Founder and guiding pillar of Sabari Hospital. With 50 years of distinguished medical service, her career has been devoted to maternal wellness, high-risk pregnancy care, and gynaecological health. Honoured with the Lifetime Achievement Award by IMA Coimbatore in 2019, her patient-first ethos remains the foundational cornerstone of the entire hospital.",
+      bio: "Dr. Mangaleswari is the Founder and guiding pillar of Sabari Hospital. With 50 years of distinguished medical service, her career has been devoted to maternal wellness, high-risk pregnancy care, and gynaecological health. Honoured with the Lifetime Achievement Award by IMA Coimbatore in 2019, her patient-first ethos remains the foundational cornerstone of the entire hospital.",
       keyContributions: [
         "Founder of Sabari Hospital (Est. 1999)",
         "50 Years of Experience",

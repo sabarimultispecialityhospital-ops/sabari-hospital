@@ -13,6 +13,7 @@ const emptyValues = {
   phone: '',
   email: '',
   department: '',
+  doctor: '',
   date: '',
   time: '',
   reason: '',
@@ -35,13 +36,14 @@ export function AppointmentModal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
 
-  // Apply preset department whenever the modal is opened.
+  // Apply preset department and doctor whenever the modal is opened.
   useEffect(() => {
     if (!isOpen) return;
-    setValues((prev) => ({
+    setValues({
       ...emptyValues,
       department: preset.department || '',
-    }));
+      doctor: preset.doctor || '',
+    });
     setErrors({});
     setTouched({});
     setSubmitted(false);
@@ -147,6 +149,7 @@ export function AppointmentModal() {
       phone: values.phone.trim(),
       email: values.email.trim(),
       department: values.department,
+      doctor: values.doctor || '',
       date: values.date,
       time: values.time,
       reason: values.reason.trim(),

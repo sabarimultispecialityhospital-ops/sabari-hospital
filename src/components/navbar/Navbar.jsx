@@ -101,6 +101,12 @@ export function Navbar() {
     }
   };
 
+  const handleLogoClick = () => {
+    setActiveMenu(null);
+    setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
   return (
     <nav ref={navRef} onMouseLeave={() => setActiveMenu(null)} className="fixed top-0 left-0 right-0 z-[1000] w-full bg-white/95 backdrop-blur-md border-b border-neutral-100 shadow-[0_1px_3px_rgba(0,0,0,0.03)] transition-colors duration-200">
       <div className="max-w-[1600px] w-full mx-auto px-6 lg:px-16">
@@ -108,7 +114,7 @@ export function Navbar() {
         <div className="hidden lg:flex justify-between h-[88px] items-center relative w-full">
           
           {/* 1. Left Brand Logo */}
-          <Link to="/" className="flex items-center justify-center shrink-0">
+          <Link to="/" onClick={handleLogoClick} className="flex items-center justify-center shrink-0 cursor-pointer">
             <img src="/logo.png" alt="Sabari Hospital" className="h-16 w-auto object-contain" />
           </Link>
 
@@ -174,7 +180,7 @@ export function Navbar() {
         {/* Mobile Header Bar - Simple & Clean */}
         <div className="lg:hidden flex items-center justify-between h-[72px] sm:h-[80px]">
           {/* Brand Logo on Left */}
-          <Link to="/" className="flex items-center shrink-0">
+          <Link to="/" onClick={handleLogoClick} className="flex items-center shrink-0 cursor-pointer">
             <img 
               src="/logo.png" 
               alt="Sabari Hospital" 
@@ -225,7 +231,7 @@ export function Navbar() {
             >
               {/* Drawer Header */}
               <div className="flex items-center justify-between px-6 h-[72px] sm:h-[80px] border-b border-neutral-100 shrink-0">
-                <Link to="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
+                <Link to="/" onClick={handleLogoClick} className="flex items-center cursor-pointer">
                   <img src="/logo.png" alt="Sabari Hospital" className="h-10 sm:h-11 w-auto object-contain" />
                 </Link>
                 

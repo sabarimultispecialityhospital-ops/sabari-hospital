@@ -10,7 +10,6 @@ const HERO_IMAGES = [
   "/hero/image-12.png",
   "/hero/image-13.png",
   "/hero/image-14.png",
-  "/hero/image-15.png",
   "/hero/image-16.png",
   "/hero/image-17.png"
 ];
@@ -180,7 +179,7 @@ export function Hero() {
 
         {/* WhatsApp Button */}
         <a
-          href="https://wa.me/914222442200"
+          href="https://wa.me/919443335152"
           target="_blank"
           rel="noopener noreferrer"
           className="w-11 h-11 rounded-2xl bg-[#25D366] text-white flex items-center justify-center shadow-[0_8px_20px_rgba(37,211,102,0.35)] hover:bg-[#20ba5a] active:scale-95 transition-all"

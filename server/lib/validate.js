@@ -25,12 +25,22 @@ function isNonEmptyString(v) {
   return typeof v === 'string' && v.trim().length > 0;
 }
 
-// Strips control characters and clamps length; the values only ever end up
-// inside a plain-text WhatsApp message, but we sanitise defensively anyway.
-function sanitizeText(value, maxLength = 500) {
+// Strips CRLF, control characters, and clamps length to prevent header injection
+function sanitizeSingleLine(value, maxLength = 200) {
   if (typeof value !== 'string') return '';
   return value
-    .replace(/[\u0000-\u001F\u007F]/g, '') // control chars
+    .replace(/[\r\n\u0000-\u001F\u007F]/g, '')
+    .trim()
+    .slice(0, maxLength);
+}
+
+// Strips non-printable control characters while preserving standard newlines
+function sanitizeMultiLine(value, maxLength = 1000) {
+  if (typeof value !== 'string') return '';
+  return value
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '')
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
     .trim()
     .slice(0, maxLength);
 }
@@ -48,37 +58,55 @@ export function validateAppointment(body) {
   const errors = {};
   const raw = body && typeof body === 'object' ? body : {};
 
-  const fullName = sanitizeText(raw.fullName, 120);
+  // 1. Full Name
+  const fullName = sanitizeSingleLine(raw.fullName, 120);
   if (!isNonEmptyString(fullName)) errors.fullName = 'Full name is required';
 
-  const gender = sanitizeText(raw.gender, 40);
+  // 2. Gender
+  const gender = sanitizeSingleLine(raw.gender, 40);
   if (!GENDER_OPTIONS.includes(gender)) errors.gender = 'A valid gender selection is required';
 
+  // 3. Age
   const ageNum = Number(raw.age);
   if (!isNonEmptyString(String(raw.age ?? '')) || !Number.isFinite(ageNum) || ageNum <= 0 || ageNum > 120) {
     errors.age = 'A valid age is required';
   }
 
-  const phone = sanitizeText(raw.phone, 30);
+  // 4. Phone Number
+  const phone = sanitizeSingleLine(raw.phone, 30);
   if (!PHONE_RE.test(phone)) errors.phone = 'A valid phone number is required';
 
-  const email = sanitizeText(raw.email, 160);
+  // 5. Email (Optional, but if provided must be valid)
+  const email = sanitizeSingleLine(raw.email, 160);
   if (email && !EMAIL_RE.test(email)) errors.email = 'Please provide a valid email address';
 
-  const department = sanitizeText(raw.department, 60);
+  // 6. Department / Speciality
+  const department = sanitizeSingleLine(raw.department, 80);
   if (!DEPARTMENT_OPTIONS.includes(department)) errors.department = 'A valid department is required';
 
-  const date = sanitizeText(raw.date, 10);
+  // 7. Preferred Doctor (omit if not specified or placeholder)
+  const rawDoctor = sanitizeSingleLine(raw.doctor, 120);
+  const isDoctorOmitted = !rawDoctor ||
+    /^not\s*specified/i.test(rawDoctor) ||
+    /any\s*specialist/i.test(rawDoctor) ||
+    rawDoctor.toLowerCase() === 'none' ||
+    rawDoctor.toLowerCase() === 'n/a';
+  const doctor = isDoctorOmitted ? '' : rawDoctor;
+
+  // 8. Preferred Date
+  const date = sanitizeSingleLine(raw.date, 10);
   if (!DATE_RE.test(date)) {
     errors.date = 'A valid preferred date is required';
   } else if (date < todayISO()) {
     errors.date = 'Date cannot be in the past';
   }
 
-  const time = sanitizeText(raw.time, 5);
+  // 9. Preferred Time
+  const time = sanitizeSingleLine(raw.time, 10);
   if (!TIME_RE.test(time)) errors.time = 'A valid preferred time is required';
 
-  const reason = sanitizeText(raw.reason, 800);
+  // 10. Reason for Visit
+  const reason = sanitizeMultiLine(raw.reason, 1000);
 
   if (Object.keys(errors).length > 0) {
     return { valid: false, errors };
@@ -93,6 +121,7 @@ export function validateAppointment(body) {
       phone,
       email,
       department,
+      doctor: doctor || '',
       date,
       time,
       reason,

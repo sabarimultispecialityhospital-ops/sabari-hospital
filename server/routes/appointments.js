@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import { validateAppointment } from '../lib/validate.js';
-import { formatAppointmentMessage, sendWhatsAppMessage } from '../lib/whatsapp.js';
+import { sendAppointmentEmail } from '../lib/email.js';
 
 export const appointmentsRouter = Router();
 
-// Very small in-memory rate limiter: max 5 submissions per phone/IP per 10 minutes.
-// Prevents accidental/abusive repeated WhatsApp sends; not a substitute for a
+// Small in-memory rate limiter: max 5 submissions per phone/IP per 10 minutes.
+// Prevents accidental/abusive repeated submissions; not a substitute for a
 // real rate-limiting layer (e.g. at the reverse proxy) in production.
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
@@ -38,17 +38,15 @@ appointmentsRouter.post('/appointments', async (req, res) => {
     });
   }
 
-  const message = formatAppointmentMessage(result.data);
-
   try {
-    await sendWhatsAppMessage(message);
+    await sendAppointmentEmail(result.data);
     return res.status(200).json({
       success: true,
       message: 'Appointment request sent to Sabari Hospitals.',
     });
   } catch (err) {
-    // Never leak provider/internal error details to the client.
-    console.error('[appointments] Failed to deliver WhatsApp message:', err.message);
+    // Never leak provider/internal SMTP error details to the client.
+    console.error('[appointments] Failed to deliver appointment email:', err.message);
     return res.status(502).json({
       success: false,
       message: 'Unable to send your appointment request right now. Please try again or contact Sabari Hospitals directly.',

@@ -11,11 +11,24 @@ export function DoctorProfile() {
   const navigate = useNavigate();
   const { openAppointmentModal } = useAppointment();
 
-  const doctor = doctorsData.find(d =>
-    d.id === id || 
-    d.id === `dr-${id}` || 
-    d.id.replace('dr-', '') === id.replace('dr-', '')
-  );
+  const doctor = doctorsData.find(d => {
+    if (!id) return false;
+    const cleanParam = id.toLowerCase().trim();
+    const cleanDocId = d.id.toLowerCase().trim();
+    if (cleanDocId === cleanParam) return true;
+    if (cleanDocId === `dr-${cleanParam}`) return true;
+    if (cleanDocId.replace('dr-', '') === cleanParam.replace('dr-', '')) return true;
+    if (cleanDocId.replace(/ee/g, 'e') === cleanParam.replace(/ee/g, 'e')) return true;
+    if (cleanParam.includes('deepika') && cleanDocId.includes('deepika')) {
+      if (cleanParam.includes('mohan') && cleanDocId.includes('mohan')) return true;
+      if (!cleanParam.includes('mohan') && cleanDocId === 'dr-deepika-og') return true;
+    }
+    if (cleanParam.includes('saravana') && cleanDocId.includes('saravana') && !cleanParam.includes('rashmi') && !cleanDocId.includes('rashmi')) return true;
+    if (cleanParam.includes('rashmi') && cleanDocId.includes('rashmi')) return true;
+    if (cleanParam.includes('mangal') && cleanDocId.includes('mangal')) return true;
+    if (cleanParam.includes('uthara') && cleanDocId.includes('uthara')) return true;
+    return false;
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);

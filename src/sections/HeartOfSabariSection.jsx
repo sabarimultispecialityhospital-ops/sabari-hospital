@@ -55,7 +55,7 @@ export function HeartOfSabariSection() {
             >
               <img 
                 src="/rashmi.png" 
-                alt="Rashmi Saravana Kumar" 
+                alt="Dr. Rashmi Saravanakumar" 
                 className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]"
                 loading="lazy"
                 decoding="async"
@@ -69,8 +69,11 @@ export function HeartOfSabariSection() {
                   HEART OF SABARI
                 </span>
                 <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-medium text-white tracking-tight leading-tight">
-                  Rashmi Saravana Kumar
+                  Dr. Rashmi Saravanakumar
                 </h3>
+                <p className="text-[12px] sm:text-[14px] text-white/80 font-light mt-0.5 tracking-wide">
+                  General Physician &amp; Diabetologist
+                </p>
               </div>
             </div>
           </div>

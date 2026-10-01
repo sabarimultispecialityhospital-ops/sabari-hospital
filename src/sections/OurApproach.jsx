@@ -28,13 +28,17 @@ export function OurApproach() {
             MEDICINE IS <span className="text-[#00A99D]">SCIENCE.</span><br />
             CARE IS <span className="text-[#00A99D]">HUMAN.</span>
           </h2>
-          <div className="flex flex-col gap-5 sm:gap-6">
+          <div className="flex flex-col gap-6">
             <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-neutral-600 leading-[1.6] max-w-lg font-light">
-              We believe that world-class medical outcomes are inextricably linked to how a patient feels throughout their entire healthcare journey.
+              Guided by five decades of compassionate clinical care, ensuring every treatment is personalized, precise, and centered on human healing.
             </p>
-            <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-neutral-600 leading-[1.6] max-w-lg font-light">
-              By combining cutting-edge technology with deep compassion, our specialists ensure that every aspect of your treatment is personalized, precise, and profoundly supportive from the moment you walk through our doors.
-            </p>
+
+            <div className="pt-2 flex items-center gap-3.5">
+              <span className="w-8 h-[2px] bg-[#00A99D] shrink-0" />
+              <p className="text-[17px] sm:text-[19px] lg:text-[21px] text-neutral-900 font-normal italic tracking-wide">
+                &ldquo;Innovation with Trust.&rdquo;
+              </p>
+            </div>
           </div>
         </div>
 
@@ -51,7 +55,7 @@ export function OurApproach() {
             >
               <img 
                 src="/image.png" 
-                alt="Dr. Mangaleeswari - Founder of Sabari Hospital" 
+                alt="Dr. Mangaleswari - Founder of Sabari Hospital" 
                 className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]"
                 loading="eager"
                 decoding="async"
@@ -65,7 +69,7 @@ export function OurApproach() {
                   FOUNDER &amp; GUIDING PILLAR
                 </span>
                 <h3 className="text-[20px] sm:text-[24px] lg:text-[26px] font-medium text-white tracking-tight leading-tight">
-                  Dr. Mangaleeswari
+                  Dr. Mangaleswari
                 </h3>
                 <p className="text-[12px] sm:text-[14px] text-white/80 font-light mt-0.5 tracking-wide">
                   Obstetrician &amp; Gynaecologist

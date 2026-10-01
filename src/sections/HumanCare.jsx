@@ -28,9 +28,18 @@ export function HumanCare() {
             HEALING<br />
             <span className="text-[#00A99D]">WITH INTEGRITY.</span>
           </h2>
-          <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg font-light">
-            Every medical decision is made with transparency, medical ethics, and an uncompromising commitment to patient safety.
-          </p>
+          <div className="flex flex-col gap-6">
+            <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg font-light">
+              Every medical decision is made with transparency, medical ethics, and an uncompromising commitment to patient safety.
+            </p>
+
+            <div className="pt-2 flex items-center gap-3.5">
+              <span className="w-8 h-[2px] bg-[#00A99D] shrink-0" />
+              <p className="text-[17px] sm:text-[19px] lg:text-[21px] text-white/95 font-normal italic tracking-wide">
+                &ldquo;Your Wellness, Our Goal.&rdquo;
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Right Image - Editorial Portrait Visual Anchor */}

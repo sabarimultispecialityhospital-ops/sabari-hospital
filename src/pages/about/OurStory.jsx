@@ -71,7 +71,7 @@ export function OurStory() {
               Since 1999, Sabari Hospital has served the people of Coimbatore and neighbouring regions as a multispeciality healthcare destination grounded in medical integrity, clinical expertise, and personal empathy.
             </p>
             <p>
-              Founded under the guiding values of Dr. Mangaleeswari, who brings over 50 years of clinical experience and dedicated service, the institution was shaped to offer women, mothers, and families compassionate clinical care with absolute diagnostic clarity.
+              Founded under the guiding values of Dr. Mangaleswari, who brings over 50 years of clinical experience and dedicated service, the institution was shaped to offer women, mothers, and families compassionate clinical care with absolute diagnostic clarity.
             </p>
             <p>
               Under the institutional direction of Dr. Saravana Kumar S, Chairman & Managing Director, Sabari Hospital has continually expanded its critical care, anaesthesiology standards, modern surgical suites, and multi-disciplinary medical departments, remaining true to its core philosophy: healthcare must be personal, transparent, and built on trust.

@@ -4,7 +4,7 @@ import { Navbar } from './components/navbar/Navbar';
 import { AppointmentProvider } from './context/AppointmentContext';
 import { AppointmentModal } from './components/appointment/AppointmentModal';
 
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { DoctorProfile } from './pages/DoctorProfile';
 import { DoctorsDirectory } from './pages/DoctorsDirectory';
@@ -19,11 +19,29 @@ import { GalleryPage } from './pages/GalleryPage';
 import { PrivacyPolicy } from './pages/legal/PrivacyPolicy';
 import { TermsOfService } from './pages/legal/TermsOfService';
 
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+
+  React.useEffect(() => {
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }, [pathname, hash]);
+
+  return null;
+}
+
 function App() {
   const [loading, setLoading] = useState(true);
 
   return (
     <Router>
+      <ScrollToTop />
       <AppointmentProvider>
       {loading && (
         <Preloader onComplete={() => setLoading(false)} />
