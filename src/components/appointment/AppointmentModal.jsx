@@ -85,11 +85,11 @@ export function AppointmentModal() {
         return '';
       }
       case 'phone': {
-        const rawPhone = vals.phone.trim();
-        if (!rawPhone) return 'Please enter your mobile number';
-        const cleanPhone = rawPhone.replace(/[\s()-]/g, '');
-        if (!/^(?:\+91|91|0)?[6-9]\d{9}$/.test(cleanPhone)) {
-          return 'Please enter a valid 10-digit mobile number (e.g. 9876543210 or +91 9876543210)';
+        const rawPhone = vals.phone.trim().replace(/\D/g, '');
+        if (!rawPhone) return 'Please enter your 10-digit mobile number';
+        if (rawPhone.length !== 10) return 'Mobile number must be exactly 10 digits';
+        if (!/^[6-9]\d{9}$/.test(rawPhone)) {
+          return 'Mobile number must start with 6, 7, 8, or 9';
         }
         return '';
       }
@@ -120,9 +120,19 @@ export function AppointmentModal() {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+    let nextValue = value;
+    if (name === 'phone') {
+      let digits = value.replace(/\D/g, '');
+      if (digits.length > 10 && digits.startsWith('91')) {
+        digits = digits.slice(2);
+      } else if (digits.length > 10 && digits.startsWith('0')) {
+        digits = digits.slice(1);
+      }
+      nextValue = digits.slice(0, 10);
+    }
+    setValues((prev) => ({ ...prev, [name]: nextValue }));
     if (touched[name]) {
-      setErrors((prev) => ({ ...prev, [name]: validateField(name, { ...values, [name]: value }) }));
+      setErrors((prev) => ({ ...prev, [name]: validateField(name, { ...values, [name]: nextValue }) }));
     }
   }
 
@@ -149,11 +159,12 @@ export function AppointmentModal() {
     setSubmitError('');
     setIsSubmitting(true);
 
+    const cleanDigits = values.phone.trim().replace(/\D/g, '').slice(-10);
     const payload = {
       fullName: values.fullName.trim(),
       gender: values.gender,
       age: values.age,
-      phone: values.phone.trim(),
+      phone: `+91 ${cleanDigits}`,
       email: values.email.trim(),
       department: values.department,
       doctor: values.doctor || '',
@@ -332,17 +343,23 @@ export function AppointmentModal() {
                     {/* Phone */}
                     <div>
                       <label className={labelClasses} htmlFor="phone">Mobile Number</label>
-                      <input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        maxLength={16}
-                        placeholder="+91 XXXXX XXXXX or 10 digits"
-                        className={inputClasses}
-                        value={values.phone}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
+                      <div className="relative flex items-center">
+                        <span className="absolute left-0 top-0 bottom-0 px-3 flex items-center bg-neutral-100 border-r border-neutral-300 text-neutral-700 text-[14px] font-semibold select-none rounded-l-sm pointer-events-none">
+                          +91
+                        </span>
+                        <input
+                          id="phone"
+                          name="phone"
+                          type="tel"
+                          inputMode="numeric"
+                          maxLength={10}
+                          placeholder="Enter 10-digit number"
+                          className={`${inputClasses} pl-[58px]`}
+                          value={values.phone}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                      </div>
                       {touched.phone && errors.phone && <p className={errorClasses}>{errors.phone}</p>}
                     </div>
 
