@@ -2,7 +2,11 @@
   command = "npm run build"
   publish = "dist"
 
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "APPOINTMENT_RECEIVER,PORT,CORS_ORIGIN,SMTP_USER,SMTP_HOST,SMTP_PORT"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
