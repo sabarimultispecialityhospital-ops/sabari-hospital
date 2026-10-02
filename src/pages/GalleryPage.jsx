@@ -14,8 +14,11 @@ const ALL_WEBSITE_IMAGES = [
   // Hospital Ceremonies, Doctors & Healthcare Team
   { src: '/hero/image-11.png', alt: 'Hospital Opening Ceremony', title: 'Hospital Opening Ceremony' },
   { src: '/hero/image-12.png', alt: 'Lamp Lighting Ceremony', title: 'Lamp Lighting Ceremony' },
-  { src: '/gallery/image-28.png', alt: 'Hospital Blessing & Puja Ceremony', title: 'Hospital Blessing & Puja Ceremony' },
-  { src: '/gallery/image-29.png', alt: 'Auspicious Deepam Lighting Ceremony', title: 'Auspicious Deepam Lighting Ceremony' },
+  { src: '/gallery/image-28.png', alt: 'Dr. Saravana Kumar, Dr. Rashmi & Nursing Care Team', title: 'Dr. Saravana Kumar, Dr. Rashmi & Nursing Care Team' },
+  { src: '/gallery/image-29.png', alt: 'Dr. Mangaleswari & Dr. Saravana Kumar with Family & Patients', title: 'Dr. Mangaleswari & Dr. Saravana Kumar with Family & Patients' },
+  { src: '/gallery/image-30.png', alt: 'Medical Specialists & Family in Consultation Suite', title: 'Medical Specialists & Family in Consultation Suite' },
+  { src: '/gallery/image-31.png', alt: 'Dr. Deepika Mohankumar PT & Family at Hospital Inauguration', title: 'Dr. Deepika Mohankumar PT & Family at Hospital Inauguration' },
+  { src: '/gallery/image-32.png', alt: 'Dr. Rashmi in Outpatient Consultation Chamber', title: 'Dr. Rashmi in Outpatient Consultation Chamber' },
   { src: '/hero/image-13.png', alt: 'Sabari Hospital Medical Staff & Healthcare Team', title: 'Sabari Hospital Medical Staff & Healthcare Team' },
   { src: '/hero/image-17.png', alt: 'Dedicated Nursing & Patient Care Team', title: 'Dedicated Nursing & Patient Care Team' },
 
