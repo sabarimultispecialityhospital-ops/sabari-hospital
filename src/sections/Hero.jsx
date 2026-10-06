@@ -7,7 +7,7 @@ const HERO_IMAGES = [
   "/hero_image.png",
   "/hero/image-10.png",
   "/hero/image-11.png",
-  "/hero/image-12.png",
+  "/hero/image-28.png",
   "/hero/image-13.png",
   "/hero/image-14.png",
   "/hero/image-16.png"
