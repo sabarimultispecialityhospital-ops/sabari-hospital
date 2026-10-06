@@ -84,10 +84,6 @@ export function Hero() {
               {/* Gradient Bottom Vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10 pointer-events-none" />
 
-              {/* Slide Counter Badge (Top-Left) */}
-              <div className="absolute top-3.5 left-3.5 z-20 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/15 text-[10px] font-mono tracking-widest text-white/90">
-                {String(currentIndex + 1).padStart(2, '0')} / {String(HERO_IMAGES.length).padStart(2, '0')}
-              </div>
 
               {/* Progress Dots Indicator (Bottom-Right) */}
               <div className="absolute bottom-3.5 right-3.5 z-20 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/55 backdrop-blur-md border border-white/10">
