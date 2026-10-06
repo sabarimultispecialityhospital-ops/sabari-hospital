@@ -25,20 +25,13 @@ export function OurApproach() {
             OUR APPROACH
           </span>
           <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-[#0B4A8B] mb-8 sm:mb-10">
-            MEDICINE IS <span className="text-[#00A99D]">SCIENCE.</span><br />
-            CARE IS <span className="text-[#00A99D]">HUMAN.</span>
+            INNOVATION<br />
+            <span className="text-[#00A99D]">WITH TRUST.</span>
           </h2>
           <div className="flex flex-col gap-6">
             <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-neutral-600 leading-[1.6] max-w-lg font-light">
               Guided by five decades of compassionate clinical care, ensuring every treatment is personalized, precise, and centered on human healing.
             </p>
-
-            <div className="pt-2 flex items-center gap-3.5">
-              <span className="w-8 h-[2px] bg-[#00A99D] shrink-0" />
-              <p className="text-[17px] sm:text-[19px] lg:text-[21px] text-neutral-900 font-normal italic tracking-wide">
-                &ldquo;Innovation with Trust.&rdquo;
-              </p>
-            </div>
           </div>
         </div>
 

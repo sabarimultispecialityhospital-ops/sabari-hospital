@@ -125,8 +125,8 @@ export function OurStory() {
           
           <div className="lg:col-span-6 overflow-hidden aspect-[4/3] bg-neutral-100 border border-neutral-200">
             <img 
-              src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&q=80&w=1200" 
-              alt="Caring medical team consultation" 
+              src="/hero/image-11.png" 
+              alt="Sabari Hospital Inauguration & Lamp Lighting Ceremony" 
               className="w-full h-full object-cover"
             />
           </div>

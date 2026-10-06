@@ -10,8 +10,7 @@ const HERO_IMAGES = [
   "/hero/image-12.png",
   "/hero/image-13.png",
   "/hero/image-14.png",
-  "/hero/image-16.png",
-  "/hero/image-17.png"
+  "/hero/image-16.png"
 ];
 
 export function Hero() {

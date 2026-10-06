@@ -25,20 +25,13 @@ export function HeartOfSabariSection() {
             HEART OF SABARI
           </span>
           <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-medium leading-[1.05] tracking-[-0.02em] text-white mb-6 sm:mb-8">
-            COMPASSION<br />
-            <span className="text-[#00A99D]">IN ACTION.</span>
+            LIGHTING UP<br />
+            <span className="text-[#00A99D]">YOUR LIVES.</span>
           </h2>
           <div className="flex flex-col gap-6">
             <p className="text-[16px] sm:text-[18px] lg:text-[22px] text-white/70 leading-[1.6] max-w-lg font-light">
               Guiding our commitment to excellence with empathy, making sure every patient feels seen, heard, and deeply cared for.
             </p>
-
-            <div className="pt-2 flex items-center gap-3.5">
-              <span className="w-8 h-[2px] bg-[#00A99D] shrink-0" />
-              <blockquote className="text-[17px] sm:text-[19px] lg:text-[21px] text-white/95 font-normal italic tracking-wide">
-                &ldquo;Lighting up your lives.&rdquo;
-              </blockquote>
-            </div>
           </div>
         </div>
 
