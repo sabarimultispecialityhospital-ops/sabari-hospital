@@ -125,7 +125,7 @@ export function OurStory() {
           
           <div className="lg:col-span-6 overflow-hidden aspect-[4/3] bg-neutral-100 border border-neutral-200">
             <img 
-              src="/hero/image-11.png" 
+              src="/hero/image-29.png" 
               alt="Sabari Hospital Inauguration & Lamp Lighting Ceremony" 
               className="w-full h-full object-cover"
             />
