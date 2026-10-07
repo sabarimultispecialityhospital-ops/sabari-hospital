@@ -13,7 +13,7 @@ const ALL_WEBSITE_IMAGES = [
 
   // Hospital Ceremonies, Doctors & Healthcare Team
   { src: '/hero/image-29.png', alt: 'Hospital Opening Ceremony', title: 'Hospital Opening Ceremony' },
-  { src: '/hero/image-12.png', alt: 'Lamp Lighting Ceremony', title: 'Lamp Lighting Ceremony' },
+  { src: '/hero/image-28.png', alt: 'Lamp Lighting Ceremony', title: 'Lamp Lighting Ceremony' },
   { src: '/gallery/image-28.png', alt: 'Dr. Saravana Kumar, Dr. Rashmi & Nursing Care Team', title: 'Dr. Saravana Kumar, Dr. Rashmi & Nursing Care Team' },
   { src: '/gallery/image-29.png', alt: 'Dr. Mangaleswari & Dr. Saravana Kumar with Family & Patients', title: 'Dr. Mangaleswari & Dr. Saravana Kumar with Family & Patients' },
   { src: '/gallery/image-30.png', alt: 'Medical Specialists & Family in Consultation Suite', title: 'Medical Specialists & Family in Consultation Suite' },
