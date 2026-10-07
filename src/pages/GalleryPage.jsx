@@ -19,7 +19,6 @@ const ALL_WEBSITE_IMAGES = [
   { src: '/gallery/image-30.png', alt: 'Medical Specialists & Family in Consultation Suite', title: 'Medical Specialists & Family in Consultation Suite' },
   { src: '/gallery/image-31.png', alt: 'Dr. Deepika Mohankumar PT & Family at Hospital Inauguration', title: 'Dr. Deepika Mohankumar PT & Family at Hospital Inauguration' },
   { src: '/gallery/image-32.png', alt: 'Dr. Rashmi in Outpatient Consultation Chamber', title: 'Dr. Rashmi in Outpatient Consultation Chamber' },
-  { src: '/hero/image-13.png', alt: 'Sabari Hospital Medical Staff & Healthcare Team', title: 'Sabari Hospital Medical Staff & Healthcare Team' },
   { src: '/hero/image-17.png', alt: 'Dedicated Nursing & Patient Care Team', title: 'Dedicated Nursing & Patient Care Team' },
 
   // Clinical Facilities, Operation Theatre & Consultation Rooms
